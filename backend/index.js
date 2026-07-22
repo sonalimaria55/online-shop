@@ -1,0 +1,92 @@
+
+// require("dotenv").config();
+
+// const express = require("express");
+// const cors = require("cors");
+// const compression = require("compression");
+// const cookieParser = require("cookie-parser");
+
+// const connectDB = require("./config/db");
+
+// const app = express();
+
+// // Database
+// connectDB();
+
+// // Middlewares
+// app.use(cors());
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(cookieParser());
+// app.use(compression());
+
+// // Routes
+// app.use("/api/auth", require("./routes/authRoutes"));
+// app.use("/api/products", require("./routes/productRoutes"));
+// app.use("/api/categories", require("./routes/categoryRoutes"));
+// app.use("/api/banners", require("./routes/bannerRoutes")); 
+// app.use("/api/cart", require("./routes/cartRoutes"));
+
+// // Test Route
+// app.get("/", (req, res) => {
+//   res.status(200).json({
+//     success: true,
+//     message: "Welcome to SERINA Boutique API",
+//   });
+// });
+
+// const PORT = process.env.PORT || 3000;
+
+// app.listen(PORT, () => {
+//   console.log(`🚀 Server running on http://localhost:${PORT}`);
+// });
+
+
+
+
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const compression = require("compression");
+const cookieParser = require("cookie-parser");
+
+const connectDB = require("./config/db");
+
+const app = express();
+
+// Database
+connectDB();
+
+// Middlewares
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(compression());
+
+// Routes
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/products", require("./routes/productRoutes"));
+app.use("/api/categories", require("./routes/categoryRoutes"));
+app.use("/api/banners", require("./routes/bannerRoutes")); 
+app.use("/api/cart", require("./routes/cartRoutes"));
+
+// Test Route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Welcome to SERINA Boutique API",
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
