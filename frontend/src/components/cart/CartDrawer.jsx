@@ -67,29 +67,31 @@ const CartDrawer = ({ open, onClose }) => {
       <Divider />
 
       {/* Cart Items */}
-      <Box
-        sx={{
-          flex: 1,
-          overflowY: "auto",
-          p: 2,
-        }}
-      >
-        {loading ? (
-          <CircularProgress />
-        ) : items.length === 0 ? (
-          <Typography>Your cart is empty.</Typography>
-        ) : (
+   {/* Cart Items */}
+<Box
+  sx={{
+    flex: 1,
+    overflowY: "auto",
+    p: 2,
+  }}
+>
+  {loading ? (
+    <CircularProgress />
+  ) : items.length === 0 ? (
+    <Typography>Your cart is empty.</Typography>
+  ) : (
+    items.map((item, index) => {
+      if (!item.product) return null;
 
-
-          items.map((item, index) => (
-            <CartItem
-              key={`${item.product._id}-${index}`}
-              item={item}
-            />
-          ))
-
-        )}
-      </Box>
+      return (
+        <CartItem
+          key={`${item.product._id}-${index}`}
+          item={item}
+        />
+      );
+    })
+  )}
+</Box>
 
       {/* Cart Summary */}
       <CartSummary />

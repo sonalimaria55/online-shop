@@ -1,113 +1,4 @@
-// import {
-//   Paper,
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableContainer,
-//   TableHead,
-//   TableRow,
-// } from "@mui/material";
 
-
-// const ProductTable = ({ products }) => {
-
-
-// return (
-
-// <TableContainer component={Paper} elevation={0}>
-
-// <Table>
-
-
-// <TableHead>
-
-// <TableRow>
-
-// <TableCell>Product</TableCell>
-// <TableCell>Brand</TableCell>
-// <TableCell>Purchase Price</TableCell>
-// <TableCell>Selling Price</TableCell>
-// <TableCell>Stock</TableCell>
-
-// </TableRow>
-
-// </TableHead>
-
-
-
-// <TableBody>
-
-
-// {
-// products.length === 0 ?
-
-// (
-// <TableRow>
-
-// <TableCell colSpan={5}>
-// No Products Available
-// </TableCell>
-
-// </TableRow>
-// )
-
-// :
-
-// products.map((product)=>(
-
-
-// <TableRow key={product._id}>
-
-
-// <TableCell>
-// {product.productName}
-// </TableCell>
-
-
-// <TableCell>
-// {product.brand}
-// </TableCell>
-
-
-// <TableCell>
-// ₹ {product.purchasePrice}
-// </TableCell>
-
-
-// <TableCell>
-// ₹ {product.sellingPrice}
-// </TableCell>
-
-
-// <TableCell>
-// {product.initialStock}
-// </TableCell>
-
-
-// </TableRow>
-
-
-// ))
-
-
-// }
-
-
-// </TableBody>
-
-
-// </Table>
-
-// </TableContainer>
-
-
-// );
-
-// };
-
-
-// export default ProductTable;
-//-----------------------------------
 
 // import {
 //   Paper,
@@ -123,220 +14,12 @@
 
 // import EditIcon from "@mui/icons-material/Edit";
 // import DeleteIcon from "@mui/icons-material/Delete";
-
-
-// const ProductTable = ({
-//   products,
-//   onEdit,
-//   onDelete
-// }) => {
-
-
-// return (
-
-// <TableContainer
-// component={Paper}
-// elevation={0}
-// >
-
-
-// <Table>
-
-
-// <TableHead>
-
-// <TableRow>
-
-// <TableCell>Image</TableCell>
-
-// <TableCell>Product</TableCell>
-
-// <TableCell>Brand</TableCell>
-
-// <TableCell>Purchase Price</TableCell>
-
-// <TableCell>Selling Price</TableCell>
-
-// <TableCell>Stock</TableCell>
-
-// <TableCell align="center">
-// Actions
-// </TableCell>
-
-
-// </TableRow>
-
-// </TableHead>
-
-
-
-// <TableBody>
-
-
-// {
-// products.length === 0 ?
-
-// (
-// <TableRow>
-
-// <TableCell colSpan={7} align="center">
-
-// No Products Available
-
-// </TableCell>
-
-// </TableRow>
-// )
-
-
-// :
-
-
-// products.map((product)=>(
-
-
-// <TableRow
-// key={product._id}
-// >
-
-
-// <TableCell>
-
-// <Avatar
-// src={product.image}
-// variant="rounded"
-// sx={{
-// width:50,
-// height:50
-// }}
-// />
-
-// </TableCell>
-
-
-
-// <TableCell>
-
-// {product.productName}
-
-// </TableCell>
-
-
-
-// <TableCell>
-
-// {product.brand}
-
-// </TableCell>
-
-
-
-// <TableCell>
-
-// ₹ {product.purchasePrice}
-
-// </TableCell>
-
-
-
-// <TableCell>
-
-// ₹ {product.sellingPrice}
-
-// </TableCell>
-
-
-
-// <TableCell>
-
-// {product.initialStock}
-
-// </TableCell>
-
-
-
-// <TableCell align="center">
-
-
-// <IconButton
-// color="primary"
-// onClick={() =>
-// onEdit(product)
-// }
-// >
-
-// <EditIcon />
-
-// </IconButton>
-
-
-
-// <IconButton
-// color="error"
-// onClick={() =>
-// onDelete(product)
-// }
-// >
-
-// <DeleteIcon />
-
-// </IconButton>
-
-
-// </TableCell>
-
-
-// </TableRow>
-
-
-// ))
-
-
-// }
-
-
-// </TableBody>
-
-
-// </Table>
-
-
-// </TableContainer>
-
-
-// );
-
-// };
-
-
-// export default ProductTable;
-//-----------------------------------------------
-
-// import {
-//   Paper,
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableContainer,
-//   TableHead,
-//   TableRow,
-//   IconButton,
-//   Avatar,
-// } from "@mui/material";
-
-// import EditIcon from "@mui/icons-material/Edit";
-// import DeleteIcon from "@mui/icons-material/Delete";
-
 
 // const ProductTable = ({
 //   products = [],
 //   onEdit,
-//   onDelete
+//   onDelete,
 // }) => {
-
-
-//   console.log("TABLE PRODUCTS:", products);
-
 
 //   return (
 
@@ -347,17 +30,24 @@
 
 //       <Table>
 
-
 //         <TableHead>
 
 //           <TableRow>
 
 //             <TableCell>Image</TableCell>
+
 //             <TableCell>Product</TableCell>
+
+//             <TableCell>Category</TableCell>
+
 //             <TableCell>Brand</TableCell>
+
 //             <TableCell>Purchase Price</TableCell>
+
 //             <TableCell>Selling Price</TableCell>
+
 //             <TableCell>Stock</TableCell>
+
 //             <TableCell align="center">
 //               Actions
 //             </TableCell>
@@ -366,127 +56,88 @@
 
 //         </TableHead>
 
-
-
 //         <TableBody>
 
+//           {products.length === 0 ? (
 
-//           {
-//             products.length === 0 ?
+//             <TableRow>
 
-
-//             (
-//               <TableRow>
-
-//                 <TableCell
-//                   colSpan={7}
-//                   align="center"
-//                 >
-//                   No Products Available
-//                 </TableCell>
-
-//               </TableRow>
-//             )
-
-
-//             :
-
-
-//             products.map((product)=>(
-
-
-//               <TableRow
-//                 key={product._id}
+//               <TableCell
+//                 colSpan={8}
+//                 align="center"
 //               >
+//                 No Products Available
+//               </TableCell>
 
+//             </TableRow>
 
+//           ) : (
+
+//             products.map((product) => (
+
+//               <TableRow key={product._id}>
 //                 <TableCell>
 
 //                   <Avatar
-//                     src={product.image}
+//                     src={product.images?.[0]?.url || ""}
 //                     variant="rounded"
 //                     sx={{
-//                       width:50,
-//                       height:50
+//                       width: 50,
+//                       height: 50,
 //                     }}
 //                   />
 
 //                 </TableCell>
 
-
-
 //                 <TableCell>
-//                   {product.productName || product.name}
+//                   {product.productName}
 //                 </TableCell>
 
-
+//                 <TableCell>
+//                   {product.category?.categoryName || "-"}
+//                 </TableCell>
 
 //                 <TableCell>
 //                   {product.brand || "-"}
 //                 </TableCell>
 
-
-
 //                 <TableCell>
 //                   ₹ {product.purchasePrice || 0}
 //                 </TableCell>
-
-
 
 //                 <TableCell>
 //                   ₹ {product.sellingPrice || 0}
 //                 </TableCell>
 
-
-
 //                 <TableCell>
-//                   {product.initialStock || product.stock || 0}
+//                   {product.initialStock || 0}
 //                 </TableCell>
-
-
 
 //                 <TableCell align="center">
 
-
 //                   <IconButton
 //                     color="primary"
-//                     onClick={() =>
-//                       onEdit(product)
-//                     }
+//                     onClick={() => onEdit(product)}
 //                   >
-
 //                     <EditIcon />
-
 //                   </IconButton>
-
-
 
 //                   <IconButton
 //                     color="error"
-//                     onClick={() =>
-//                       onDelete(product)
-//                     }
+//                     onClick={() => onDelete(product)}
 //                   >
-
 //                     <DeleteIcon />
-
 //                   </IconButton>
-
 
 //                 </TableCell>
 
-
 //               </TableRow>
-
 
 //             ))
 
-
-//           }
-
+//           )}
 
 //         </TableBody>
-
 
 //       </Table>
 
@@ -496,10 +147,8 @@
 
 // };
 
-
 // export default ProductTable;
 
-//-------------------------------------------------
 import {
   Paper,
   Table,
@@ -520,132 +169,138 @@ const ProductTable = ({
   onEdit,
   onDelete,
 }) => {
+  console.log("PRODUCT TABLE:", products);
 
   return (
-
     <TableContainer
       component={Paper}
       elevation={0}
     >
-
       <Table>
-
         <TableHead>
-
           <TableRow>
-
             <TableCell>Image</TableCell>
-
             <TableCell>Product</TableCell>
-
             <TableCell>Category</TableCell>
-
             <TableCell>Brand</TableCell>
-
             <TableCell>Purchase Price</TableCell>
-
             <TableCell>Selling Price</TableCell>
-
             <TableCell>Stock</TableCell>
-
             <TableCell align="center">
               Actions
             </TableCell>
-
           </TableRow>
-
         </TableHead>
 
         <TableBody>
-
           {products.length === 0 ? (
-
             <TableRow>
-
               <TableCell
                 colSpan={8}
                 align="center"
               >
                 No Products Available
               </TableCell>
-
             </TableRow>
-
           ) : (
+            products.map((product) => {
+              console.log("Product:", product.productName);
+              console.log("Images:", product.images);
 
-            products.map((product) => (
+              return (
+                <TableRow key={product._id}>
+                  <TableCell sx={{ minWidth: 280 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "8px",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                      }}
+                    >
+                      {product.images?.length > 0 ? (
+                        product.images.map((image, index) => (
+                          <img
+                            key={image._id || index}
+                            src={image.url}
+                            alt={`${product.productName}-${index + 1}`}
+                            loading="lazy"
+                            style={{
+                              width: "55px",
+                              height: "55px",
+                              objectFit: "cover",
+                              borderRadius: "8px",
+                              border: "1px solid #ddd",
+                              cursor: "pointer",
+                              transition: "0.2s ease",
+                            }}
+                            onMouseOver={(e) => {
+                              e.target.style.transform = "scale(1.1)";
+                            }}
+                            onMouseOut={(e) => {
+                              e.target.style.transform = "scale(1)";
+                            }}
+                          />
+                        ))
+                      ) : (
+                        <Avatar
+                          variant="rounded"
+                          sx={{
+                            width: 55,
+                            height: 55,
+                          }}
+                        />
+                      )}
+                    </div>
+                  </TableCell>
 
-              <TableRow key={product._id}>
+                  <TableCell>
+                    {product.productName}
+                  </TableCell>
 
-                <TableCell>
+                  <TableCell>
+                    {product.category?.categoryName || "-"}
+                  </TableCell>
 
-                  <Avatar
-                    src={product.image}
-                    variant="rounded"
-                    sx={{
-                      width: 50,
-                      height: 50,
-                    }}
-                  />
+                  <TableCell>
+                    {product.brand || "-"}
+                  </TableCell>
 
-                </TableCell>
+                  <TableCell>
+                    ₹ {product.purchasePrice || 0}
+                  </TableCell>
 
-                <TableCell>
-                  {product.productName}
-                </TableCell>
+                  <TableCell>
+                    ₹ {product.sellingPrice || 0}
+                  </TableCell>
 
-                <TableCell>
-                  {product.category?.categoryName || "-"}
-                </TableCell>
+                  <TableCell>
+                    {product.initialStock || 0}
+                  </TableCell>
 
-                <TableCell>
-                  {product.brand || "-"}
-                </TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      color="primary"
+                      onClick={() => onEdit(product)}
+                    >
+                      <EditIcon />
+                    </IconButton>
 
-                <TableCell>
-                  ₹ {product.purchasePrice || 0}
-                </TableCell>
-
-                <TableCell>
-                  ₹ {product.sellingPrice || 0}
-                </TableCell>
-
-                <TableCell>
-                  {product.initialStock || 0}
-                </TableCell>
-
-                <TableCell align="center">
-
-                  <IconButton
-                    color="primary"
-                    onClick={() => onEdit(product)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-
-                  <IconButton
-                    color="error"
-                    onClick={() => onDelete(product)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-
-                </TableCell>
-
-              </TableRow>
-
-            ))
-
+                    <IconButton
+                      color="error"
+                      onClick={() => onDelete(product)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })
           )}
-
         </TableBody>
-
       </Table>
-
     </TableContainer>
-
   );
-
 };
 
 export default ProductTable;

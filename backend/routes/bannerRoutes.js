@@ -83,6 +83,74 @@
 // );
 
 // module.exports = router;
+//-----------------------------------------------------------------------------------
+// const express = require("express");
+
+// const router = express.Router();
+
+// const {
+//   createBanner,
+//   getAllBanners,
+//   getBannerById,
+//   updateBanner,
+//   deleteBanner,
+//   changeVisibility,
+//   getHomeBanners,
+//   getCustomerBanners,
+// } = require("../controllers/bannerController");
+
+
+// const upload = require("../middleware/upload");
+
+
+// // Public
+// router.get("/home", getHomeBanners);
+
+// router.get("/customer", getCustomerBanners);
+
+
+// // Admin
+// router.get(
+//   "/",
+//   getAllBanners
+// );
+
+
+// router.get(
+//   "/:id",
+//   getBannerById
+// );
+
+
+// router.post(
+//   "/",
+//   upload.single("image"),
+//   createBanner
+// );
+
+
+// router.put(
+//   "/:id",
+//   upload.single("image"),
+//   updateBanner
+// );
+
+
+// router.patch(
+//   "/:id/visibility",
+//   changeVisibility
+// );
+
+
+// router.delete(
+//   "/:id",
+//   deleteBanner
+// );
+
+
+// module.exports = router;
+
+
 
 const express = require("express");
 
@@ -103,49 +171,72 @@ const {
 const upload = require("../middleware/upload");
 
 
+
+// ===============================
 // Public
-router.get("/home", getHomeBanners);
+// ===============================
 
-router.get("/customer", getCustomerBanners);
+router.get(
+    "/home",
+    getHomeBanners
+);
 
 
+router.get(
+    "/customer",
+    getCustomerBanners
+);
+
+
+
+
+// ===============================
 // Admin
+// ===============================
+
 router.get(
-  "/",
-  getAllBanners
+    "/",
+    getAllBanners
 );
 
 
 router.get(
-  "/:id",
-  getBannerById
+    "/:id",
+    getBannerById
 );
 
 
+
+// Create Banner
 router.post(
-  "/",
-  upload.single("image"),
-  createBanner
+    "/",
+    upload("serina/banners").single("image"),
+    createBanner
 );
 
 
+
+// Update Banner
 router.put(
-  "/:id",
-  upload.single("image"),
-  updateBanner
+    "/:id",
+    upload("serina/banners").single("image"),
+    updateBanner
 );
+
 
 
 router.patch(
-  "/:id/visibility",
-  changeVisibility
+    "/:id/visibility",
+    changeVisibility
 );
+
 
 
 router.delete(
-  "/:id",
-  deleteBanner
+    "/:id",
+    deleteBanner
 );
+
 
 
 module.exports = router;

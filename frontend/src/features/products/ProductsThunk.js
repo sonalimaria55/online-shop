@@ -1,218 +1,236 @@
+// const express = require("express");
+// const router = express.Router();
 
+// const {
+//   createProduct,
+//   getProducts,
+//   getProductById,
+//   updateProduct,
+//   deleteProduct,
+//   getHomeCollections,
+//   getFeaturedProducts,
+// } = require("../controllers/productController");
+
+// const upload = require("../middleware/upload");
+
+// // ===============================
+// // Home Sections
+// // ===============================
+
+// router.get("/home-collections", getHomeCollections);
+
+// router.get("/featured-products", getFeaturedProducts);
+
+// // ===============================
+// // Product CRUD
+// // ===============================
+
+// // Create Product
+// router.post("/", upload("serina/products").array("images", 5), createProduct);
+
+// // Get All Products
+// router.get("/", getProducts);
+
+// // Get Product By ID
+// router.get("/:id", getProductById);
+
+// // Update Product
+// router.put("/:id", upload("serina/products").array("images", 5), updateProduct);
+
+// // Delete Product
+// router.delete("/:id", deleteProduct);
+
+// module.exports = router;
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
     getProductsApi,
+    getFeaturedProductsApi,
+    getHomeCollectionsApi,
     createProductApi,
     updateProductApi,
     deleteProductApi,
-    getFeaturedProductsApi,
-  getProductByIdApi
+    getProductByIdApi
 } from "./ProductsApi";
 
 
 
-// GET PRODUCTS
+// GET ALL PRODUCTS
+export const getProducts = createAsyncThunk(
+    "products/getProducts",
 
-export const getProducts =
-    createAsyncThunk(
-        "products/getProducts",
+    async (_, { rejectWithValue }) => {
 
-        async (_, thunkAPI) => {
+        try {
 
-            try {
+            const response = await getProductsApi();
 
-                const response = await getProductsApi();
+            return response.data;
 
-                console.log(
-                    "PRODUCT RESPONSE:",
-                    response.data
-                );
+        } catch(error) {
 
-                return response.data;
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
 
-            }
-            catch (error) {
-
-                return thunkAPI.rejectWithValue(
-                    error.response?.data ||
-                    "Failed to load products"
-                );
-
-            }
-
-        });
-
-
-
-
-
-// CREATE PRODUCT
-
-// CREATE PRODUCT
-
-export const createProduct =
-createAsyncThunk(
-
-  "products/createProduct",
-
-  async (data, thunkAPI) => {
-
-    try {
-
-      const response =
-      await createProductApi(data);
-
-      return response.data;
+        }
 
     }
-    catch(error){
-
-      return thunkAPI.rejectWithValue(
-
-        error.response?.data ||
-
-        "Failed to create product"
-
-      );
-
-    }
-
-  }
-
 );
 
 
 
 
+// GET FEATURED PRODUCTS
+export const getFeaturedProducts = createAsyncThunk(
+    "products/getFeaturedProducts",
+
+    async (_, { rejectWithValue }) => {
+
+        try {
+
+            const response = await getFeaturedProductsApi();
+
+            return response.data;
+
+        } catch(error) {
+
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+
+        }
+
+    }
+);
+
+
+
+
+// GET HOME COLLECTIONS
+export const getHomeCollections = createAsyncThunk(
+    "products/getHomeCollections",
+
+    async (_, { rejectWithValue }) => {
+
+        try {
+
+            const response = await getHomeCollectionsApi();
+
+            return response.data;
+
+        } catch(error) {
+
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+
+        }
+
+    }
+);
+
+
+
+
+// CREATE PRODUCT
+export const createProduct = createAsyncThunk(
+    "products/createProduct",
+
+    async (data, { rejectWithValue }) => {
+
+        try {
+
+            const response = await createProductApi(data);
+
+            return response.data;
+
+        } catch(error) {
+
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+
+        }
+
+    }
+);
+
+
+
 
 // UPDATE PRODUCT
+export const updateProduct = createAsyncThunk(
+    "products/updateProduct",
 
-export const updateProduct =
-    createAsyncThunk(
-        "products/updateProduct",
+    async ({id, data}, { rejectWithValue }) => {
 
-        async ({ id, data }, thunkAPI) => {
+        try {
 
-            try {
+            const response = await updateProductApi(id, data);
 
-                const response =
-                    await updateProductApi(id, data);
+            return response.data;
 
+        } catch(error) {
 
-                return response.data;
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
 
-            }
-            catch (error) {
+        }
 
-                return thunkAPI.rejectWithValue(
-                    error.response?.data ||
-                    "Failed to update product"
-                );
-
-            }
-
-        });
-
+    }
+);
 
 
 
 
 // DELETE PRODUCT
+export const deleteProduct = createAsyncThunk(
+    "products/deleteProduct",
 
-export const deleteProduct =
-    createAsyncThunk(
-        "products/deleteProduct",
+    async (id, { rejectWithValue }) => {
 
-        async (id, thunkAPI) => {
+        try {
 
-            try {
+            const response = await deleteProductApi(id);
 
-                await deleteProductApi(id);
+            return response.data;
 
+        } catch(error) {
 
-                return { id };
-
-            }
-            catch (error) {
-
-                return thunkAPI.rejectWithValue(
-                    error.response?.data ||
-                    "Failed to delete product"
-                );
-
-            }
-
-        });
-
-// GET FEATURED PRODUCTS
-
-export const getFeaturedProducts =
-    createAsyncThunk(
-
-        "products/getFeaturedProducts",
-
-        async (_, thunkAPI) => {
-
-
-            try {
-
-
-                const response =
-                    await getFeaturedProductsApi();
-
-
-                return response.data;
-
-
-            }
-            catch (error) {
-
-
-                return thunkAPI.rejectWithValue(
-
-                    error.response?.data ||
-
-                    "Failed to load featured products"
-
-                );
-
-
-            }
-
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
 
         }
 
-    );
+    }
+);
+
+
+
+
 // GET PRODUCT BY ID
-export const getProductById =
-createAsyncThunk(
+export const getProductById = createAsyncThunk(
+    "products/getProductById",
 
-  "products/getProductById",
+    async (id, { rejectWithValue }) => {
 
-  async(id, thunkAPI)=>{
+        try {
 
-    try{
+            const response = await getProductByIdApi(id);
 
-      const response =
-      await getProductByIdApi(id);
+            return response.data;
 
-      return response.data;
+        } catch(error) {
 
-    }
-    catch(error){
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
 
-      return thunkAPI.rejectWithValue(
-
-        error.response?.data ||
-
-        "Failed to load product"
-
-      );
+        }
 
     }
-
-  }
-
 );

@@ -2,11 +2,14 @@
 // require("dotenv").config();
 
 // const express = require("express");
+
 // const cors = require("cors");
+// const connectDB = require("./config/db");
 // const compression = require("compression");
 // const cookieParser = require("cookie-parser");
 
-// const connectDB = require("./config/db");
+
+
 
 // const app = express();
 
@@ -14,7 +17,12 @@
 // connectDB();
 
 // // Middlewares
-// app.use(cors());
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true
+//   })
+// );
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
@@ -26,6 +34,7 @@
 // app.use("/api/categories", require("./routes/categoryRoutes"));
 // app.use("/api/banners", require("./routes/bannerRoutes")); 
 // app.use("/api/cart", require("./routes/cartRoutes"));
+// app.use("/api/payment",require("./routes/paymentRoutes"));
 
 // // Test Route
 // app.get("/", (req, res) => {
@@ -37,13 +46,16 @@
 
 // const PORT = process.env.PORT || 3000;
 
+
+
+
+
+
+
 // app.listen(PORT, () => {
 //   console.log(`🚀 Server running on http://localhost:${PORT}`);
 // });
-
-
-
-
+//---------------------------------------------------------------------------------
 require("dotenv").config();
 
 const express = require("express");
@@ -62,9 +74,10 @@ connectDB();
 app.use(
   cors({
     origin: "http://localhost:5173",
-    credentials: true
+    credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -74,8 +87,10 @@ app.use(compression());
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/categories", require("./routes/categoryRoutes"));
-app.use("/api/banners", require("./routes/bannerRoutes")); 
+app.use("/api/banners", require("./routes/bannerRoutes"));
 app.use("/api/cart", require("./routes/cartRoutes"));
+app.use("/api/payment", require("./routes/paymentRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes"));
 
 // Test Route
 app.get("/", (req, res) => {

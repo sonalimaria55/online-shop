@@ -42,6 +42,8 @@
 // module.exports = router;
 
 //--------------------------------------
+
+
 // const express = require("express");
 
 // const router = express.Router();
@@ -97,31 +99,46 @@ const {
 } = require("../controllers/categoryController");
 
 
+
 // CREATE CATEGORY
 router.post(
     "/",
-    upload.single("image"),
+    upload("serina/categories").single("image"),
     createCategory
 );
 
 
+
 // GET ALL CATEGORIES
-router.get("/", getCategories);
+router.get(
+    "/",
+    getCategories
+);
+
 
 
 // GET SINGLE CATEGORY
-router.get("/:id", getCategoryById);
+router.get(
+    "/:id",
+    getCategoryById
+);
+
 
 
 // UPDATE CATEGORY
 router.put(
     "/:id",
-    upload.single("image"),
+    upload("serina/categories").single("image"),
     updateCategory
 );
 
 
+
 // DELETE CATEGORY
-router.delete("/:id", deleteCategory);
+router.delete(
+    "/:id",
+    deleteCategory
+);
+
 
 module.exports = router;

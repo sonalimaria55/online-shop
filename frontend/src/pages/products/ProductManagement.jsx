@@ -25,7 +25,7 @@ const ProductManagement = () => {
   const { products, loading } = useSelector(
     (state) => state.products
   );
-
+console.log("PRODUCTS IN COMPONENT:", products);
 
   const [openDialog, setOpenDialog] = useState(false);
 

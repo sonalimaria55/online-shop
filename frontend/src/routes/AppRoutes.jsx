@@ -1,5 +1,6 @@
 
 
+
 // import { Routes, Route, Navigate } from "react-router-dom";
 
 // import Landing from "../pages/Landing";
@@ -27,7 +28,7 @@
 // import Cart from "../pages/customer/Cart";
 // import Checkout from "../pages/customer/Checkout";
 // import Orders from "../pages/customer/Orders";
-
+// import CategoryManagement from "../pages/categories/CategoryManagement";
 // const AppRoutes = () => {
 //   return (
 //     <Routes>
@@ -56,6 +57,27 @@
 //         }
 //       >
 //         <Route index element={<CustomerDashboard />} />
+
+//         <Route
+//           path="product/:id"
+//           element={<ProductDetails />}
+//         />
+
+//         <Route
+//           path="cart"
+//           element={<Cart />}
+//         />
+
+//         <Route
+//           path="checkout"
+//           element={<Checkout />}
+//         />
+
+//         <Route
+//           path="orders"
+//           element={<Orders />}
+//         />
+
 //       </Route>
 
 //       {/* ================= Super Admin ================= */}
@@ -73,12 +95,19 @@
 //           path="products"
 //           element={<ProductManagement />}
 //         />
+
+//         <Route
+//           path="categories"
+//           element={<CategoryManagement />}
+//         />
+
 //         {/* Banner Management */}
 //         <Route
 //           path="banners"
 //           element={<BannerManagement />}
 //         />
 //       </Route>
+
 
 //       {/* ================= Management ================= */}
 //       <Route
@@ -99,7 +128,6 @@
 // };
 
 // export default AppRoutes;
-
 
 
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -124,12 +152,15 @@ import ProtectedRoute from "./ProtectedRoute";
 import About from "../pages/About";
 import Collections from "../pages/Collections";
 import ProductManagement from "../pages/products/ProductManagement";
-import ProductDetails from "../pages/customer/ProductDetails";
+//import ProductDetails from "../pages/customer/ProductDetails";
+import ProductDetails from "../pages/products/ProductDetails";
 
 import Cart from "../pages/customer/Cart";
 import Checkout from "../pages/customer/Checkout";
 import Orders from "../pages/customer/Orders";
 import CategoryManagement from "../pages/categories/CategoryManagement";
+
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -141,14 +172,20 @@ const AppRoutes = () => {
 
       <Route path="/collections" element={<Collections />} />
 
+      {/* Product Details (Visible to Visitors + Customers) */}
+      <Route
+        path="/product/:id"
+        element={<ProductDetails />}
+      />
+
       <Route path="/login" element={<Login />} />
 
       <Route path="/register" element={<Register />} />
 
       <Route path="/verify-otp" element={<VerifyOTP />} />
-      <Route path="/product/:id" element={<ProductDetails />} />
 
       {/* ================= Customer ================= */}
+
       <Route
         path="/boutique"
         element={
@@ -158,11 +195,6 @@ const AppRoutes = () => {
         }
       >
         <Route index element={<CustomerDashboard />} />
-
-        <Route
-          path="product/:id"
-          element={<ProductDetails />}
-        />
 
         <Route
           path="cart"
@@ -178,10 +210,10 @@ const AppRoutes = () => {
           path="orders"
           element={<Orders />}
         />
-
       </Route>
 
       {/* ================= Super Admin ================= */}
+
       <Route
         path="/super-admin"
         element={
@@ -190,8 +222,11 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
-        <Route index element={<SuperAdminDashboard />} />
-        {/* Products */}
+        <Route
+          index
+          element={<SuperAdminDashboard />}
+        />
+
         <Route
           path="products"
           element={<ProductManagement />}
@@ -202,15 +237,14 @@ const AppRoutes = () => {
           element={<CategoryManagement />}
         />
 
-        {/* Banner Management */}
         <Route
           path="banners"
           element={<BannerManagement />}
         />
       </Route>
 
-
       {/* ================= Management ================= */}
+
       <Route
         path="/management"
         element={
@@ -219,11 +253,18 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
-        <Route index element={<ManagementDashboard />} />
+        <Route
+          index
+          element={<ManagementDashboard />}
+        />
       </Route>
 
       {/* ================= Catch All ================= */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
     </Routes>
   );
 };

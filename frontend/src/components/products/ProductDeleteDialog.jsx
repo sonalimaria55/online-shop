@@ -79,6 +79,7 @@
 
 
 // export default ProductDeleteDialog;
+
 import {
   Dialog,
   DialogTitle,
@@ -129,7 +130,7 @@ const ProductDeleteDialog = ({
         <Typography>
           Are you sure you want to delete{" "}
           <strong>
-            {product?.name}
+            {product?.productName}
           </strong>
           ?
         </Typography>
