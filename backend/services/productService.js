@@ -170,32 +170,47 @@
 // };
 //------------------------------------------------------------------------------
 
+
 const Product = require("../models/Product");
+
+// ===============================
 // Create Product
+// ===============================
 const createProduct = async (productData) => {
     return await Product.create(productData);
 };
-// Get All Products
 
+
+// ===============================
+// Get All Products
+// ===============================
 const getProducts = async () => {
 
     return await Product.find()
+
         .populate("category", "categoryName")
+
+        .populate("productVariants.variantType", "name")
+
         .sort({
-            createdAt:-1
+            createdAt: -1
         });
 
 };
-// Get Product By ID
 
+
+// ===============================
+// Get Product By ID
+// ===============================
 const getProductById = async (id) => {
 
     return await Product.findById(id)
-        .populate("category", "categoryName");
+
+        .populate("category", "categoryName")
+
+        .populate("productVariants.variantType", "name");
 
 };
-
-
 
 
 // ===============================
@@ -208,19 +223,21 @@ const updateProduct = async (id, productData) => {
         id,
 
         {
-            $set:productData
+            $set: productData
         },
 
         {
-            new:true,
-            runValidators:true
+            new: true,
+            runValidators: true
         }
 
-    );
+    )
+
+    .populate("category", "categoryName")
+
+    .populate("productVariants.variantType", "name");
 
 };
-
-
 
 
 // ===============================
@@ -233,8 +250,6 @@ const deleteProduct = async (id) => {
 };
 
 
-
-
 // ===============================
 // Home Collections
 // ===============================
@@ -242,23 +257,23 @@ const getHomeCollections = async () => {
 
     return await Product.find({
 
-        isActive:true
+        isActive: true
 
     })
 
-    .populate("category","categoryName")
+    .populate("category", "categoryName")
+
+    .populate("productVariants.variantType", "name")
 
     .sort({
 
-        createdAt:-1
+        createdAt: -1
 
     })
 
     .limit(6);
 
 };
-
-
 
 
 // ===============================
@@ -268,25 +283,24 @@ const getFeaturedProducts = async () => {
 
     return await Product.find({
 
-        isActive:true,
-        isFeatured:true
+        isActive: true,
+        isFeatured: true
 
     })
 
-    .populate("category","categoryName")
+    .populate("category", "categoryName")
+
+    .populate("productVariants.variantType", "name")
 
     .sort({
 
-        createdAt:-1
+        createdAt: -1
 
     })
 
     .limit(6);
 
 };
-
-
-
 
 
 module.exports = {

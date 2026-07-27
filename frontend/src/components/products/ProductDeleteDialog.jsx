@@ -79,89 +79,91 @@
 
 
 // export default ProductDeleteDialog;
-
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-} from "@mui/material";
-
-import { useDispatch } from "react-redux";
-
-import { deleteProduct } from "../../features/products/ProductsThunk";
+//----------------------------------------------------
 
 
-const ProductDeleteDialog = ({
-  open,
-  product,
-  onClose,
-}) => {
+// import {
+//   Dialog,
+//   DialogTitle,
+//   DialogContent,
+//   DialogActions,
+//   Button,
+//   Typography,
+// } from "@mui/material";
 
-  const dispatch = useDispatch();
+// import { useDispatch } from "react-redux";
 
-
-  const handleDelete = () => {
-
-    if (!product?._id) return;
-
-    dispatch(deleteProduct(product._id));
-
-    onClose();
-
-  };
+// import { deleteProduct } from "../../features/products/ProductsThunk";
 
 
-  return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-    >
+// const ProductDeleteDialog = ({
+//   open,
+//   product,
+//   onClose,
+// }) => {
 
-      <DialogTitle>
-        Delete Product
-      </DialogTitle>
+//   const dispatch = useDispatch();
 
 
-      <DialogContent>
+//   const handleDelete = () => {
 
-        <Typography>
-          Are you sure you want to delete{" "}
-          <strong>
-            {product?.productName}
-          </strong>
-          ?
-        </Typography>
+//     if (!product?._id) return;
 
-      </DialogContent>
+//     dispatch(deleteProduct(product._id));
+
+//     onClose();
+
+//   };
 
 
-      <DialogActions>
+//   return (
+//     <Dialog
+//       open={open}
+//       onClose={onClose}
+//     >
 
-        <Button
-          onClick={onClose}
-        >
-          Cancel
-        </Button>
-
-
-        <Button
-          color="error"
-          variant="contained"
-          onClick={handleDelete}
-        >
-          Delete
-        </Button>
+//       <DialogTitle>
+//         Delete Product
+//       </DialogTitle>
 
 
-      </DialogActions>
+//       <DialogContent>
+
+//         <Typography>
+//           Are you sure you want to delete{" "}
+//           <strong>
+//             {product?.productName}
+//           </strong>
+//           ?
+//         </Typography>
+
+//       </DialogContent>
 
 
-    </Dialog>
-  );
-};
+//       <DialogActions>
+
+//         <Button
+//           onClick={onClose}
+//         >
+//           Cancel
+//         </Button>
 
 
-export default ProductDeleteDialog;
+//         <Button
+//           color="error"
+//           variant="contained"
+//           onClick={handleDelete}
+//         >
+//           Delete
+//         </Button>
+
+
+//       </DialogActions>
+
+
+//     </Dialog>
+//   );
+// };
+
+
+// export default ProductDeleteDialog;

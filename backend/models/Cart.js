@@ -1,3 +1,118 @@
+// // const mongoose = require("mongoose");
+
+// // const cartItemSchema = new mongoose.Schema(
+// //   {
+// //     product: {
+// //       type: mongoose.Schema.Types.ObjectId,
+// //       ref: "Product",
+// //       required: true,
+// //     },
+
+// //     quantity: {
+// //       type: Number,
+// //       default: 1,
+// //       min: 1,
+// //     },
+// //   },
+// //   { _id: false }
+// // );
+
+// // const cartSchema = new mongoose.Schema(
+// //   {
+// //     customer: {
+// //       type: mongoose.Schema.Types.ObjectId,
+// //       ref: "User",
+// //       required: true,
+// //       unique: true,
+// //     },
+
+// //     items: [cartItemSchema],
+// //   },
+// //   {
+// //     timestamps: true,
+// //   }
+// // );
+
+// // module.exports = mongoose.model("Cart", cartSchema);
+
+// // const mongoose = require("mongoose");
+
+
+// // const cartItemSchema = new mongoose.Schema(
+// //   {
+// //     product: {
+// //       type: mongoose.Schema.Types.ObjectId,
+// //       ref: "Product",
+// //       required: true,
+// //     },
+
+// //     quantity: {
+// //       type: Number,
+// //       default: 1,
+// //       min: 1,
+// //     },
+
+// //   },
+// //   {
+// //     _id:false
+// //   }
+// // );
+
+
+
+// // const cartSchema = new mongoose.Schema(
+// //   {
+
+// //     // Logged-in customer
+// //     customer:{
+// //       type:mongoose.Schema.Types.ObjectId,
+// //       ref:"User",
+// //       default:null,
+// //     },
+
+
+// //     // Guest visitor
+// //     guestId:{
+// //       type:String,
+// //       default:null,
+// //     },
+
+
+// //     items:[
+// //       cartItemSchema
+// //     ],
+
+// //   },
+// //   {
+// //     timestamps:true
+// //   }
+// // );
+
+
+// // // One customer = one cart
+// // cartSchema.index(
+// //   {customer:1},
+// //   {
+// //     unique:true,
+// //     sparse:true
+// //   }
+// // );
+
+
+// // // One guest browser = one cart
+// // cartSchema.index(
+// //   {guestId:1},
+// //   {
+// //     unique:true,
+// //     sparse:true
+// //   }
+// // );
+
+
+
+// // module.exports = mongoose.model("Cart", cartSchema);
+
+
 // const mongoose = require("mongoose");
 
 // const cartItemSchema = new mongoose.Schema(
@@ -14,16 +129,24 @@
 //       min: 1,
 //     },
 //   },
-//   { _id: false }
+//   {
+//     _id: false,
+//   }
 // );
 
 // const cartSchema = new mongoose.Schema(
 //   {
+//     // Logged-in customer
 //     customer: {
 //       type: mongoose.Schema.Types.ObjectId,
 //       ref: "User",
-//       required: true,
-//       unique: true,
+//       default: null,
+//     },
+
+//     // Guest visitor
+//     guestId: {
+//       type: String,
+//       default: null,
 //     },
 
 //     items: [cartItemSchema],
@@ -33,154 +156,236 @@
 //   }
 // );
 
-// module.exports = mongoose.model("Cart", cartSchema);
-
-// const mongoose = require("mongoose");
-
-
-// const cartItemSchema = new mongoose.Schema(
-//   {
-//     product: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Product",
-//       required: true,
-//     },
-
-//     quantity: {
-//       type: Number,
-//       default: 1,
-//       min: 1,
-//     },
-
-//   },
-//   {
-//     _id:false
+// // Ensure cart belongs to either customer or guest
+// cartSchema.pre("validate", function (next) {
+//   if (!this.customer && !this.guestId) {
+//     return next(new Error("Cart must belong to a customer or a guest."));
 //   }
-// );
 
-
-
-// const cartSchema = new mongoose.Schema(
-//   {
-
-//     // Logged-in customer
-//     customer:{
-//       type:mongoose.Schema.Types.ObjectId,
-//       ref:"User",
-//       default:null,
-//     },
-
-
-//     // Guest visitor
-//     guestId:{
-//       type:String,
-//       default:null,
-//     },
-
-
-//     items:[
-//       cartItemSchema
-//     ],
-
-//   },
-//   {
-//     timestamps:true
-//   }
-// );
-
+//   next();
+// });
 
 // // One customer = one cart
 // cartSchema.index(
-//   {customer:1},
+//   { customer: 1 },
 //   {
-//     unique:true,
-//     sparse:true
+//     unique: true,
+//     sparse: true,
 //   }
 // );
 
-
-// // One guest browser = one cart
+// // One guest = one cart
 // cartSchema.index(
-//   {guestId:1},
+//   { guestId: 1 },
 //   {
-//     unique:true,
-//     sparse:true
+//     unique: true,
+//     sparse: true,
 //   }
 // );
-
-
 
 // module.exports = mongoose.model("Cart", cartSchema);
-
-
 const mongoose = require("mongoose");
 
+
 const cartItemSchema = new mongoose.Schema(
-  {
+
+{
     product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-      required: true,
+
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: "Product",
+
+        required: true,
+
     },
+
+
+    // selected product variant
+    variant: {
+
+        value: {
+            type: String,
+            default: "",
+        },
+
+
+        color: {
+
+            type: String,
+
+            default: "",
+
+        },
+
+
+        sku: {
+
+            type: String,
+
+            default: "",
+
+        },
+
+
+        barcode: {
+
+            type: String,
+
+            default: "",
+
+        }
+
+    },
+
 
     quantity: {
-      type: Number,
-      default: 1,
-      min: 1,
-    },
-  },
-  {
-    _id: false,
-  }
+
+        type: Number,
+
+        default: 1,
+
+        min: 1,
+
+    }
+
+},
+
+{
+    _id:false
+}
+
 );
+
+
+
+
 
 const cartSchema = new mongoose.Schema(
-  {
+
+{
+
     // Logged-in customer
+
     customer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
+
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref:"User",
+
+        default:null,
+
     },
+
+
 
     // Guest visitor
+
     guestId: {
-      type: String,
-      default: null,
+
+        type:String,
+
+        default:null,
+
     },
 
-    items: [cartItemSchema],
-  },
-  {
-    timestamps: true,
-  }
+
+
+    items:[cartItemSchema]
+
+
+},
+
+{
+
+    timestamps:true
+
+}
+
 );
 
-// Ensure cart belongs to either customer or guest
-cartSchema.pre("validate", function (next) {
-  if (!this.customer && !this.guestId) {
-    return next(new Error("Cart must belong to a customer or a guest."));
-  }
 
-  next();
+
+
+
+
+
+// Cart must belong to user or guest
+
+cartSchema.pre(
+"validate",
+function(next){
+
+
+    if(
+        !this.customer &&
+        !this.guestId
+    ){
+
+        return next(
+            new Error(
+                "Cart must belong to customer or guest"
+            )
+        );
+
+    }
+
+
+    next();
+
+
 });
 
-// One customer = one cart
+
+
+
+
+
+// One customer one cart
+
 cartSchema.index(
-  { customer: 1 },
-  {
-    unique: true,
-    sparse: true,
-  }
+
+{
+    customer:1
+},
+
+{
+    unique:true,
+
+    sparse:true
+
+}
+
 );
 
-// One guest = one cart
+
+
+
+
+
+// One guest one cart
+
 cartSchema.index(
-  { guestId: 1 },
-  {
-    unique: true,
-    sparse: true,
-  }
+
+{
+    guestId:1
+},
+
+{
+    unique:true,
+
+    sparse:true
+
+}
+
 );
 
-module.exports = mongoose.model("Cart", cartSchema);
+
+
+
+
+
+module.exports = mongoose.model(
+    "Cart",
+    cartSchema
+);

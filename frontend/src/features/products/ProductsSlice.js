@@ -157,228 +157,438 @@
 
 // export default ProductsSlice.reducer;
 
+//-------------------------------------------------------------------
+// import { createSlice } from "@reduxjs/toolkit";
+
+// import {
+//   createProduct,
+//   getProducts,
+//   updateProduct,
+//   deleteProduct,
+//   getFeaturedProducts,
+//   getProductById,
+//   getHomeCollections,
+// } from "./ProductsThunk";
+
+
+// const initialState = {
+
+//   products: [],
+
+//   featuredProducts: [],
+
+//   homeCollections: [],
+
+//   selectedProduct: null,
+
+//   loading:false,
+
+//   error:null,
+
+//   success:false,
+
+// };
+
+
+
+// const ProductsSlice = createSlice({
+
+//   name:"products",
+
+//   initialState,
+
+//   reducers:{},
+
+
+//   extraReducers:(builder)=>{
+
+//     builder
+
+
+//     // ==========================
+//     // GET ALL PRODUCTS
+//     // ==========================
+
+//     .addCase(getProducts.pending,(state)=>{
+
+//         state.loading = true;
+//         state.error = null;
+
+//     })
+
+
+//     .addCase(getProducts.fulfilled,(state,action)=>{
+
+//         state.loading = false;
+
+//         state.products =
+//         action.payload.products || [];
+
+//     })
+
+
+//     .addCase(getProducts.rejected,(state,action)=>{
+
+//         state.loading = false;
+
+//         state.error =
+//         action.payload || action.error.message;
+
+//     })
+
+
+
+//     // ==========================
+//     // CREATE PRODUCT
+//     // ==========================
+
+//     .addCase(createProduct.fulfilled,(state,action)=>{
+
+//         const product = action.payload.product;
+
+
+//         if(product){
+
+//             state.products.unshift(product);
+
+//         }
+
+//     })
+
+
+
+//     // ==========================
+//     // UPDATE PRODUCT
+//     // ==========================
+
+//     .addCase(updateProduct.fulfilled,(state,action)=>{
+
+//         const updated = action.payload.product;
+
+
+//         if(updated){
+
+//             state.products =
+//             state.products.map(item=>
+
+//                 item._id === updated._id
+//                 ? updated
+//                 : item
+
+//             );
+
+//         }
+
+//     })
+
+
+
+//     // ==========================
+//     // DELETE PRODUCT
+//     // ==========================
+
+//     .addCase(deleteProduct.fulfilled,(state,action)=>{
+
+
+//         state.products =
+//         state.products.filter(
+
+//             item => item._id !== action.payload.id
+
+//         );
+
+
+//     })
+
+
+
+//     // ==========================
+//     // FEATURED PRODUCTS
+//     // ==========================
+
+//     .addCase(getFeaturedProducts.fulfilled,(state,action)=>{
+
+
+//         state.featuredProducts =
+//         action.payload.products || [];
+
+
+//     })
+
+
+
+//     // ==========================
+//     // PRODUCT DETAILS
+//     // ==========================
+
+//     .addCase(getProductById.pending,(state)=>{
+
+
+//         state.loading = true;
+
+//         state.error = null;
+
+
+//     })
+
+
+//     .addCase(getProductById.fulfilled,(state,action)=>{
+
+
+//         state.loading = false;
+
+
+//         state.selectedProduct =
+//         action.payload.product ||
+//         action.payload ||
+//         null;
+
+
+//     })
+
+
+//     .addCase(getProductById.rejected,(state,action)=>{
+
+
+//         state.loading = false;
+
+
+//         state.error =
+//         action.payload ||
+//         action.error.message;
+
+
+//     })
+
+
+
+//     // ==========================
+//     // HOME COLLECTIONS
+//     // ==========================
+
+//     .addCase(getHomeCollections.fulfilled,(state,action)=>{
+
+
+//         state.homeCollections =
+//         action.payload.products || [];
+
+
+//     });
+
+
+//   },
+
+// });
+
+
+// export default ProductsSlice.reducer;
+
+//------------------------------------------
 
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-  createProduct,
-  getProducts,
-  updateProduct,
-  deleteProduct,
-  getFeaturedProducts,
-  getProductById,
-  getHomeCollections,
+    createProduct,
+    getProducts,
+    updateProduct,
+    deleteProduct,
+    getFeaturedProducts,
+    getProductById,
+    getHomeCollections,
 } from "./ProductsThunk";
 
-
 const initialState = {
+    products: [],
+    featuredProducts: [],
+    homeCollections: [],
+    selectedProduct: null,
 
-  products: [],
-
-  featuredProducts: [],
-
-  homeCollections: [],
-
-  selectedProduct: null,
-
-  loading:false,
-
-  error:null,
-
-  success:false,
-
+    loading: false,
+    error: null,
+    success: false,
 };
 
-
-
 const ProductsSlice = createSlice({
+    name: "products",
 
-  name:"products",
+    initialState,
 
-  initialState,
+    reducers: {
+        resetProductState: (state) => {
+            state.loading = false;
+            state.error = null;
+            state.success = false;
+        },
 
-  reducers:{},
+        clearSelectedProduct: (state) => {
+            state.selectedProduct = null;
+        },
+    },
 
+    extraReducers: (builder) => {
 
-  extraReducers:(builder)=>{
+        builder
 
-    builder
+        // =====================================
+        // GET ALL PRODUCTS
+        // =====================================
+        .addCase(getProducts.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
 
+        .addCase(getProducts.fulfilled, (state, action) => {
+            state.loading = false;
+            state.products = action.payload.products || [];
+        })
 
-    // ==========================
-    // GET ALL PRODUCTS
-    // ==========================
-
-    .addCase(getProducts.pending,(state)=>{
-
-        state.loading = true;
-        state.error = null;
-
-    })
-
-
-    .addCase(getProducts.fulfilled,(state,action)=>{
-
-        state.loading = false;
-
-        state.products =
-        action.payload.products || [];
-
-    })
-
-
-    .addCase(getProducts.rejected,(state,action)=>{
-
-        state.loading = false;
-
-        state.error =
-        action.payload || action.error.message;
-
-    })
+        .addCase(getProducts.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        })
 
 
+        // =====================================
+        // CREATE PRODUCT
+        // =====================================
+        .addCase(createProduct.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+        })
 
-    // ==========================
-    // CREATE PRODUCT
-    // ==========================
+        .addCase(createProduct.fulfilled, (state, action) => {
+            state.loading = false;
+            state.success = true;
 
-    .addCase(createProduct.fulfilled,(state,action)=>{
+            if (action.payload.product) {
+                state.products.unshift(action.payload.product);
+            }
+        })
 
-        const product = action.payload.product;
-
-
-        if(product){
-
-            state.products.unshift(product);
-
-        }
-
-    })
-
-
-
-    // ==========================
-    // UPDATE PRODUCT
-    // ==========================
-
-    .addCase(updateProduct.fulfilled,(state,action)=>{
-
-        const updated = action.payload.product;
+        .addCase(createProduct.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        })
 
 
-        if(updated){
+        // =====================================
+        // UPDATE PRODUCT
+        // =====================================
+        .addCase(updateProduct.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+        })
 
-            state.products =
-            state.products.map(item=>
+        .addCase(updateProduct.fulfilled, (state, action) => {
+            state.loading = false;
+            state.success = true;
 
-                item._id === updated._id
-                ? updated
-                : item
+            const updated = action.payload.product;
 
+            if (updated) {
+                state.products = state.products.map((item) =>
+                    item._id === updated._id ? updated : item
+                );
+
+                state.selectedProduct = updated;
+            }
+        })
+
+        .addCase(updateProduct.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        })
+
+
+        // =====================================
+        // DELETE PRODUCT
+        // =====================================
+        .addCase(deleteProduct.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+
+        .addCase(deleteProduct.fulfilled, (state, action) => {
+            state.loading = false;
+            state.success = true;
+
+            state.products = state.products.filter(
+                (item) => item._id !== action.payload.id
             );
+        })
 
-        }
-
-    })
-
-
-
-    // ==========================
-    // DELETE PRODUCT
-    // ==========================
-
-    .addCase(deleteProduct.fulfilled,(state,action)=>{
+        .addCase(deleteProduct.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        })
 
 
-        state.products =
-        state.products.filter(
+        // =====================================
+        // FEATURED PRODUCTS
+        // =====================================
+        .addCase(getFeaturedProducts.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
 
-            item => item._id !== action.payload.id
+        .addCase(getFeaturedProducts.fulfilled, (state, action) => {
+            state.loading = false;
+            state.featuredProducts = action.payload.products || [];
+        })
 
-        );
-
-
-    })
-
-
-
-    // ==========================
-    // FEATURED PRODUCTS
-    // ==========================
-
-    .addCase(getFeaturedProducts.fulfilled,(state,action)=>{
-
-
-        state.featuredProducts =
-        action.payload.products || [];
+        .addCase(getFeaturedProducts.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        })
 
 
-    })
+        // =====================================
+        // HOME COLLECTIONS
+        // =====================================
+        .addCase(getHomeCollections.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+
+        .addCase(getHomeCollections.fulfilled, (state, action) => {
+            state.loading = false;
+            state.homeCollections = action.payload.products || [];
+        })
+
+        .addCase(getHomeCollections.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        })
 
 
+        // =====================================
+        // GET PRODUCT BY ID
+        // =====================================
+        .addCase(getProductById.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
 
-    // ==========================
-    // PRODUCT DETAILS
-    // ==========================
+        .addCase(getProductById.fulfilled, (state, action) => {
+            state.loading = false;
 
-    .addCase(getProductById.pending,(state)=>{
+            state.selectedProduct =
+                action.payload.product || null;
+        })
 
+        .addCase(getProductById.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || action.error.message;
+        });
 
-        state.loading = true;
-
-        state.error = null;
-
-
-    })
-
-
-    .addCase(getProductById.fulfilled,(state,action)=>{
-
-
-        state.loading = false;
-
-
-        state.selectedProduct =
-        action.payload.product ||
-        action.payload ||
-        null;
-
-
-    })
-
-
-    .addCase(getProductById.rejected,(state,action)=>{
-
-
-        state.loading = false;
-
-
-        state.error =
-        action.payload ||
-        action.error.message;
-
-
-    })
-
-
-
-    // ==========================
-    // HOME COLLECTIONS
-    // ==========================
-
-    .addCase(getHomeCollections.fulfilled,(state,action)=>{
-
-
-        state.homeCollections =
-        action.payload.products || [];
-
-
-    });
-
-
-  },
-
+    },
 });
 
+export const {
+    resetProductState,
+    clearSelectedProduct,
+} = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;

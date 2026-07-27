@@ -1,83 +1,102 @@
 
 
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
-import {
-    getProductById
-} from "../../features/products/ProductsThunk";
+// import RemoveIcon from "@mui/icons-material/Remove";
+// import AddIcon from "@mui/icons-material/Add";
+// import {
+//     getProductById
+// } from "../../features/products/ProductsThunk";
 
 
-import {
-    addToCart,
-    getCart
-} from "../../features/cart/CartThunk";
+// import {
+//     addToCart,
+//     getCart
+// } from "../../features/cart/CartThunk";
 
 
-import { useEffect, useState } from "react";
-import {
+// import { useEffect, useState } from "react";
+// import {
 
-    ToggleButton,
-    ToggleButtonGroup,
-    IconButton,
-    Box,
-    Typography,
-    CircularProgress,
-    Button
-} from "@mui/material";
+//     ToggleButton,
+//     ToggleButtonGroup,
+//     IconButton,
+//     Box,
+//     Typography,
+//     CircularProgress,
+//     Button
+// } from "@mui/material";
 
-import {
-    useDispatch,
-    useSelector
-} from "react-redux";
+// import {
+//     useDispatch,
+//     useSelector
+// } from "react-redux";
 
-import {
-    useParams
-} from "react-router-dom";
-
-
-
-
-//console.log("Image URL:", selectedProduct?.images?.[0]?.url);
-
-const ProductDetails = () => {
-    console.log("Products ProductDetails Loaded");
-
-
-    const { id } = useParams();
-
-    console.log("Route ID:", id);
-    const dispatch = useDispatch();
+// import {
+//     useParams
+// } from "react-router-dom";
 
 
 
-    const {
-        selectedProduct,
-        loading,
-        error
-    } = useSelector(
-        state => state.products
-    );
 
-    // console.log("Selected Product:", selectedProduct);
-    // console.log("Images:", selectedProduct?.images);
-    // console.log("Image URL:", selectedProduct?.images?.[0]?.url);
+// //console.log("Image URL:", selectedProduct?.images?.[0]?.url);
 
-    const [selectedSize, setSelectedSize] = useState("");
-    const [quantity, setQuantity] = useState(1);
+// const ProductDetails = () => {
+//     console.log("Products ProductDetails Loaded");
 
-    useEffect(() => {
 
-        console.log("Dispatching getProductById:", id);
-        if (id) {
+//     const { id } = useParams();
 
-            dispatch(
-                getProductById(id)
-            );
+//     console.log("Route ID:", id);
+//     const dispatch = useDispatch();
 
-        }
 
-    }, [dispatch, id]);
-// const handleAddToCart = () => {
+
+//     const {
+//         selectedProduct,
+//         loading,
+//         error
+//     } = useSelector(
+//         state => state.products
+//     );
+
+//     // console.log("Selected Product:", selectedProduct);
+//     // console.log("Images:", selectedProduct?.images);
+//     // console.log("Image URL:", selectedProduct?.images?.[0]?.url);
+
+// const [selectedVariant,setSelectedVariant]=useState(null);
+//     const [quantity, setQuantity] = useState(1);
+
+//     useEffect(() => {
+
+//         console.log("Dispatching getProductById:", id);
+//         if (id) {
+
+//             dispatch(
+//                 getProductById(id)
+//             );
+
+//         }
+
+//     }, [dispatch, id]);
+// // const handleAddToCart = () => {
+
+// //     if (!selectedSize) {
+// //         alert("Please select a size");
+// //         return;
+// //     }
+
+// //     const cartItem = {
+// //         product: selectedProduct._id,
+// //         size: selectedSize,
+// //         quantity,
+// //     };
+
+// //     console.log(cartItem);
+
+// //     // Next step
+// //     // dispatch(addToCart(cartItem));
+// // };
+
+// const handleAddToCart = async () => {
 
 //     if (!selectedSize) {
 //         alert("Please select a size");
@@ -90,36 +109,420 @@ const ProductDetails = () => {
 //         quantity,
 //     };
 
-//     console.log(cartItem);
+//     console.log("Sending:", cartItem);
 
-//     // Next step
-//     // dispatch(addToCart(cartItem));
+//     await dispatch(addToCart(cartItem));
+
+//     dispatch(getCart());
+
+//     alert("Added to cart");
 // };
 
-const handleAddToCart = async () => {
 
-    if (!selectedSize) {
-        alert("Please select a size");
-        return;
-    }
+//     if (loading) {
 
-    const cartItem = {
-        product: selectedProduct._id,
-        size: selectedSize,
-        quantity,
+//         return <CircularProgress />;
+
+//     }
+
+
+
+//     if (error) {
+
+//         return (
+//             <Typography>
+//                 {error}
+//             </Typography>
+//         );
+
+//     }
+
+
+
+//     if (!selectedProduct) {
+
+//         return (
+//             <Typography>
+//                 Product not found
+//             </Typography>
+//         );
+
+//     }
+
+
+//     return (
+//         <Box
+//             sx={{
+//                 py: 8,
+//                 px: { xs: 2, md: 6 },
+//             }}
+//         >
+//             <Box
+//                 sx={{
+//                     display: "grid",
+//                     gridTemplateColumns: {
+//                         xs: "1fr",
+//                         md: "1fr 1fr",
+//                     },
+//                     gap: 5,
+//                 }}
+//             >
+//                 {/* Product Image */}
+//                 <Box>
+//                     {/* Product Image */}
+
+
+//                     {/* <Box
+//                         component="img"
+//                         src={selectedProduct.images?.[0]?.url}
+//                         alt={selectedProduct.productName}
+//                         sx={{
+//                             width: "100%",
+//                             maxWidth: 500,
+//                             height: "auto",
+//                             display: "block",
+//                         }}
+//                     /> */}
+
+
+//                     <Box
+//                         component="img"
+//                         src={selectedProduct.images?.[0]?.url}
+//                         alt={selectedProduct.productName}
+//                         sx={{
+//                             width: "100%",
+//                             maxWidth: 500,
+//                             height: "auto",
+//                             display: "block",
+//                             borderRadius: 1,
+//                             boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+//                         }}
+//                     />
+
+
+//                 </Box>
+
+//                 {/* Product Info */}
+//                 <Box>
+//                     <Typography variant="h3">
+//                         {selectedProduct.productName}
+//                     </Typography>
+
+//                     <Typography mt={2}>
+//                         {selectedProduct.description}
+//                     </Typography>
+
+//                     <Typography
+//                         mt={3}
+//                         sx={{
+//                             fontSize: 28,
+//                             fontWeight: 600,
+//                             color: "#C9A227",
+//                         }}
+//                     >
+//                         ₹ {selectedProduct.sellingPrice}
+//                     </Typography>
+
+
+//                     <Typography
+//                         sx={{
+//                             mt: 4,
+//                             mb: 1,
+//                             fontWeight: 600,
+//                         }}
+//                     >
+//                         Size
+//                     </Typography>
+
+//        <Typography
+//     sx={{
+//         mt:4,
+//         mb:1,
+//         fontWeight:600
+//     }}
+// >
+//     Size
+// </Typography>
+
+
+// <ToggleButtonGroup
+//     value={selectedSize}
+//     exclusive
+//     onChange={(e,value)=>{
+
+//         if(value){
+//             setSelectedSize(value);
+//         }
+
+//     }}
+// >
+
+
+// {
+// selectedProduct.productVariants
+// ?.filter(
+//     item => item.variantType?.name === "Size"
+// )
+// .map((variant)=>(
+
+// <ToggleButton
+//     key={variant.value}
+//     value={variant.value}
+// >
+
+// {variant.value}
+
+// </ToggleButton>
+
+// ))
+
+// }
+
+
+// </ToggleButtonGroup>
+
+//                     <Typography
+//                         sx={{
+//                             mt: 4,
+//                             mb: 1,
+//                             fontWeight: 600,
+//                         }}
+//                     >
+//                         Quantity
+//                     </Typography>
+
+//                     <Box
+//                         sx={{
+//                             display: "flex",
+//                             alignItems: "center",
+//                             gap: 2,
+//                         }}
+//                     >
+//                         <IconButton
+//                             onClick={() =>
+//                                 setQuantity((prev) => Math.max(1, prev - 1))
+//                             }
+//                         >
+//                             <RemoveIcon />
+//                         </IconButton>
+
+//                         <Typography>{quantity}</Typography>
+
+//                         <IconButton
+//                             onClick={() =>
+//                                 setQuantity((prev) => prev + 1)
+//                             }
+//                         >
+//                             <AddIcon />
+//                         </IconButton>
+//                     </Box>
+//                     {/* 
+//                     <Button
+//                         variant="contained"
+//                         sx={{
+//                             mt: 4,
+//                             background: "#C9A227",
+
+//                             product: selectedProduct._id,
+//                             size: selectedSize,
+//                             quantity: quantity
+
+//                         }}
+//                     >
+//                         Add To Cart
+//                     </Button> */}
+
+//                     <Button
+//                         variant="contained"
+//                         onClick={handleAddToCart}
+//                         sx={{
+//                             mt: 4,
+//                             background: "#C9A227",
+//                             color: "#fff",
+//                             px: 5,
+//                             py: 1.5,
+//                             borderRadius: 0,
+//                             "&:hover": {
+//                                 background: "#B08D57",
+//                             },
+//                         }}
+//                     >
+//                         Add To Cart
+//                     </Button>
+//                 </Box>
+//             </Box>
+//         </Box>
+//     );
+
+
+// };
+
+
+// export default ProductDetails;
+
+
+
+
+
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+
+import {
+    getProductById
+} from "../../features/products/ProductsThunk";
+
+
+import {
+    addToCart,
+    getCart
+} from "../../features/cart/CartThunk";
+
+
+import { 
+    useEffect,
+    useState
+} from "react";
+
+
+import {
+    ToggleButton,
+    ToggleButtonGroup,
+    IconButton,
+    Box,
+    Typography,
+    CircularProgress,
+    Button
+} from "@mui/material";
+
+
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
+
+
+import {
+    useParams
+} from "react-router-dom";
+
+
+
+
+
+const ProductDetails = () => {
+
+
+    const { id } = useParams();
+
+    const dispatch = useDispatch();
+
+
+
+    const {
+        selectedProduct,
+        loading,
+        error
+    } = useSelector(
+        state => state.products
+    );
+
+
+
+
+    const [selectedVariant,setSelectedVariant] = useState(null);
+
+    const [quantity,setQuantity] = useState(1);
+
+
+
+
+
+    useEffect(()=>{
+
+
+        if(id){
+
+            dispatch(
+                getProductById(id)
+            );
+
+        }
+
+
+    },[dispatch,id]);
+
+
+
+
+
+
+
+
+    const handleAddToCart = async()=>{
+
+
+        if(!selectedVariant){
+
+
+            alert(
+                "Please select size"
+            );
+
+
+            return;
+
+        }
+
+
+
+        const cartItem = {
+
+
+            product:selectedProduct._id,
+
+
+            variant:selectedVariant,
+
+
+            quantity
+
+
+        };
+
+
+
+        console.log(
+            "Sending:",
+            cartItem
+        );
+
+
+
+        await dispatch(
+            addToCart(cartItem)
+        );
+
+
+        dispatch(
+            getCart()
+        );
+
+
+        alert(
+            "Added to cart"
+        );
+
+
     };
 
-    console.log("Sending:", cartItem);
-
-    await dispatch(addToCart(cartItem));
-
-    dispatch(getCart());
-
-    alert("Added to cart");
-};
 
 
-    if (loading) {
+
+
+
+
+
+    if(loading){
 
         return <CircularProgress />;
 
@@ -127,205 +530,561 @@ const handleAddToCart = async () => {
 
 
 
-    if (error) {
+
+
+    if(error){
 
         return (
+
             <Typography>
+
                 {error}
+
             </Typography>
+
         );
 
     }
 
 
 
-    if (!selectedProduct) {
+
+
+
+
+    if(!selectedProduct){
+
 
         return (
+
             <Typography>
+
                 Product not found
+
             </Typography>
+
         );
 
     }
+
+
+
+
+
+
+
+
+    console.log("Product Variants:", selectedProduct.productVariants);
+
+const sizes = selectedProduct.productVariants || [];
+
+
+
+
+
+
 
 
     return (
+
+
         <Box
+
             sx={{
-                py: 8,
-                px: { xs: 2, md: 6 },
+
+                py:8,
+
+                px:{
+                    xs:2,
+                    md:6
+                }
+
             }}
+
         >
+
+
+
             <Box
+
                 sx={{
-                    display: "grid",
-                    gridTemplateColumns: {
-                        xs: "1fr",
-                        md: "1fr 1fr",
+
+                    display:"grid",
+
+                    gridTemplateColumns:{
+
+                        xs:"1fr",
+
+                        md:"1fr 1fr"
+
                     },
-                    gap: 5,
+
+                    gap:5
+
                 }}
+
             >
-                {/* Product Image */}
+
+
+
+
+
+                {/* IMAGE */}
+
                 <Box>
-                    {/* Product Image */}
-
-
-                    {/* <Box
-                        component="img"
-                        src={selectedProduct.images?.[0]?.url}
-                        alt={selectedProduct.productName}
-                        sx={{
-                            width: "100%",
-                            maxWidth: 500,
-                            height: "auto",
-                            display: "block",
-                        }}
-                    /> */}
 
 
                     <Box
+
                         component="img"
-                        src={selectedProduct.images?.[0]?.url}
-                        alt={selectedProduct.productName}
+
+                        src={
+                            selectedProduct
+                            .images?.[0]?.url
+                        }
+
+
+                        alt={
+                            selectedProduct.productName
+                        }
+
+
                         sx={{
-                            width: "100%",
-                            maxWidth: 500,
-                            height: "auto",
-                            display: "block",
-                            borderRadius: 1,
-                            boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+
+                            width:"100%",
+
+                            maxWidth:500,
+
+                            height:"auto",
+
+                            display:"block",
+
+                            borderRadius:1,
+
+                            boxShadow:
+                            "0 8px 24px rgba(0,0,0,0.08)"
+
                         }}
+
                     />
 
 
                 </Box>
 
-                {/* Product Info */}
+
+
+
+
+
+
+                {/* DETAILS */}
+
+
                 <Box>
+
+
+
                     <Typography variant="h3">
-                        {selectedProduct.productName}
+
+
+                        {
+                            selectedProduct.productName
+                        }
+
+
                     </Typography>
+
+
+
+
 
                     <Typography mt={2}>
-                        {selectedProduct.description}
+
+
+                        {
+                            selectedProduct.description
+                        }
+
+
                     </Typography>
 
+
+
+
+
+
+
                     <Typography
+
+
                         mt={3}
+
+
                         sx={{
-                            fontSize: 28,
-                            fontWeight: 600,
-                            color: "#C9A227",
+
+                            fontSize:28,
+
+                            fontWeight:600,
+
+                            color:"#C9A227"
+
                         }}
+
+
                     >
+
                         ₹ {selectedProduct.sellingPrice}
+
+
                     </Typography>
+
+
+
+
+
+
+
+
+
+                    {/* SIZE */}
 
 
                     <Typography
+
                         sx={{
-                            mt: 4,
-                            mb: 1,
-                            fontWeight: 600,
+
+                            mt:4,
+
+                            mb:1,
+
+                            fontWeight:600
+
                         }}
+
                     >
+
                         Size
+
+
                     </Typography>
+
+
+
+
+
+
 
                     <ToggleButtonGroup
-                        value={selectedSize}
+
+
+                        value={
+                            selectedVariant?.value || ""
+                        }
+
+
                         exclusive
-                        onChange={(e, value) => {
-                            if (value) setSelectedSize(value);
+
+
+                        onChange={(e,value)=>{
+
+
+                            if(value){
+
+
+                                const variant =
+
+                                selectedProduct
+                                .productVariants
+                                .find(
+
+                                    item =>
+                                    item.value === value
+
+                                );
+
+
+
+                                setSelectedVariant(
+                                    variant
+                                );
+
+
+                            }
+
+
                         }}
+
+
                     >
-                        {["XS", "S", "M", "L", "XL"].map((size) => (
+
+
+
+                    {
+
+                    sizes?.map(
+                        variant=>(
+
+
                             <ToggleButton
-                                key={size}
-                                value={size}
+
+
+                                key={
+                                    variant.value
+                                }
+
+
+                                value={
+                                    variant.value
+                                }
+
+
                             >
-                                {size}
+
+                                {
+                                    variant.value
+                                }
+
+
                             </ToggleButton>
-                        ))}
+
+
+                        )
+
+                    )
+
+
+                    }
+
+
+
                     </ToggleButtonGroup>
 
+
+
+
+
+
+
+
+
+                    {/* COLOR */}
+
+
+                    {
+                        selectedVariant?.color &&
+
+                        <Typography
+
+                            sx={{
+
+                                mt:3,
+
+                                fontWeight:600
+
+                            }}
+
+                        >
+
+                            Color:
+                            {" "}
+                            {
+                                selectedVariant.color
+                            }
+
+                        </Typography>
+
+                    }
+
+
+
+
+
+
+
+
+
+                    {/* QUANTITY */}
+
+
                     <Typography
+
                         sx={{
-                            mt: 4,
-                            mb: 1,
-                            fontWeight: 600,
+
+                            mt:4,
+
+                            mb:1,
+
+                            fontWeight:600
+
                         }}
+
                     >
+
                         Quantity
+
+
                     </Typography>
 
+
+
+
+
                     <Box
+
                         sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 2,
+
+                            display:"flex",
+
+                            alignItems:"center",
+
+                            gap:2
+
                         }}
+
                     >
-                        <IconButton
-                            onClick={() =>
-                                setQuantity((prev) => Math.max(1, prev - 1))
-                            }
-                        >
-                            <RemoveIcon />
-                        </IconButton>
 
-                        <Typography>{quantity}</Typography>
 
                         <IconButton
-                            onClick={() =>
-                                setQuantity((prev) => prev + 1)
+
+
+                            onClick={()=>
+
+
+                                setQuantity(
+                                    prev =>
+                                    Math.max(
+                                        1,
+                                        prev-1
+                                    )
+                                )
+
+
                             }
+
+
                         >
-                            <AddIcon />
+
+                            <RemoveIcon/>
+
+
                         </IconButton>
+
+
+
+
+
+                        <Typography>
+
+                            {
+                                quantity
+                            }
+
+                        </Typography>
+
+
+
+
+
+                        <IconButton
+
+
+                            onClick={()=>
+
+
+                                setQuantity(
+                                    prev =>
+                                    prev+1
+                                )
+
+
+                            }
+
+
+                        >
+
+                            <AddIcon/>
+
+
+                        </IconButton>
+
+
                     </Box>
-                    {/* 
-                    <Button
-                        variant="contained"
-                        sx={{
-                            mt: 4,
-                            background: "#C9A227",
 
-                            product: selectedProduct._id,
-                            size: selectedSize,
-                            quantity: quantity
 
-                        }}
-                    >
-                        Add To Cart
-                    </Button> */}
+
+
+
+
+
+
+
+                    {/* ADD CART */}
+
 
                     <Button
+
+
                         variant="contained"
-                        onClick={handleAddToCart}
+
+
+                        onClick={
+                            handleAddToCart
+                        }
+
+
                         sx={{
-                            mt: 4,
-                            background: "#C9A227",
-                            color: "#fff",
-                            px: 5,
-                            py: 1.5,
-                            borderRadius: 0,
-                            "&:hover": {
-                                background: "#B08D57",
-                            },
+
+
+                            mt:4,
+
+                            background:"#C9A227",
+
+                            color:"#fff",
+
+                            px:5,
+
+                            py:1.5,
+
+                            borderRadius:0,
+
+
+                            "&:hover":{
+
+                                background:"#B08D57"
+
+                            }
+
+
                         }}
+
+
                     >
+
                         Add To Cart
+
+
                     </Button>
+
+
+
+
+
                 </Box>
+
+
+
             </Box>
+
+
+
         </Box>
+
+
     );
 
 
 };
+
 
 
 export default ProductDetails;

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const productVariantSchema = new mongoose.Schema(
 {
     variantType:{
@@ -8,11 +9,13 @@ const productVariantSchema = new mongoose.Schema(
         required:true,
     },
 
+
     value:{
         type:String,
         required:true,
         trim:true,
     },
+
 
     color:{
         type:String,
@@ -20,11 +23,13 @@ const productVariantSchema = new mongoose.Schema(
         default:"",
     },
 
+
     sku:{
         type:String,
         trim:true,
-        uppercase:true,
+        default:"",
     },
+
 
     barcode:{
         type:String,
@@ -32,21 +37,25 @@ const productVariantSchema = new mongoose.Schema(
         default:"",
     },
 
+
     stock:{
         type:Number,
         default:0,
         min:0,
     },
 
+
     sellingPrice:{
         type:Number,
         default:null,
         min:0,
     }
+
 },
 {
     _id:false,
 });
+
 
 
 const imageSchema = new mongoose.Schema(
@@ -56,24 +65,28 @@ const imageSchema = new mongoose.Schema(
         required:true,
     },
 
+
     publicId:{
         type:String,
         required:true,
     }
+
 },
 {
     _id:false,
 });
 
 
+
 const productSchema = new mongoose.Schema(
 {
+
     productCode:{
         type:String,
         unique:true,
         trim:true,
-        uppercase:true,
     },
+
 
     productName:{
         type:String,
@@ -81,11 +94,13 @@ const productSchema = new mongoose.Schema(
         trim:true,
     },
 
+
     category:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Category",
         default:null,
     },
+
 
     brand:{
         type:String,
@@ -93,11 +108,13 @@ const productSchema = new mongoose.Schema(
         default:"",
     },
 
+
     description:{
         type:String,
         trim:true,
         default:"",
     },
+
 
     purchasePrice:{
         type:Number,
@@ -105,12 +122,13 @@ const productSchema = new mongoose.Schema(
         min:0,
     },
 
-    // Default selling price
+
     sellingPrice:{
         type:Number,
         required:true,
         min:0,
     },
+
 
     gst:{
         type:Number,
@@ -118,11 +136,13 @@ const productSchema = new mongoose.Schema(
         min:0,
     },
 
+
     discount:{
         type:Number,
         default:0,
         min:0,
     },
+
 
     reorderLevel:{
         type:Number,
@@ -130,27 +150,33 @@ const productSchema = new mongoose.Schema(
         min:0,
     },
 
+
     productVariants:{
         type:[productVariantSchema],
         default:[],
     },
+
 
     images:{
         type:[imageSchema],
 
         validate:{
             validator:function(images){
-                return images.length >=1 && images.length <=5;
+
+                return images.length >= 1 && images.length <= 5;
+
             },
 
             message:"Product must have between 1 and 5 images."
         }
     },
 
+
     isFeatured:{
         type:Boolean,
         default:false,
     },
+
 
     isActive:{
         type:Boolean,
@@ -162,4 +188,8 @@ const productSchema = new mongoose.Schema(
     timestamps:true,
 });
 
-module.exports = mongoose.model("Product", productSchema);
+
+module.exports = mongoose.model(
+    "Product",
+    productSchema
+);

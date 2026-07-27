@@ -84,51 +84,76 @@ import PeopleIcon from "@mui/icons-material/People";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 
 // Menu Array
+// const menuItems = [
+//   {
+//     text: "Dashboard",
+//     icon: <DashboardIcon />,
+//     path: "/super-admin",
+//   },
+//   {
+//     text: "Products",
+//     icon: <Inventory2Icon />,
+//     path: "/super-admin/products",
+//   },
+//   {
+//     text: "Categories",
+//     icon: <CategoryIcon />,
+//     path: "/super-admin/categories",
+//   },
+//   {
+//     text: "Banner Management",
+//     icon: <ViewCarouselIcon />,
+//     path: "/super-admin/banners",
+//   },
+//   {
+//     text: "Collections",
+//     icon: <CollectionsIcon />,
+//     path: "/super-admin/collections",
+//   },
+//   {
+//     text: "Inventory",
+//     icon: <StoreIcon />,
+//     path: "/super-admin/inventory",
+//   },
+//   {
+//     text: "Billing",
+//     icon: <ReceiptLongIcon />,
+//     path: "/super-admin/billing",
+//   },
+//   {
+//     text: "Customers",
+//     icon: <PeopleIcon />,
+//     path: "/super-admin/customers",
+//   },
+//   {
+//     text: "Reports",
+//     icon: <AssessmentIcon />,
+//     path: "/super-admin/reports",
+//   },
+// ];
 const menuItems = [
   {
     text: "Dashboard",
     icon: <DashboardIcon />,
     path: "/super-admin",
   },
+
   {
     text: "Products",
     icon: <Inventory2Icon />,
     path: "/super-admin/products",
   },
+
   {
     text: "Categories",
     icon: <CategoryIcon />,
     path: "/super-admin/categories",
   },
+
   {
     text: "Banner Management",
     icon: <ViewCarouselIcon />,
     path: "/super-admin/banners",
-  },
-  {
-    text: "Collections",
-    icon: <CollectionsIcon />,
-    path: "/super-admin/collections",
-  },
-  {
-    text: "Inventory",
-    icon: <StoreIcon />,
-    path: "/super-admin/inventory",
-  },
-  {
-    text: "Billing",
-    icon: <ReceiptLongIcon />,
-    path: "/super-admin/billing",
-  },
-  {
-    text: "Customers",
-    icon: <PeopleIcon />,
-    path: "/super-admin/customers",
-  },
-  {
-    text: "Reports",
-    icon: <AssessmentIcon />,
-    path: "/super-admin/reports",
   },
 ];
 

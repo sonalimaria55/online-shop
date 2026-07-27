@@ -8,7 +8,7 @@ import {
 
 import ProductToolbar from "../../components/products/ProductToolbar";
 import ProductTable from "../../components/products/ProductTable";
-import ProductDialog from "../../components/products/ProductDialog";
+import ProductDialog from "../../components/management/products/ProductDialog";
 
 import { getProducts } from "../../features/products/ProductsThunk";
 

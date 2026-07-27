@@ -159,7 +159,7 @@ import Cart from "../pages/customer/Cart";
 import Checkout from "../pages/customer/Checkout";
 import Orders from "../pages/customer/Orders";
 import CategoryManagement from "../pages/categories/CategoryManagement";
-
+import VariantManagement from "../pages/management/VarientManagement";
 
 const AppRoutes = () => {
   return (
@@ -237,6 +237,13 @@ const AppRoutes = () => {
           element={<CategoryManagement />}
         />
 
+
+
+        <Route
+          path="variants"
+          element={<VariantManagement />}
+        />
+
         <Route
           path="banners"
           element={<BannerManagement />}
@@ -256,6 +263,26 @@ const AppRoutes = () => {
         <Route
           index
           element={<ManagementDashboard />}
+        />
+
+        <Route
+          path="products"
+          element={<ProductManagement />}
+        />
+
+        <Route
+          path="categories"
+          element={<CategoryManagement />}
+        />
+
+        <Route
+          path="variants"
+          element={<VariantManagement />}
+        />
+
+        <Route
+          path="banners"
+          element={<BannerManagement />}
         />
       </Route>
 

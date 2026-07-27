@@ -35,45 +35,47 @@
 
 
 // export default ProductToolbar;
-import {
-  Box,
-  Button
-} from "@mui/material";
+//----------------------------------------------------
+
+// import {
+//   Box,
+//   Button
+// } from "@mui/material";
 
 
-const ProductToolbar = ({ onAdd }) => {
+// const ProductToolbar = ({ onAdd }) => {
 
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "flex-end",
-        mb: 3,
-      }}
-    >
+//   return (
+//     <Box
+//       sx={{
+//         display: "flex",
+//         justifyContent: "flex-end",
+//         mb: 3,
+//       }}
+//     >
 
-      <Button
-        variant="contained"
-        onClick={onAdd}
-        sx={{
-          background: "#C9A227",
-          color: "#FFFFFF",
-          textTransform: "none",
-          fontWeight: 600,
-          borderRadius: 2,
-          px: 3,
+//       <Button
+//         variant="contained"
+//         onClick={onAdd}
+//         sx={{
+//           background: "#C9A227",
+//           color: "#FFFFFF",
+//           textTransform: "none",
+//           fontWeight: 600,
+//           borderRadius: 2,
+//           px: 3,
 
-          "&:hover": {
-            background: "#A8841F",
-          },
-        }}
-      >
-        + Add Product
-      </Button>
+//           "&:hover": {
+//             background: "#A8841F",
+//           },
+//         }}
+//       >
+//         + Add Product
+//       </Button>
 
-    </Box>
-  );
-};
+//     </Box>
+//   );
+// };
 
 
-export default ProductToolbar;
+// export default ProductToolbar;

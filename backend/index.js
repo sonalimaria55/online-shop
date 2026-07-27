@@ -56,6 +56,7 @@
 //   console.log(`🚀 Server running on http://localhost:${PORT}`);
 // });
 //---------------------------------------------------------------------------------
+
 require("dotenv").config();
 
 const express = require("express");
@@ -65,7 +66,13 @@ const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 
+
 const app = express();
+
+// Database
+//connectDB();
+
+
 
 // Database
 connectDB();
@@ -91,7 +98,7 @@ app.use("/api/banners", require("./routes/bannerRoutes"));
 app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/payment", require("./routes/paymentRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
-
+app.use("/api/variants", require("./routes/variantRoutes"));
 // Test Route
 app.get("/", (req, res) => {
   res.status(200).json({
