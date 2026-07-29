@@ -57,6 +57,60 @@ import {
 
 
 // GET ALL PRODUCTS
+// export const getProducts = createAsyncThunk(
+//     "products/getProducts",
+
+//     async (_, { rejectWithValue }) => {
+
+//         try {
+
+//             const response = await getProductsApi();
+
+//             return response.data;
+
+//         } catch(error) {
+
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+
+//         }
+
+//     }
+// );
+
+// GET ALL PRODUCTS
+// export const getProducts = createAsyncThunk(
+//     "products/getProducts",
+
+//     async (_, { rejectWithValue }) => {
+
+//         try {
+
+//             const response = await getProductsApi();
+
+//             console.log(
+//                 "PRODUCT API RESPONSE:",
+//                 response.data
+//             );
+
+//             return response.data;
+
+//         } catch(error) {
+
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+
+//         }
+
+//     }
+// );
+// GET ALL PRODUCTS
+// GET ALL PRODUCTS
+
+
+
 export const getProducts = createAsyncThunk(
     "products/getProducts",
 
@@ -65,6 +119,11 @@ export const getProducts = createAsyncThunk(
         try {
 
             const response = await getProductsApi();
+
+            console.log(
+                "PRODUCT API RESPONSE:",
+                response.data
+            );
 
             return response.data;
 
@@ -78,7 +137,6 @@ export const getProducts = createAsyncThunk(
 
     }
 );
-
 
 
 
@@ -234,3 +292,4 @@ export const getProductById = createAsyncThunk(
 
     }
 );
+

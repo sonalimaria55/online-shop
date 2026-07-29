@@ -87,81 +87,261 @@
 //         }
 //     }
 // );
+//---------------------------------------------------------------------------------------
 
+// import { createAsyncThunk } from "@reduxjs/toolkit";
 
+// import {
+//     getVariantsApi,
+//     createVariantApi,
+//     updateVariantApi,
+//     deleteVariantApi,
+// } from "./VariantApi";
+
+// // ==========================
+// // GET VARIANTS
+// // ==========================
+// export const getVariants = createAsyncThunk(
+//     "variants/getVariants",
+//     async (_, { rejectWithValue }) => {
+//         try {
+//             const response = await getVariantsApi();
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+//         }
+//     }
+// );
+
+// // ==========================
+// // CREATE VARIANT
+// // ==========================
+// export const createVariant = createAsyncThunk(
+//     "variants/createVariant",
+//     async (data, { rejectWithValue }) => {
+//         try {
+//             const response = await createVariantApi(data);
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+//         }
+//     }
+// );
+
+// // ==========================
+// // UPDATE VARIANT
+// // ==========================
+// export const updateVariant = createAsyncThunk(
+//     "variants/updateVariant",
+//     async ({ id, data }, { rejectWithValue }) => {
+//         try {
+//             const response = await updateVariantApi(id, data);
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+//         }
+//     }
+// );
+
+// // ==========================
+// // DELETE VARIANT
+// // ==========================
+// export const deleteVariant = createAsyncThunk(
+//     "variants/deleteVariant",
+//     async (id, { rejectWithValue }) => {
+//         try {
+//             const response = await deleteVariantApi(id);
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+//         }
+//     }
+// );
+///---------------------------------------------------------------------------------
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
     getVariantsApi,
     createVariantApi,
+    getVariantByIdApi,
     updateVariantApi,
-    deleteVariantApi,
+    deleteVariantApi
+
 } from "./VariantApi";
 
-// ==========================
-// GET VARIANTS
-// ==========================
+
+
+// GET ALL VARIANTS
+
+// export const getVariants = createAsyncThunk(
+
+//     "variants/getVariants",
+
+//     async(_, {rejectWithValue})=>{
+
+//         try{
+
+//             return await getVariantsApi();
+
+//         }
+//         catch(error){
+
+//             return rejectWithValue(
+//                 error.response?.data || error.message
+//             );
+
+//         }
+
+//     }
+
+// );
+
 export const getVariants = createAsyncThunk(
+
     "variants/getVariants",
-    async (_, { rejectWithValue }) => {
-        try {
+
+    async(_, {rejectWithValue})=>{
+
+        try{
+
             const response = await getVariantsApi();
-            return response.data;
-        } catch (error) {
+
+            console.log(
+                "VARIANT API RESPONSE:",
+                response
+            );
+
+            return response;
+
+        }
+        catch(error){
+
             return rejectWithValue(
                 error.response?.data || error.message
             );
+
         }
+
     }
+
 );
 
-// ==========================
-// CREATE VARIANT
-// ==========================
+
+
+// CREATE
+
 export const createVariant = createAsyncThunk(
+
     "variants/createVariant",
-    async (data, { rejectWithValue }) => {
-        try {
-            const response = await createVariantApi(data);
-            return response.data;
-        } catch (error) {
+
+    async(data,{rejectWithValue})=>{
+
+        try{
+
+            return await createVariantApi(data);
+
+        }
+        catch(error){
+
             return rejectWithValue(
                 error.response?.data || error.message
             );
+
         }
+
     }
+
 );
 
-// ==========================
-// UPDATE VARIANT
-// ==========================
+
+
+// GET BY ID
+
+export const getVariantById = createAsyncThunk(
+
+    "variants/getVariantById",
+
+    async(id,{rejectWithValue})=>{
+
+        try{
+
+            return await getVariantByIdApi(id);
+
+        }
+        catch(error){
+
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+
+        }
+
+    }
+
+);
+
+
+
+// UPDATE
+
 export const updateVariant = createAsyncThunk(
+
     "variants/updateVariant",
-    async ({ id, data }, { rejectWithValue }) => {
-        try {
-            const response = await updateVariantApi(id, data);
-            return response.data;
-        } catch (error) {
+
+    async({id,data},{rejectWithValue})=>{
+
+        try{
+
+            return await updateVariantApi(
+                id,
+                data
+            );
+
+        }
+        catch(error){
+
             return rejectWithValue(
                 error.response?.data || error.message
             );
+
         }
+
     }
+
 );
 
-// ==========================
-// DELETE VARIANT
-// ==========================
+
+
+// DELETE
+
 export const deleteVariant = createAsyncThunk(
+
     "variants/deleteVariant",
-    async (id, { rejectWithValue }) => {
-        try {
-            const response = await deleteVariantApi(id);
-            return response.data;
-        } catch (error) {
+
+    async(id,{rejectWithValue})=>{
+
+        try{
+
+            return await deleteVariantApi(id);
+
+        }
+        catch(error){
+
             return rejectWithValue(
                 error.response?.data || error.message
             );
+
         }
+
     }
+
 );
+

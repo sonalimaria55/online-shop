@@ -57,6 +57,10 @@
 //   return axiosInstance.get(`/products/${id}`);
 // };
 
+
+
+
+
 import axiosInstance from "../../api/axiosInstance";
 
 
@@ -71,8 +75,9 @@ export const getProductsApi = () => {
 // GET FEATURED PRODUCTS
 export const getFeaturedProductsApi = () => {
 
-    return axiosInstance.get("/products/featured");
+    // return axiosInstance.get("/products/featured");
 
+          return axiosInstance.get("/products/featured-products");
 };
 
 

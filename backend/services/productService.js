@@ -170,52 +170,76 @@
 // };
 //------------------------------------------------------------------------------
 
-
 const Product = require("../models/Product");
+
 
 // ===============================
 // Create Product
 // ===============================
+
 const createProduct = async (productData) => {
+
     return await Product.create(productData);
+
 };
+
+
 
 
 // ===============================
 // Get All Products
 // ===============================
+
 const getProducts = async () => {
 
     return await Product.find()
 
-        .populate("category", "categoryName")
+        .populate(
+            "category",
+            "categoryName"
+        )
 
-        .populate("productVariants.variantType", "name")
+        .populate(
+            "productVariants.attributes.variantType",
+            "name"
+        )
 
         .sort({
-            createdAt: -1
+            createdAt:-1
         });
 
 };
 
 
+
+
 // ===============================
 // Get Product By ID
 // ===============================
+
 const getProductById = async (id) => {
 
     return await Product.findById(id)
 
-        .populate("category", "categoryName")
+        .populate(
+            "category",
+            "categoryName"
+        )
 
-        .populate("productVariants.variantType", "name");
+        .populate(
+            "productVariants.attributes.variantType",
+            "name"
+        );
 
 };
+
+
 
 
 // ===============================
 // Update Product
 // ===============================
+
 const updateProduct = async (id, productData) => {
 
     return await Product.findByIdAndUpdate(
@@ -227,22 +251,31 @@ const updateProduct = async (id, productData) => {
         },
 
         {
-            new: true,
-            runValidators: true
+            new:true,
+            runValidators:true
         }
 
     )
 
-    .populate("category", "categoryName")
+    .populate(
+        "category",
+        "categoryName"
+    )
 
-    .populate("productVariants.variantType", "name");
+    .populate(
+        "productVariants.attributes.variantType",
+        "name"
+    );
 
 };
+
+
 
 
 // ===============================
 // Delete Product
 // ===============================
+
 const deleteProduct = async (id) => {
 
     return await Product.findByIdAndDelete(id);
@@ -250,57 +283,71 @@ const deleteProduct = async (id) => {
 };
 
 
+
+
 // ===============================
 // Home Collections
 // ===============================
+
 const getHomeCollections = async () => {
 
     return await Product.find({
-
-        isActive: true
-
+        isActive:true
     })
 
-    .populate("category", "categoryName")
+    .populate(
+        "category",
+        "categoryName"
+    )
 
-    .populate("productVariants.variantType", "name")
+    .populate(
+        "productVariants.attributes.variantType",
+        "name"
+    )
 
     .sort({
-
-        createdAt: -1
-
+        createdAt:-1
     })
 
     .limit(6);
 
 };
+
+
 
 
 // ===============================
 // Featured Products
 // ===============================
+
 const getFeaturedProducts = async () => {
 
     return await Product.find({
 
-        isActive: true,
-        isFeatured: true
+        isActive:true,
+
+        isFeatured:true
 
     })
 
-    .populate("category", "categoryName")
+    .populate(
+        "category",
+        "categoryName"
+    )
 
-    .populate("productVariants.variantType", "name")
+    .populate(
+        "productVariants.attributes.variantType",
+        "name"
+    )
 
     .sort({
-
-        createdAt: -1
-
+        createdAt:-1
     })
 
     .limit(6);
 
 };
+
 
 
 module.exports = {

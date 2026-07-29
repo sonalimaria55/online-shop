@@ -69,12 +69,11 @@
 
 // };
 
+
+
 import axiosInstance from "../../api/axiosInstance";
-
-
 // CREATE CATEGORY
 export const createCategoryApi = async (data) => {
-
     const response =
         await axiosInstance.post(
             "/categories",
@@ -85,17 +84,14 @@ export const createCategoryApi = async (data) => {
                 },
             }
         );
-
     return response.data;
-
 };
 
 
 
 // GET ALL CATEGORIES
 export const getCategoriesApi = async () => {
-
-    const response =
+const response =
         await axiosInstance.get(
             "/categories"
         );
@@ -119,7 +115,6 @@ export const getCategoryByIdApi = async (id) => {
 };
 
 
-
 // UPDATE CATEGORY
 export const updateCategoryApi = async (id, data) => {
 
@@ -138,12 +133,9 @@ export const updateCategoryApi = async (id, data) => {
 
 };
 
-
-
 // DELETE CATEGORY
 export const deleteCategoryApi = async (id) => {
-
-    const response =
+const response =
         await axiosInstance.delete(
             `/categories/${id}`
         );

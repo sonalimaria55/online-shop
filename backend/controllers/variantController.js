@@ -1,27 +1,62 @@
+
+
 // const variantService = require("../services/variantService");
 
+
 // // Create Variant
-// exports.createVariant = async (req, res) => {
-//     try {
+
+// // exports.createVariant = async (req, res) => {
+// //     try {
+
+// //         const variant = await variantService.createVariant(req.body);
+
+// //         res.status(201).json({
+// //             success: true,
+// //             message: "Variant created successfully",
+// //             variant,
+// //         });
+
+// //     } catch (error) {
+
+// //         res.status(500).json({
+// //             success: false,
+// //             message: error.message,
+// //         });
+
+// //     }
+// // };
+
+// exports.createVariant = async (req,res)=>{
+//     try{
+
 //         const variant = await variantService.createVariant(req.body);
 
 //         res.status(201).json({
-//             success: true,
-//             message: "Variant created successfully",
+//             success:true,
+//             message:"Variant created successfully",
 //             variant,
 //         });
 
-//     } catch (error) {
+//     }catch(error){
+
+//         if(error.code === 11000){
+//             return res.status(400).json({
+//                 success:false,
+//                 message:"Variant name already exists",
+//             });
+//         }
 
 //         res.status(500).json({
-//             success: false,
-//             message: error.message,
+//             success:false,
+//             message:error.message,
 //         });
 
 //     }
 // };
 
+// // ==============================
 // // Get All Variants
+// // ==============================
 // exports.getVariants = async (req, res) => {
 //     try {
 
@@ -42,7 +77,9 @@
 //     }
 // };
 
-// // Get Variant By Id
+// // ==============================
+// // Get Variant By ID
+// // ==============================
 // exports.getVariantById = async (req, res) => {
 //     try {
 
@@ -70,7 +107,9 @@
 //     }
 // };
 
+// // ==============================
 // // Update Variant
+// // ==============================
 // exports.updateVariant = async (req, res) => {
 //     try {
 
@@ -102,7 +141,9 @@
 //     }
 // };
 
+// // ==============================
 // // Delete Variant
+// // ==============================
 // exports.deleteVariant = async (req, res) => {
 //     try {
 
@@ -130,27 +171,88 @@
 //     }
 // };
 
+
+
+
+
 const variantService = require("../services/variantService");
 
 
 // Create Variant
 
-exports.createVariant = async (req, res) => {
-    try {
+// exports.createVariant = async (req, res) => {
+//     try {
+
+//         const variant = await variantService.createVariant(req.body);
+
+//         res.status(201).json({
+//             success: true,
+//             message: "Variant created successfully",
+//             variant,
+//         });
+
+//     } catch (error) {
+
+//         res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+
+//     }
+// };
+
+// exports.createVariant = async (req,res)=>{
+//     try{
+
+//         const variant = await variantService.createVariant(req.body);
+
+//         res.status(201).json({
+//             success:true,
+//             message:"Variant created successfully",
+//             variant,
+//         });
+
+//     }catch(error){
+
+//         if(error.code === 11000){
+//             return res.status(400).json({
+//                 success:false,
+//                 message:"Variant name already exists",
+//             });
+//         }
+
+//         res.status(500).json({
+//             success:false,
+//             message:error.message,
+//         });
+
+//     }
+// };
+
+
+exports.createVariant = async (req,res)=>{
+    try{
 
         const variant = await variantService.createVariant(req.body);
 
         res.status(201).json({
-            success: true,
-            message: "Variant created successfully",
+            success:true,
+            message:"Variant created successfully",
             variant,
         });
 
-    } catch (error) {
+    }catch(error){
+
+        if(error.code === 11000){
+            return res.status(400).json({
+                success:false,
+                message:"Variant name already exists",
+            });
+        }
 
         res.status(500).json({
-            success: false,
-            message: error.message,
+            success:false,
+            message:error.message,
         });
 
     }

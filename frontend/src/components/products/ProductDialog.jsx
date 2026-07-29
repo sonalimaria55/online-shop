@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 
 import {
@@ -38,15 +36,27 @@ const ProductDialog = ({
 
         productName: "",
 
+
+        // category
         category: "",
+
 
         brand: "",
 
         description: "",
 
 
-        // checkbox sizes
-        units: [],
+
+        // unit selection
+        unit: "Piece",
+
+
+
+        // variant system
+        selectedVariantTypes: [],
+
+        productVariants: [],
+
 
 
         purchasePrice: "",
@@ -67,9 +77,8 @@ const ProductDialog = ({
         isActive: true,
 
 
-        productVariants: [],
 
-
+        // multiple images
         images: [],
 
     };
@@ -81,10 +90,11 @@ const ProductDialog = ({
 
 
 
+
     useEffect(() => {
 
 
-        if (product) {
+        if(product){
 
 
             setFormData({
@@ -101,8 +111,13 @@ const ProductDialog = ({
 
 
 
-                units:
-                    product.units || [],
+                productVariants:
+                    product.productVariants || [],
+
+
+
+                selectedVariantTypes:
+                    product.selectedVariantTypes || [],
 
 
 
@@ -113,7 +128,7 @@ const ProductDialog = ({
 
 
         }
-        else {
+        else{
 
 
             setFormData(initialState);
@@ -122,69 +137,144 @@ const ProductDialog = ({
         }
 
 
-    }, [product]);
+    },[product]);
 
 
 
 
 
 
-    const handleSubmit = async () => {
 
-        console.log("formData:", formData);
-        console.log("productVariants:", formData.productVariants);
+    const handleSubmit = async()=>{
+
 
         const data = new FormData();
 
-        Object.keys(formData).forEach((key) => {
 
-            if (
+
+        Object.keys(formData).forEach((key)=>{
+
+
+            if(
+
                 key !== "images" &&
+
                 key !== "productVariants" &&
-                key !== "units"
-            ) {
-                data.append(key, formData[key]);
+
+                key !== "selectedVariantTypes"
+
+            ){
+
+
+                data.append(
+
+                    key,
+
+                    formData[key]
+
+                );
+
+
             }
 
+
         });
 
-        data.append(
-            "units",
-            JSON.stringify(formData.units)
-        );
+
+
+
 
         data.append(
+
+            "selectedVariantTypes",
+
+            JSON.stringify(
+                formData.selectedVariantTypes
+            )
+
+        );
+
+
+
+
+        data.append(
+
             "productVariants",
-            JSON.stringify(formData.productVariants)
+
+            JSON.stringify(
+                formData.productVariants
+            )
+
         );
 
-        console.log(
-            "Sending:",
-            JSON.stringify(formData.productVariants)
-        );
 
-        formData.images.forEach((image) => {
-            data.append("images", image);
-        });
 
-        if (product) {
 
-            await dispatch(
-                updateProduct({
-                    id: product._id,
-                    data,
-                })
+
+
+        // Multiple images upload
+
+        formData.images.forEach((image)=>{
+
+
+            data.append(
+
+                "images",
+
+                image
+
             );
 
-        } else {
 
-            await dispatch(createProduct(data));
+        });
+
+
+
+
+
+
+
+        if(product){
+
+
+            await dispatch(
+
+                updateProduct({
+
+                    id:product._id,
+
+                    data
+
+                })
+
+            );
+
 
         }
 
+        else{
+
+
+            await dispatch(
+
+                createProduct(data)
+
+            );
+
+
+        }
+
+
+
+
+
         refreshProducts();
+
         onClose();
+
+
     };
+
 
 
 
@@ -206,14 +296,19 @@ const ProductDialog = ({
         >
 
 
+
             <DialogTitle>
 
                 {
                     product
-                        ?
-                        "Edit Product"
-                        :
-                        "Add Product"
+
+                    ?
+
+                    "Edit Product"
+
+                    :
+
+                    "Add Product"
                 }
 
 
@@ -236,7 +331,6 @@ const ProductDialog = ({
 
 
             </DialogContent>
-
 
 
 
@@ -269,14 +363,19 @@ const ProductDialog = ({
 
                     {
                         product
-                            ?
-                            "Update"
-                            :
-                            "Save"
+
+                        ?
+
+                        "Update"
+
+                        :
+
+                        "Save"
                     }
 
 
                 </Button>
+
 
 
             </DialogActions>
@@ -284,7 +383,6 @@ const ProductDialog = ({
 
 
         </Dialog>
-
 
     );
 

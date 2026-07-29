@@ -197,13 +197,19 @@ const ProductManagement = () => {
   }, [dispatch]);
 
 
+  // const handleAdd = () => {
+
+  //   setSelectedProduct(null);
+
+  //   setOpen(true);
+
+  // };
+
   const handleAdd = () => {
-
-    setSelectedProduct(null);
-
-    setOpen(true);
-
-  };
+  console.log("Button clicked");
+  setSelectedProduct(null);
+  setOpen(true);
+};
 
 
   const handleEdit = (product) => {

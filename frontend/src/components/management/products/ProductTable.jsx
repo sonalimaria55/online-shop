@@ -247,8 +247,498 @@
 // };
 
 // export default ProductTable;
+//---------------------------------------------------------
 
 
+// import {
+//     Table,
+//     TableBody,
+//     TableCell,
+//     TableContainer,
+//     TableHead,
+//     TableRow,
+//     Paper,
+//     IconButton,
+//     Avatar,
+//     Chip,
+//     Box,
+//     Typography,
+//     CircularProgress,
+// } from "@mui/material";
+
+// import EditIcon from "@mui/icons-material/Edit";
+// import DeleteIcon from "@mui/icons-material/Delete";
+
+
+// const ProductTable = ({
+//     products,
+//     loading,
+//     onEdit,
+//     onDelete,
+// }) => {
+
+
+//     if (loading) {
+
+//         return (
+
+//             <Box
+//                 display="flex"
+//                 justifyContent="center"
+//                 py={5}
+//             >
+
+//                 <CircularProgress />
+
+//             </Box>
+
+//         );
+
+//     }
+
+
+//     return (
+
+//         <TableContainer
+//             component={Paper}
+//         >
+
+//             <Table>
+
+
+//                 <TableHead>
+
+//                     <TableRow>
+
+//                         <TableCell>
+//                             Image
+//                         </TableCell>
+
+
+//                         <TableCell>
+//                             Product Name
+//                         </TableCell>
+
+
+//                         <TableCell>
+//                             Category
+//                         </TableCell>
+
+
+//                         <TableCell>
+//                             Price
+//                         </TableCell>
+
+
+//                         <TableCell>
+//                             Variants
+//                         </TableCell>
+
+
+//                         <TableCell>
+//                             Status
+//                         </TableCell>
+
+
+//                         <TableCell align="center">
+//                             Actions
+//                         </TableCell>
+
+//                     </TableRow>
+
+//                 </TableHead>
+
+
+
+//                 <TableBody>
+
+
+//                     {
+//                         products.length === 0 ?
+
+//                         (
+
+//                             <TableRow>
+
+//                                 <TableCell
+//                                     colSpan={7}
+//                                     align="center"
+//                                 >
+
+//                                     <Typography>
+//                                         No Products Found
+//                                     </Typography>
+
+//                                 </TableCell>
+
+
+//                             </TableRow>
+
+//                         )
+
+//                         :
+
+//                         products.map((product)=>(
+
+
+//                             <TableRow
+//                                 key={product._id}
+//                             >
+
+
+//                                 <TableCell>
+
+
+//                                     <Avatar
+//                                         variant="square"
+//                                         src={
+//                                             product.images?.[0]?.url
+//                                         }
+//                                     />
+
+
+//                                 </TableCell>
+
+
+
+//                                 <TableCell>
+
+//                                     {product.productName}
+
+//                                 </TableCell>
+
+
+
+//                                 <TableCell>
+
+//                                     {
+//                                         product.category?.categoryName
+//                                         ||
+//                                         "-"
+//                                     }
+
+//                                 </TableCell>
+
+
+
+//                                 <TableCell>
+
+//                                     ₹ {product.sellingPrice}
+
+//                                 </TableCell>
+
+
+
+//                                 <TableCell>
+
+
+//                                     <Chip
+
+//                                         label={
+//                                             product.productVariants
+//                                             ?.length || 0
+//                                         }
+
+//                                         size="small"
+
+//                                         variant="outlined"
+
+//                                     />
+
+
+//                                 </TableCell>
+
+
+
+//                                 <TableCell>
+
+
+//                                     <Chip
+
+//                                         label={
+//                                             product.isActive
+//                                             ? "Active"
+//                                             : "Inactive"
+//                                         }
+
+
+//                                         color={
+//                                             product.isActive
+//                                             ? "success"
+//                                             : "default"
+//                                         }
+
+
+//                                         size="small"
+
+//                                     />
+
+
+//                                 </TableCell>
+
+
+
+//                                 <TableCell align="center">
+
+
+//                                     <IconButton
+
+//                                         color="primary"
+
+//                                         onClick={() =>
+//                                             onEdit(product)
+//                                         }
+
+//                                     >
+
+//                                         <EditIcon />
+
+//                                     </IconButton>
+
+
+
+//                                     <IconButton
+
+//                                         color="error"
+
+//                                         onClick={() =>
+//                                             onDelete(product._id)
+//                                         }
+
+//                                     >
+
+//                                         <DeleteIcon />
+
+//                                     </IconButton>
+
+
+//                                 </TableCell>
+
+
+
+//                             </TableRow>
+
+
+//                         ))
+
+//                     }
+
+
+//                 </TableBody>
+
+
+//             </Table>
+
+
+//         </TableContainer>
+
+//     );
+
+// };
+
+
+// export default ProductTable;
+//--------------------------------------------------------------------------------------------------------------
+// import {
+//     Table,
+//     TableBody,
+//     TableCell,
+//     TableContainer,
+//     TableHead,
+//     TableRow,
+//     Paper,
+//     Button,
+//     CircularProgress,
+//     Box,
+//     Typography,
+// } from "@mui/material";
+
+
+// const ProductTable = ({
+//     products = [],
+//     loading = false,
+//     onEdit,
+// }) => {
+
+
+//     if (loading) {
+//         return (
+//             <Box
+//                 display="flex"
+//                 justifyContent="center"
+//                 p={5}
+//             >
+//                 <CircularProgress />
+//             </Box>
+//         );
+//     }
+
+
+
+//     if (!products.length) {
+//         return (
+//             <Typography
+//                 textAlign="center"
+//                 p={4}
+//             >
+//                 No Products Found
+//             </Typography>
+//         );
+//     }
+
+
+
+//     return (
+
+//         <TableContainer component={Paper}>
+
+
+//             <Table>
+
+
+//                 <TableHead>
+
+//                     <TableRow>
+
+//                         <TableCell>
+//                             Image
+//                         </TableCell>
+
+//                         <TableCell>
+//                             Product Code
+//                         </TableCell>
+
+//                         <TableCell>
+//                             Product Name
+//                         </TableCell>
+
+//                         <TableCell>
+//                             Category
+//                         </TableCell>
+
+//                         <TableCell>
+//                             Price
+//                         </TableCell>
+
+//                         <TableCell>
+//                             Status
+//                         </TableCell>
+
+//                         <TableCell>
+//                             Action
+//                         </TableCell>
+
+//                     </TableRow>
+
+//                 </TableHead>
+
+
+
+//                 <TableBody>
+
+
+//                     {products.map((product)=>(
+
+//                         <TableRow
+//                             key={product._id}
+//                         >
+
+
+//                             <TableCell>
+
+//                                 <Box
+//                                     component="img"
+//                                     src={
+//                                         product.images?.[0]?.url ||
+//                                         "/default-product.jpg"
+//                                     }
+//                                     sx={{
+//                                         width:60,
+//                                         height:60,
+//                                         objectFit:"cover",
+//                                     }}
+//                                 />
+
+//                             </TableCell>
+
+
+
+//                             <TableCell>
+//                                 {product.productCode}
+//                             </TableCell>
+
+
+
+//                             <TableCell>
+//                                 {product.productName}
+//                             </TableCell>
+
+
+
+//                             <TableCell>
+//                                 {
+//                                     product.category?.categoryName ||
+//                                     "-"
+//                                 }
+//                             </TableCell>
+
+
+
+//                             <TableCell>
+//                                 ₹ {product.sellingPrice}
+//                             </TableCell>
+
+
+
+//                             <TableCell>
+//                                 {
+//                                     product.isActive
+//                                     ?
+//                                     "Active"
+//                                     :
+//                                     "Inactive"
+//                                 }
+//                             </TableCell>
+
+
+
+//                             <TableCell>
+
+//                                 <Button
+//                                     variant="outlined"
+//                                     onClick={()=>
+//                                         onEdit(product)
+//                                     }
+//                                 >
+//                                     Edit
+//                                 </Button>
+
+//                             </TableCell>
+
+
+
+//                         </TableRow>
+
+//                     ))}
+
+
+
+//                 </TableBody>
+
+
+
+//             </Table>
+
+
+//         </TableContainer>
+
+//     );
+
+// };
+
+
+// export default ProductTable;
+//----------------------------------------
 import {
     Table,
     TableBody,
@@ -257,283 +747,199 @@ import {
     TableHead,
     TableRow,
     Paper,
-    IconButton,
-    Avatar,
-    Chip,
+    Button,
+    CircularProgress,
     Box,
     Typography,
-    CircularProgress,
+    Avatar,
 } from "@mui/material";
 
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-
-
 const ProductTable = ({
-    products,
-    loading,
+    products = [],
+    loading = false,
     onEdit,
     onDelete,
 }) => {
 
-
     if (loading) {
-
         return (
-
             <Box
                 display="flex"
                 justifyContent="center"
-                py={5}
+                p={5}
             >
-
                 <CircularProgress />
-
             </Box>
-
         );
-
     }
 
+    if (!products.length) {
+        return (
+            <Typography
+                textAlign="center"
+                p={4}
+            >
+                No Products Found
+            </Typography>
+        );
+    }
 
     return (
-
-        <TableContainer
-            component={Paper}
-        >
+        <TableContainer component={Paper}>
 
             <Table>
-
 
                 <TableHead>
 
                     <TableRow>
 
-                        <TableCell>
-                            Image
-                        </TableCell>
+                        <TableCell>Images</TableCell>
 
+                        <TableCell>Product Code</TableCell>
 
-                        <TableCell>
-                            Product Name
-                        </TableCell>
+                        <TableCell>Product Name</TableCell>
 
+                        <TableCell>Category</TableCell>
 
-                        <TableCell>
-                            Category
-                        </TableCell>
+                        <TableCell>Brand</TableCell>
 
+                        <TableCell>Price</TableCell>
 
-                        <TableCell>
-                            Price
-                        </TableCell>
+                        <TableCell>Stock</TableCell>
 
+                        <TableCell>Featured</TableCell>
 
-                        <TableCell>
-                            Variants
-                        </TableCell>
-
-
-                        <TableCell>
-                            Status
-                        </TableCell>
-
+                        <TableCell>Status</TableCell>
 
                         <TableCell align="center">
-                            Actions
+                            Action
                         </TableCell>
 
                     </TableRow>
 
                 </TableHead>
 
-
-
                 <TableBody>
 
+                    {products.map((product) => {
 
-                    {
-                        products.length === 0 ?
+                        const totalStock =
+                            product.productVariants?.reduce(
+                                (sum, variant) =>
+                                    sum + (variant.stock || 0),
+                                0
+                            ) || 0;
 
-                        (
+                        return (
 
-                            <TableRow>
-
-                                <TableCell
-                                    colSpan={7}
-                                    align="center"
-                                >
-
-                                    <Typography>
-                                        No Products Found
-                                    </Typography>
-
-                                </TableCell>
-
-
-                            </TableRow>
-
-                        )
-
-                        :
-
-                        products.map((product)=>(
-
-
-                            <TableRow
-                                key={product._id}
-                            >
-
+                            <TableRow key={product._id}>
 
                                 <TableCell>
 
+                                    <Box
+                                        display="flex"
+                                        gap={1}
+                                        flexWrap="wrap"
+                                    >
 
-                                    <Avatar
-                                        variant="square"
-                                        src={
-                                            product.images?.[0]?.url
-                                        }
-                                    />
+                                        {product.images?.length > 0 ? (
 
+                                            product.images.map((image, index) => (
+
+                                                <Avatar
+                                                    key={index}
+                                                    src={image.url}
+                                                    variant="rounded"
+                                                    sx={{
+                                                        width: 50,
+                                                        height: 50,
+                                                    }}
+                                                />
+
+                                            ))
+
+                                        ) : (
+
+                                            <Avatar
+                                                variant="rounded"
+                                                sx={{
+                                                    width: 50,
+                                                    height: 50,
+                                                }}
+                                            />
+
+                                        )}
+
+                                    </Box>
 
                                 </TableCell>
 
-
+                                <TableCell>
+                                    {product.productCode}
+                                </TableCell>
 
                                 <TableCell>
-
                                     {product.productName}
-
                                 </TableCell>
 
-
-
                                 <TableCell>
-
-                                    {
-                                        product.category?.categoryName
-                                        ||
-                                        "-"
-                                    }
-
+                                    {product.category?.categoryName || "-"}
                                 </TableCell>
 
-
+                                <TableCell>
+                                    {product.brand || "-"}
+                                </TableCell>
 
                                 <TableCell>
-
                                     ₹ {product.sellingPrice}
-
                                 </TableCell>
-
-
 
                                 <TableCell>
-
-
-                                    <Chip
-
-                                        label={
-                                            product.productVariants
-                                            ?.length || 0
-                                        }
-
-                                        size="small"
-
-                                        variant="outlined"
-
-                                    />
-
-
+                                    {totalStock}
                                 </TableCell>
-
-
 
                                 <TableCell>
-
-
-                                    <Chip
-
-                                        label={
-                                            product.isActive
-                                            ? "Active"
-                                            : "Inactive"
-                                        }
-
-
-                                        color={
-                                            product.isActive
-                                            ? "success"
-                                            : "default"
-                                        }
-
-
-                                        size="small"
-
-                                    />
-
-
+                                    {product.isFeatured ? "Yes" : "No"}
                                 </TableCell>
 
-
+                                <TableCell>
+                                    {product.isActive ? "Active" : "Inactive"}
+                                </TableCell>
 
                                 <TableCell align="center">
 
-
-                                    <IconButton
-
-                                        color="primary"
-
-                                        onClick={() =>
-                                            onEdit(product)
-                                        }
-
+                                    <Button
+                                        variant="outlined"
+                                        size="small"
+                                        onClick={() => onEdit(product)}
+                                        sx={{ mr: 1 }}
                                     >
+                                        Edit
+                                    </Button>
 
-                                        <EditIcon />
-
-                                    </IconButton>
-
-
-
-                                    <IconButton
-
+                                    <Button
+                                        variant="contained"
                                         color="error"
-
-                                        onClick={() =>
-                                            onDelete(product._id)
-                                        }
-
+                                        size="small"
+                                        onClick={() => onDelete(product._id)}
                                     >
-
-                                        <DeleteIcon />
-
-                                    </IconButton>
-
+                                        Delete
+                                    </Button>
 
                                 </TableCell>
 
-
-
                             </TableRow>
 
+                        );
 
-                        ))
-
-                    }
-
+                    })}
 
                 </TableBody>
 
-
             </Table>
 
-
         </TableContainer>
-
     );
-
 };
-
 
 export default ProductTable;

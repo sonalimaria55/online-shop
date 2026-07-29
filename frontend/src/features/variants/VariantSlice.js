@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import {
     getVariants,
-  
     createVariant,
     updateVariant,
     deleteVariant,
 } from "./VariantThunk";
+
 
 const initialState = {
 
@@ -14,90 +14,115 @@ const initialState = {
 
     selectedVariant: null,
 
-    loading: false,
+    loading:false,
 
-    error: null,
+    error:null,
 
 };
 
+
 const variantSlice = createSlice({
 
-    name: "variants",
+    name:"variants",
 
     initialState,
 
-    reducers: {},
+    reducers:{},
 
-    extraReducers: (builder) => {
+
+    extraReducers:(builder)=>{
+
 
         builder
 
+
         // GET ALL
-        .addCase(getVariants.pending, (state) => {
+        .addCase(getVariants.pending,(state)=>{
 
-            state.loading = true;
-
-        })
-
-        .addCase(getVariants.fulfilled, (state, action) => {
-
-            state.loading = false;
-
-            state.variants = action.payload.variants || [];
-
-        })
-
-        .addCase(getVariants.rejected, (state, action) => {
-
-            state.loading = false;
-
-            state.error = action.payload || action.error.message;
+            state.loading=true;
 
         })
 
 
-        // GET ONE
+        .addCase(getVariants.fulfilled,(state,action)=>{
 
-// GET ONE
+            state.loading=false;
+
+            state.variants =
+                action.payload.variants || [];
+
+        })
+
+
+        .addCase(getVariants.rejected,(state,action)=>{
+
+            state.loading=false;
+
+            state.error =
+                action.payload;
+
+        })
+
 
 
         // CREATE
-        .addCase(createVariant.fulfilled, (state, action) => {
 
-            state.variants.unshift(action.payload.variant);
+        .addCase(createVariant.fulfilled,(state,action)=>{
+
+            state.variants.unshift(
+                action.payload.variant
+            );
 
         })
+
 
 
         // UPDATE
-        .addCase(updateVariant.fulfilled, (state, action) => {
 
-            state.variants = state.variants.map((item) =>
+        .addCase(updateVariant.fulfilled,(state,action)=>{
 
-                item._id === action.payload.variant._id
 
-                    ? action.payload.variant
+            const updated =
+                action.payload.variant;
 
-                    : item
 
-            );
+            state.variants =
+                state.variants.map(item=>
+
+                    item._id === updated._id
+                    ?
+                    updated
+                    :
+                    item
+
+                );
+
 
         })
 
 
+
         // DELETE
-        .addCase(deleteVariant.fulfilled, (state, action) => {
 
-            state.variants = state.variants.filter(
+        .addCase(deleteVariant.fulfilled,(state,action)=>{
 
-                (item) => item._id !== action.meta.arg
 
-            );
+            state.variants =
+                state.variants.filter(
+
+                    item =>
+                    item._id !== action.meta.arg
+
+                );
+
 
         });
 
-    },
+
+
+    }
 
 });
+
 
 export default variantSlice.reducer;
