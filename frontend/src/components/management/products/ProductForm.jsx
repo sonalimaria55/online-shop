@@ -572,145 +572,207 @@
 
 // export default ProductForm;
 //------------------------------------------------------------------------
+
 import { useEffect, useState } from "react";
 
 import {
-  Grid,
-  TextField,
-  MenuItem,
-  FormControlLabel,
-  Checkbox,
-  Typography,
-  Box,
+    Grid,
+    TextField,
+    MenuItem,
+    FormControlLabel,
+    Checkbox,
+    Typography,
+    Box,
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { getCategories } from "../../../features/categories/CategoriesThunk";
 
+import ProductOptions from "./ProductOptions";
 import ProductVariants from "./ProductVariants";
 
 const ProductForm = ({ formData, setFormData }) => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const { categories } = useSelector((state) => state.categories);
+    const { categories } = useSelector((state) => state.categories);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
+        setFormData((prev) => ({
+            ...prev,
 
-      [name]: value,
-    }));
-  };
+            [name]: value,
+        }));
+    };
 
-  const handleCheckbox = (e) => {
-    const { name, checked } = e.target;
+    const handleCheckbox = (e) => {
+        const { name, checked } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
+        setFormData((prev) => ({
+            ...prev,
 
-      [name]: checked,
-    }));
-  };
+            [name]: checked,
+        }));
+    };
 
-  const handleImages = (e) => {
-    const files = Array.from(e.target.files);
+    // const handleImages = (e) => {
+    //     const files = Array.from(e.target.files);
 
-    setFormData((prev) => ({
-      ...prev,
+    //     setFormData((prev) => ({
+    //         ...prev,
 
-      images: files,
-    }));
-  };
+    //         images: files,
+    //     }));
+    // };
 
-  return (
-    <Box mt={2}>
-      <Grid container spacing={2}>
-        {/* Product Code */}
+    // const handleImages = (e) => {
+    //     const files = Array.from(e.target.files);
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
+    //     setFormData((prev) => {
 
-            label="Product Code"
+    //         const merged = [
+    //             ...(prev.images || []),
+    //             ...files,
+    //         ];
 
-            name="productCode"
+    //         return {
+    //             ...prev,
+    //             images: merged.slice(0, 5),
+    //         };
+    //     });
 
-            value={formData.productCode}
+    //     // allows selecting same file again
+    //     e.target.value = "";
+    // };
 
-            onChange={handleChange}
-          />
-        </Grid>
+    const handleImages = (e) => {
 
-        {/* Product Name */}
+        const files = Array.from(e.target.files);
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
+        setFormData(prev => {
 
-            label="Product Name"
+            const existing = prev.images || [];
 
-            name="productName"
+            const merged = [...existing];
 
-            value={formData.productName}
+            files.forEach(file => {
 
-            onChange={handleChange}
-          />
-        </Grid>
+                const exists = merged.some(img => {
 
-        {/* Category */}
+                    if (!(img instanceof File)) return false;
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            select
+                    return (
+                        img.name === file.name &&
+                        img.size === file.size
+                    );
 
-            fullWidth
+                });
 
-            label="Category"
+                if (!exists) {
+                    merged.push(file);
+                }
 
-            name="category"
+            });
 
-            value={formData.category}
+            return {
+                ...prev,
+                images: merged.slice(0, 5),
+            };
 
-            onChange={handleChange}
-          >
-            {categories?.map((cat) => (
-              <MenuItem
-                key={cat._id}
+        });
 
-                value={cat._id}
-              >
-                {cat.categoryName}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
+        e.target.value = "";
 
-        {/* Brand */}
+    };
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
+    return (
+        <Box mt={2}>
+            <Grid container spacing={2}>
+                {/* Product Code */}
 
-            label="Brand"
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
 
-            name="brand"
+                        label="Product Code"
 
-            value={formData.brand}
+                        name="productCode"
 
-            onChange={handleChange}
-          />
-        </Grid>
+                        value={formData.productCode}
 
-        {/* Description */}
+                        onChange={handleChange}
+                    />
+                </Grid>
 
-        <Grid item xs={12}>
+                {/* Product Name */}
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+
+                        label="Product Name"
+
+                        name="productName"
+
+                        value={formData.productName}
+
+                        onChange={handleChange}
+                    />
+                </Grid>
+
+                {/* Category */}
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        select
+
+                        fullWidth
+
+                        label="Category"
+
+                        name="category"
+
+                        value={formData.category}
+
+                        onChange={handleChange}
+                    >
+                        {categories?.map((cat) => (
+                            <MenuItem
+                                key={cat._id}
+
+                                value={cat._id}
+                            >
+                                {cat.categoryName}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+
+                {/* Brand */}
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+
+                        label="Brand"
+
+                        name="brand"
+
+                        value={formData.brand}
+
+                        onChange={handleChange}
+                    />
+                </Grid>
+
+                {/* Description */}
+
+                {/* <Grid item xs={12}>
           <TextField
             fullWidth
 
@@ -726,158 +788,265 @@ const ProductForm = ({ formData, setFormData }) => {
 
             onChange={handleChange}
           />
-        </Grid>
+        </Grid> */}
 
-        {/* Purchase Price */}
 
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
+                <Grid item xs={12}>
+                    <ProductOptions
+                        formData={formData}
+                        setFormData={setFormData}
+                    />
+                </Grid>
 
-            type="number"
+                <Grid item xs={12}>
 
-            label="Purchase Price"
+                    <Typography
+                        variant="h6"
+                        gutterBottom
+                    >
+                        Product Images
+                    </Typography>
 
-            name="purchasePrice"
+                    <input
+                        hidden
+                        id="product-images"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleImages}
+                    />
 
-            value={formData.purchasePrice}
+                    <label htmlFor="product-images">
 
-            onChange={handleChange}
-          />
-        </Grid>
+                        <Box
+                            component="span"
+                            sx={{
+                                display: "inline-block",
+                                px: 3,
+                                py: 1,
+                                border: "1px solid #ccc",
+                                borderRadius: 1,
+                                cursor: "pointer",
+                                "&:hover": {
+                                    background: "#f5f5f5",
+                                },
+                            }}
+                        >
+                            Choose Images
+                        </Box>
 
-        {/* Selling Price */}
+                    </label>
 
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
+                    <Typography
+                        variant="body2"
+                        mt={1}
+                    >
+                        Maximum 5 images
+                    </Typography>
 
-            type="number"
+                    <Box
+                        display="flex"
+                        gap={2}
+                        flexWrap="wrap"
+                        mt={2}
+                    >
+                        {(formData.images || []).map((image, index) => (
 
-            label="Selling Price"
+                            <Box
+                                key={index}
+                                sx={{
+                                    position: "relative",
+                                }}
+                            >
 
-            name="sellingPrice"
+                                <img
+                                    src={
+                                        image instanceof File
+                                            ? URL.createObjectURL(image)
+                                            : image.url || image
+                                    }
+                                    alt="Product"
+                                    width={120}
+                                    height={120}
+                                    style={{
+                                        objectFit: "cover",
+                                        borderRadius: 8,
+                                        border: "1px solid #ddd",
+                                    }}
+                                />
 
-            value={formData.sellingPrice}
+                                <Box
+                                    sx={{
+                                        textAlign: "center",
+                                        mt: 1,
+                                    }}
+                                >
+                                    <Typography
+                                        color="error"
+                                        sx={{
+                                            cursor: "pointer",
+                                            fontSize: 14,
+                                        }}
+                                        onClick={() => {
 
-            onChange={handleChange}
-          />
-        </Grid>
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                images: prev.images.filter(
+                                                    (_, i) => i !== index
+                                                ),
+                                            }));
 
-        {/* GST */}
+                                        }}
+                                    >
+                                        Remove
+                                    </Typography>
+                                </Box>
 
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
+                            </Box>
 
-            type="number"
+                        ))}
+                    </Box>
 
-            label="GST %"
+                </Grid>
 
-            name="gst"
+                {/* Purchase Price */}
 
-            value={formData.gst}
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        fullWidth
 
-            onChange={handleChange}
-          />
-        </Grid>
+                        type="number"
 
-        {/* Discount */}
+                        label="Purchase Price"
 
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
+                        name="purchasePrice"
 
-            type="number"
+                        value={formData.purchasePrice}
 
-            label="Discount %"
+                        onChange={handleChange}
+                    />
+                </Grid>
 
-            name="discount"
+                {/* Selling Price */}
 
-            value={formData.discount}
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        fullWidth
 
-            onChange={handleChange}
-          />
-        </Grid>
+                        type="number"
 
-        {/* Reorder Level */}
+                        label="Selling Price"
 
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
+                        name="sellingPrice"
 
-            type="number"
+                        value={formData.sellingPrice}
 
-            label="Reorder Level"
+                        onChange={handleChange}
+                    />
+                </Grid>
 
-            name="reorderLevel"
+                {/* GST */}
 
-            value={formData.reorderLevel}
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        fullWidth
 
-            onChange={handleChange}
-          />
-        </Grid>
+                        type="number"
 
-        {/* Featured */}
+                        label="GST %"
 
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formData.isFeatured}
+                        name="gst"
 
-                onChange={handleCheckbox}
+                        value={formData.gst}
 
-                name="isFeatured"
-              />
-            }
+                        onChange={handleChange}
+                    />
+                </Grid>
 
-            label="Featured Product"
-          />
-        </Grid>
+                {/* Discount */}
 
-        {/* Active */}
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        fullWidth
 
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formData.isActive}
+                        type="number"
 
-                onChange={handleCheckbox}
+                        label="Discount %"
 
-                name="isActive"
-              />
-            }
+                        name="discount"
 
-            label="Active"
-          />
-        </Grid>
+                        value={formData.discount}
 
-        {/* Images */}
+                        onChange={handleChange}
+                    />
+                </Grid>
 
-        <Grid item xs={12}>
-          <Typography>Product Images (Max 5)</Typography>
+                {/* Reorder Level */}
 
-          <input
-            type="file"
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        fullWidth
 
-            multiple
+                        type="number"
 
-            accept="image/*"
+                        label="Reorder Level"
 
-            onChange={handleImages}
-          />
-        </Grid>
+                        name="reorderLevel"
 
-        {/* Variants */}
+                        value={formData.reorderLevel}
 
-        <Grid item xs={12}>
-          <ProductVariants formData={formData} setFormData={setFormData} />
-        </Grid>
-      </Grid>
-    </Box>
-  );
+                        onChange={handleChange}
+                    />
+                </Grid>
+
+                {/* Featured */}
+
+                <Grid item xs={12}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={formData.isFeatured}
+
+                                onChange={handleCheckbox}
+
+                                name="isFeatured"
+                            />
+                        }
+
+                        label="Featured Product"
+                    />
+                </Grid>
+
+                {/* Active */}
+
+                <Grid item xs={12}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={formData.isActive}
+
+                                onChange={handleCheckbox}
+
+                                name="isActive"
+                            />
+                        }
+
+                        label="Active"
+                    />
+                </Grid>
+
+
+                {/* Images */}
+
+
+                {/* Variants */}
+
+                <Grid item xs={12}>
+                    <ProductVariants formData={formData} setFormData={setFormData} />
+                </Grid>
+            </Grid>
+        </Box>
+    );
 };
 
 export default ProductForm;

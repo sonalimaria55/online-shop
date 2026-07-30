@@ -1,5 +1,9 @@
-// import { useMemo, useState } from "react";
-// import { useSelector } from "react-redux";
+// import { 
+//     useMemo,
+//     useState,
+//         useEffect,
+// } from "react";
+
 
 // import {
 //     Box,
@@ -12,232 +16,24 @@
 //     OutlinedInput,
 //     Stack,
 //     Button,
+//     Checkbox,
+//     FormControlLabel,
+//     TextField,
+//     IconButton,
+//     Table,
+//     TableBody,
+//     TableCell,
+//     TableHead,
+//     TableRow,
+//     Paper
 // } from "@mui/material";
 
-// const ProductVariants = ({ onChange }) => {
 
-//     const { variants } = useSelector(
-//         (state) => state.variants
-//     );
+// import DeleteIcon from "@mui/icons-material/Delete";
 
-//     const [selectedValues, setSelectedValues] = useState({});
 
-//     const handleChange = (variantId, values) => {
-
-//         setSelectedValues((prev) => ({
-
-//             ...prev,
-
-//             [variantId]: values,
-
-//         }));
-
-//     };
-
-//     const generatedVariants = useMemo(() => {
-
-//         const activeVariants = variants.filter(
-
-//             (variant) =>
-//                 selectedValues[variant._id]?.length
-
-//         );
-
-//         if (!activeVariants.length) return [];
-
-//         const combine = (index, current) => {
-
-//             if (index === activeVariants.length) {
-
-//                 return [current];
-
-//             }
-
-//             const variant = activeVariants[index];
-
-//             const values =
-//                 selectedValues[variant._id];
-
-//             let result = [];
-
-//             values.forEach((value) => {
-
-//                 result = result.concat(
-
-//                     combine(index + 1, [
-
-//                         ...current,
-
-//                         {
-
-//                             variantType: variant._id,
-
-//                             variantName: variant.name,
-
-//                             value,
-
-//                         },
-
-//                     ])
-
-//                 );
-
-//             });
-
-//             return result;
-
-//         };
-
-//         return combine(0, []);
-
-//     }, [selectedValues, variants]);
-
-//     const handleGenerate = () => {
-
-//         const rows = generatedVariants.map(
-//             (attributes) => ({
-
-//                 sku: "",
-
-//                 barcode: "",
-
-//                 stock: 0,
-
-//                 sellingPrice: "",
-
-//                 attributes,
-
-//             })
-//         );
-
-//         onChange(rows);
-
-//     };
-
-//     return (
-
-//         <Box mt={3}>
-
-//             <Typography
-//                 variant="h6"
-//                 gutterBottom
-//             >
-
-//                 Product Variants
-
-//             </Typography>
-
-//             <Stack spacing={3}>
-
-//                 {variants.map((variant) => (
-
-//                     <FormControl
-//                         key={variant._id}
-//                         fullWidth
-//                     >
-
-//                         <InputLabel>
-
-//                             {variant.name}
-
-//                         </InputLabel>
-
-//                         <Select
-//                             multiple
-//                             value={
-//                                 selectedValues[
-//                                     variant._id
-//                                 ] || []
-//                             }
-//                             onChange={(e) =>
-//                                 handleChange(
-//                                     variant._id,
-//                                     e.target.value
-//                                 )
-//                             }
-//                             input={
-//                                 <OutlinedInput
-//                                     label={variant.name}
-//                                 />
-//                             }
-//                             renderValue={(selected) => (
-
-//                                 <Box
-//                                     sx={{
-//                                         display: "flex",
-//                                         flexWrap: "wrap",
-//                                         gap: 0.5,
-//                                     }}
-//                                 >
-
-//                                     {selected.map((value) => (
-
-//                                         <Chip
-//                                             key={value}
-//                                             label={value}
-//                                         />
-
-//                                     ))}
-
-//                                 </Box>
-
-//                             )}
-//                         >
-
-//                             {variant.values.map((value) => (
-
-//                                 <MenuItem
-//                                     key={value}
-//                                     value={value}
-//                                 >
-
-//                                     {value}
-
-//                                 </MenuItem>
-
-//                             ))}
-
-//                         </Select>
-
-//                     </FormControl>
-
-//                 ))}
-
-//                 <Button
-//                     variant="contained"
-//                     onClick={handleGenerate}
-//                 >
-
-//                     Generate Variants
-
-//                 </Button>
-
-//             </Stack>
-
-//         </Box>
-
-//     );
-
-// };
-
-// export default ProductVariants;
-//----------------------------------------------------------------------------------
-
-// import { useMemo, useState } from "react";
 // import { useSelector } from "react-redux";
 
-// import {
-//     Box,
-//     Typography,
-//     FormControl,
-//     InputLabel,
-//     Select,
-//     MenuItem,
-//     Chip,
-//     OutlinedInput,
-//     Stack,
-//     Button,
-// } from "@mui/material";
 
 
 // const ProductVariants = ({
@@ -246,348 +42,727 @@
 // }) => {
 
 
-//     const {
-//         variants = []
-//     } = useSelector(
-//         (state)=>state.variants
-//     );
+// const {
+//     variants=[]
+// }=useSelector(
+//     state=>state.variants
+// );
 
 
 
-//     const [selectedValues,setSelectedValues] =
-//         useState({});
+// const [selectedValues,setSelectedValues]=useState({});
 
 
 
+// const [customValues,setCustomValues]=useState({});
 
-//     const handleChange = (
-//         variantId,
-//         values
-//     )=>{
+// useEffect(() => {
 
+//     if (!formData.productVariants?.length) {
 
-//         setSelectedValues(prev=>({
+//         setSelectedValues({});
+//         setCustomValues({});
 
-//             ...prev,
+//     }
 
-//             [variantId]:values
+// }, [formData.productVariants]);
 
-//         }));
+// const handleChange=(variantId,values)=>{
 
-//     };
 
+// setSelectedValues(prev=>({
 
+//     ...prev,
 
+//     [variantId]:values
 
+// }));
 
-//     const generatedVariants = useMemo(()=>{
+// };
 
 
-//         const activeVariants =
-//             variants.filter(
-//                 variant =>
-//                 selectedValues[variant._id]?.length
-//             );
 
 
 
-//         if(activeVariants.length===0)
-//             return [];
+// const addCustomValue=(variantId)=>{
 
 
+// const value =
+// customValues[variantId];
 
 
-//         const combine = (
-//             index,
-//             current
-//         )=>{
+// if(!value)
+// return;
 
 
-//             if(index === activeVariants.length){
 
+// setSelectedValues(prev=>({
 
-//                 return [
-//                     current
-//                 ];
 
-//             }
+// ...prev,
 
 
+// [variantId]:
 
+// [
+// ...(prev[variantId] || []),
+// value
+// ]
 
-//             const variant =
-//                 activeVariants[index];
 
+// }));
 
 
-//             const values =
-//                 selectedValues[
-//                     variant._id
-//                 ];
 
+// setCustomValues(prev=>({
 
+// ...prev,
 
-//             let result=[];
+// [variantId]:""
 
+// }));
 
 
-//             values.forEach(value=>{
+// };
 
 
-//                 result.push(
-//                     ...combine(
-//                         index+1,
 
-//                         [
-//                             ...current,
 
-//                             {
-//                                 variantType:
-//                                 variant._id,
 
-//                                 value:value
-//                             }
 
-//                         ]
-//                     )
-//                 );
+// const generatedVariants = useMemo(()=>{
 
 
-//             });
+// const activeVariants =
+// variants.filter(
+// variant=>
+// selectedValues[variant._id]?.length
+// );
 
 
 
-//             return result;
+// if(activeVariants.length===0)
+// return [];
 
 
-//         };
 
 
+// const combine=(index,current)=>{
 
 
-//         return combine(
-//             0,
-//             []
-//         );
+// if(index===activeVariants.length)
+// {
 
 
-//     },[
-//         selectedValues,
-//         variants
-//     ]);
+// return [
 
+// {
+// attributes:[
+// ...current
+// ]
+// }
 
+// ];
 
+// }
 
 
 
+// let result=[];
 
-//     const handleGenerate = ()=>{
 
+// const variant =
+// activeVariants[index];
 
-//         const rows =
-//             generatedVariants.map(
-//                 (attributes)=>({
 
 
-//                     attributes,
+// selectedValues[
+// variant._id
+// ]
+// .forEach(value=>{
 
 
-//                     sku:"",
+// result.push(
 
-//                     barcode:"",
+// ...combine(
 
-//                     stock:0,
+// index+1,
 
-//                     sellingPrice:""
+// [
 
+// ...current,
 
-//                 })
-//             );
+// {
 
+// variantType:
+// variant._id,
 
 
-//         setFormData(prev=>({
+// displayName:
+// variant.displayName,
 
-//             ...prev,
 
-//             productVariants:rows
+// value
 
-//         }));
+// }
 
+// ]
 
-//     };
+// )
 
+// );
 
 
+// });
 
 
+// return result;
 
 
-//     return (
+// };
 
-//         <Box mt={3}>
 
 
-//             <Typography
-//                 variant="h6"
-//             >
+// return combine(0,[]);
 
-//                 Product Variants
 
-//             </Typography>
 
+// },[
+// selectedValues,
+// variants
+// ]);
 
 
 
-//             <Stack spacing={3} mt={2}>
 
 
-//                 {
-//                     variants.map(
-//                         (variant)=>(
 
 
-//                         <FormControl
-//                             key={variant._id}
-//                             fullWidth
-//                         >
+// // const handleGenerate=()=>{
 
 
-//                             <InputLabel>
+// // const rows =
+// // generatedVariants.map(item=>({
 
-//                                 {
-//                                     variant.displayName
-//                                 }
+// // attributes:item.attributes,
 
-//                             </InputLabel>
+// // sku:"",
 
+// // barcode:"",
 
+// // stock:0,
 
+// // sellingPrice:""
 
-//                             <Select
+// // }));
 
-//                                 multiple
 
 
-//                                 value={
-//                                     selectedValues[
-//                                         variant._id
-//                                     ] || []
-//                                 }
+// // setFormData(prev=>({
 
+// // ...prev,
 
-//                                 onChange={
-//                                     (e)=>
-//                                     handleChange(
-//                                         variant._id,
-//                                         e.target.value
-//                                     )
-//                                 }
+// // productVariants:rows
 
+// // }));
 
-//                                 input={
-//                                     <OutlinedInput
-//                                         label={
-//                                             variant.displayName
-//                                         }
-//                                     />
-//                                 }
 
 
+// // };
 
-//                                 renderValue={
-//                                     (selected)=>(
+// const handleGenerate = ()=>{
 
 
-//                                     <Box
-//                                     sx={{
-//                                         display:"flex",
-//                                         gap:1,
-//                                         flexWrap:"wrap"
-//                                     }}
-//                                     >
+// const rows =
+// generatedVariants.map(item=>({
 
 
-//                                     {
-//                                         selected.map(
-//                                             item=>(
+// attributes:
 
-//                                             <Chip
-//                                             key={item}
-//                                             label={item}
-//                                             />
+// item.attributes.map(attr=>({
 
-//                                             )
-//                                         )
-//                                     }
+//     variantType:attr.variantType,
 
+//     value:attr.value
 
-//                                     </Box>
+// })),
 
-//                                 )}
 
+// sku:"",
 
-//                             >
+// barcode:"",
 
+// stock:0,
 
-//                             {
-//                                 variant.values?.map(
-//                                     value=>(
+// sellingPrice:""
 
-//                                     <MenuItem
-//                                     key={value}
-//                                     value={value}
-//                                     >
 
-//                                     {value}
+// }));
 
-//                                     </MenuItem>
 
-//                                     )
-//                                 )
-//                             }
 
+// console.log(
+//     "GENERATED",
+//     rows
+// );
 
-//                             </Select>
 
 
-//                         </FormControl>
+// setFormData(prev=>({
 
+//     ...prev,
 
-//                     ))
-//                 }
+//     productVariants:rows
 
+// }));
 
 
+// };
 
 
 
-//                 <Button
-//                     variant="contained"
-//                     onClick={handleGenerate}
-//                 >
 
-//                     Generate Variants
 
-//                 </Button>
+// const deleteVariant=(index)=>{
 
 
+// setFormData(prev=>({
 
+// ...prev,
 
-//             </Stack>
 
+// productVariants:
+// prev.productVariants.filter(
+// (_,i)=>i!==index
+// )
 
-//         </Box>
 
-//     );
+// }));
+
+
+// };
+
+
+
+
+
+// return (
+
+// <Box mt={3}>
+
+
+// <Typography variant="h6">
+
+// Product Variants
+
+// </Typography>
+
+
+
+// <Stack spacing={3} mt={2}>
+
+
+// {
+// variants.map(variant=>(
+
+
+// <FormControl fullWidth key={variant._id}>
+
+
+// <InputLabel>
+
+// {variant.displayName}
+
+// </InputLabel>
+
+
+
+// <Select
+
+
+// multiple
+
+
+// value={
+// selectedValues[variant._id] || []
+// }
+
+
+
+// onChange={
+// (e)=>
+// handleChange(
+// variant._id,
+// e.target.value
+// )
+// }
+
+
+// input={
+// <OutlinedInput
+// label={variant.displayName}
+// />
+// }
+
+
+
+// renderValue={
+// (selected)=>(
+
+// <Box
+// sx={{
+// display:"flex",
+// gap:1,
+// flexWrap:"wrap"
+// }}
+// >
+
+// {
+// selected.map(value=>(
+
+// <Chip
+// key={value}
+// label={value}
+// />
+
+// ))
+// }
+
+// </Box>
+
+// )
+
+// }
+
+
+
+// >
+
+
+
+// {
+// variant.values?.map(value=>(
+
+// <MenuItem
+// key={value}
+// value={value}
+// >
+
+
+// <Checkbox
+
+// checked={
+// selectedValues[
+// variant._id
+// ]?.includes(value)
+// }
+
+// />
+
+
+// {value}
+
+
+// </MenuItem>
+
+// ))
+// }
+
+
+// </Select>
+
+
+
+// <Box mt={1} display="flex" gap={1}>
+
+
+// <TextField
+
+// size="small"
+
+// placeholder="Custom value"
+
+// value={
+// customValues[variant._id] || ""
+// }
+
+
+// onChange={
+// (e)=>
+// setCustomValues(prev=>({
+
+// ...prev,
+
+// [variant._id]:
+// e.target.value
+
+// }))
+// }
+
+
+// />
+
+
+
+// <Button
+
+// variant="outlined"
+
+// onClick={()=>
+// addCustomValue(
+// variant._id
+// )
+// }
+
+// >
+
+// Add
+
+// </Button>
+
+
+// </Box>
+
+
+
+// </FormControl>
+
+
+// ))
+
+// }
+
+
+
+// <Button
+
+// variant="contained"
+
+// onClick={handleGenerate}
+
+// >
+
+// Generate Variants
+
+// </Button>
+
+
+
+
+
+
+// {
+// formData.productVariants?.length>0 &&
+
+
+// <Paper>
+
+
+// <Table>
+
+
+// <TableHead>
+
+// <TableRow>
+
+// <TableCell>
+// Attributes
+// </TableCell>
+
+
+// <TableCell>
+// SKU
+// </TableCell>
+
+
+// <TableCell>
+// Barcode
+// </TableCell>
+
+
+// <TableCell>
+// Stock
+// </TableCell>
+
+
+// <TableCell>
+// Price
+// </TableCell>
+
+
+// <TableCell>
+// Action
+// </TableCell>
+
+
+// </TableRow>
+
+// </TableHead>
+
+
+
+// <TableBody>
+
+
+// {
+// formData.productVariants.map(
+// (row,index)=>(
+
+
+// <TableRow key={index}>
+
+
+// <TableCell>
+
+// {
+// row.attributes.map(
+// (a)=>
+
+// <Chip
+// sx={{mr:1}}
+// key={a.value}
+// label={
+// `${a.displayName}: ${a.value}`
+// }
+// />
+
+// )
+// }
+
+// </TableCell>
+
+
+
+// <TableCell>
+
+// <TextField
+// size="small"
+// value={row.sku}
+
+// onChange={
+// e=>{
+
+// let copy=[
+// ...formData.productVariants
+// ];
+
+// copy[index].sku=
+// e.target.value;
+
+
+// setFormData(prev=>({
+
+// ...prev,
+
+// productVariants:copy
+
+// }));
+
+// }
+
+// }
+
+// />
+
+// </TableCell>
+
+
+
+// <TableCell>
+
+// <TextField
+// size="small"
+// value={row.barcode}
+// />
+
+// </TableCell>
+
+
+
+
+// <TableCell>
+
+// <TextField
+// size="small"
+// type="number"
+// value={row.stock}
+// />
+
+// </TableCell>
+
+
+
+
+// <TableCell>
+
+// <TextField
+// size="small"
+// value={row.sellingPrice}
+// />
+
+// </TableCell>
+
+
+
+
+// <TableCell>
+
+// <IconButton
+// color="error"
+// onClick={()=>
+// deleteVariant(index)
+// }
+// >
+
+// <DeleteIcon/>
+
+// </IconButton>
+
+
+// </TableCell>
+
+
+
+// </TableRow>
+
+
+// )
+
+// )
+
+// }
+
+
+// </TableBody>
+
+
+// </Table>
+
+
+// </Paper>
+
+
+// }
+
+
+
+// </Stack>
+
+
+// </Box>
+
+// );
+
 
 // };
 
 
 // export default ProductVariants;
-//----------------------------------------------------------
-import { useMemo, useState } from "react";
+import {
+    useMemo,
+    useState,
+    useEffect,
+} from "react";
 
 import {
     Box,
@@ -599,370 +774,515 @@ import {
     Chip,
     OutlinedInput,
     Stack,
-    Button
+    Button,
+    Checkbox,
+    TextField,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Paper,
 } from "@mui/material";
 
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useSelector } from "react-redux";
 
-
-
 const ProductVariants = ({
     formData,
-    setFormData
+    setFormData,
 }) => {
 
-
-    const {
-        variants = []
-    } = useSelector(
+    const { variants = [] } = useSelector(
         state => state.variants
     );
 
+    const [selectedValues, setSelectedValues] = useState({});
+    const [customValues, setCustomValues] = useState({});
 
+    // Clear selections when adding a new product
+    useEffect(() => {
 
-    const [selectedValues,setSelectedValues] =
-        useState({});
+        if (!formData.productVariants?.length) {
 
+            setSelectedValues({});
+            setCustomValues({});
 
-
-
-    const handleChange = (
-        variantId,
-        values
-    )=>{
-
-        setSelectedValues(prev=>({
-
-            ...prev,
-
-            [variantId]:values
-
-        }));
-
-    };
-
-
-
-
-
-    const generatedVariants = useMemo(()=>{
-
-
-        const activeVariants =
-            variants.filter(
-                variant =>
-                selectedValues[
-                    variant._id
-                ]?.length
-            );
-
-
-
-        if(activeVariants.length===0)
-        {
-            return [];
+            return;
         }
 
+        // Populate selections while editing
+        const selected = {};
 
+        formData.productVariants.forEach(row => {
 
-        const combine=(index,current)=>{
+            row.attributes?.forEach(attr => {
 
+                const id =
+                    typeof attr.variantType === "object"
+                        ? attr.variantType._id
+                        : attr.variantType;
 
-            if(index === activeVariants.length)
-            {
-                return [
-                    {
-                        attributes:[
-                            ...current
-                        ]
-                    }
-                ];
-            }
+                if (!selected[id]) {
+                    selected[id] = [];
+                }
 
-
-
-            const variant =
-                activeVariants[index];
-
-
-
-            let result=[];
-
-
-
-            selectedValues[
-                variant._id
-            ]
-            .forEach(value=>{
-
-
-                result.push(
-
-                    ...combine(
-
-                        index+1,
-
-                        [
-
-                            ...current,
-
-                            {
-
-                              variantType:
-                              variant._id,
-
-
-                              value:value
-
-                            }
-
-                        ]
-
-                    )
-
-                );
-
+                if (!selected[id].includes(attr.value)) {
+                    selected[id].push(attr.value);
+                }
 
             });
 
+        });
 
+        setSelectedValues(selected);
 
-            return result;
+    }, [formData.productVariants]);
 
+    const handleChange = (variantId, values) => {
 
-        };
-
-
-
-        return combine(
-            0,
-            []
-        );
-
-
-
-    },[
-        selectedValues,
-        variants
-    ]);
-
-
-
-
-
-
-    const handleGenerate = ()=>{
-
-
-        const rows =
-            generatedVariants.map(
-                item=>({
-
-                    attributes:
-                    item.attributes,
-
-
-                    sku:"",
-
-                    barcode:"",
-
-
-                    stock:0,
-
-
-                    sellingPrice:""
-
-
-                })
-            );
-
-
-
-        setFormData(prev=>({
-
+        setSelectedValues(prev => ({
             ...prev,
-
-            productVariants:rows
-
+            [variantId]: values,
         }));
-
 
     };
 
+    const addCustomValue = (variantId) => {
 
+        const value = customValues[variantId]?.trim();
 
+        if (!value) return;
 
+        setSelectedValues(prev => ({
 
-return (
+            ...prev,
 
-<Box mt={3}>
+            [variantId]: [
+                ...(prev[variantId] || []),
+                value,
+            ],
 
+        }));
 
-<Typography
-variant="h6"
->
-Product Variants
-</Typography>
+        setCustomValues(prev => ({
+            ...prev,
+            [variantId]: "",
+        }));
 
+    };
 
+    const generatedVariants = useMemo(() => {
 
-<Stack spacing={3}
-mt={2}
->
+        const activeVariants = variants.filter(
+            variant => selectedValues[variant._id]?.length
+        );
 
+        if (!activeVariants.length) return [];
 
-{
-variants.map(variant=>(
+        const combine = (index, current) => {
 
+            if (index === activeVariants.length) {
 
-<FormControl
-fullWidth
-key={variant._id}
->
+                return [
+                    {
+                        attributes: [...current],
+                    },
+                ];
 
+            }
 
-<InputLabel>
+            let result = [];
 
-{variant.displayName}
+            const variant = activeVariants[index];
 
-</InputLabel>
+            selectedValues[variant._id].forEach(value => {
 
+                result.push(
 
+                    ...combine(index + 1, [
 
-<Select
+                        ...current,
 
+                        {
+                            variantType: variant._id,
+                            displayName: variant.displayName,
+                            value,
+                        },
 
-multiple
+                    ])
 
+                );
 
-value={
-selectedValues[
-variant._id
-] || []
-}
+            });
 
+            return result;
 
+        };
 
-onChange={
-(e)=>
-handleChange(
-variant._id,
-e.target.value
-)
-}
+        return combine(0, []);
 
+    }, [selectedValues, variants]);
 
+    const handleGenerate = () => {
 
-input={
-<OutlinedInput
-label={
-variant.displayName
-}
-/>
-}
+        const rows = generatedVariants.map(item => ({
 
+            attributes: item.attributes.map(attr => ({
 
+                variantType: attr.variantType,
 
-renderValue={
-(selected)=>(
+                displayName: attr.displayName,
 
-<Box
-sx={{
-display:"flex",
-gap:1,
-flexWrap:"wrap"
-}}
->
+                value: attr.value,
 
+            })),
 
-{
-selected.map(value=>(
+            sku: "",
 
-<Chip
-key={value}
-label={value}
-/>
+            barcode: "",
 
-))
-}
+            stock: 0,
 
+            sellingPrice: "",
 
-</Box>
+        }));
 
-)
+        console.log("ROWS", rows);
 
-}
+        setFormData(prev => ({
 
+            ...prev,
 
+            productVariants: rows,
 
+        }));
 
->
+    };
 
+    const updateRow = (index, field, value) => {
 
-{
+        const copy = [...formData.productVariants];
 
-(variant.values || [])
-.map(value=>(
+        copy[index][field] = value;
 
+        setFormData(prev => ({
 
-<MenuItem
+            ...prev,
 
-key={value}
+            productVariants: copy,
 
-value={value}
+        }));
 
->
+    };
 
-{value}
+    const deleteVariant = (index) => {
 
-</MenuItem>
+        setFormData(prev => ({
 
+            ...prev,
 
-))
+            productVariants: prev.productVariants.filter(
+                (_, i) => i !== index
+            ),
 
-}
+        }));
 
+    };
+    return (
 
-</Select>
+    <Box mt={3}>
 
+        <Typography variant="h6">
+            Product Variants
+        </Typography>
 
+        <Stack spacing={3} mt={2}>
 
-</FormControl>
+            {variants.map((variant) => (
 
+                <FormControl
+                    fullWidth
+                    key={variant._id}
+                >
 
-))
+                    <InputLabel>
+                        {variant.displayName}
+                    </InputLabel>
 
-}
+                    <Select
+                        multiple
+                        value={selectedValues[variant._id] || []}
+                        onChange={(e) =>
+                            handleChange(
+                                variant._id,
+                                e.target.value
+                            )
+                        }
+                        input={
+                            <OutlinedInput
+                                label={variant.displayName}
+                            />
+                        }
+                        renderValue={(selected) => (
 
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    gap: 1,
+                                    flexWrap: "wrap",
+                                }}
+                            >
 
+                                {selected.map((value) => (
 
-<Button
+                                    <Chip
+                                        key={value}
+                                        label={value}
+                                    />
 
-variant="contained"
+                                ))}
 
-onClick={handleGenerate}
+                            </Box>
 
->
+                        )}
+                    >
 
-Generate Variants
+                        {variant.values?.map((value) => (
 
-</Button>
+                            <MenuItem
+                                key={value}
+                                value={value}
+                            >
 
+                                <Checkbox
+                                    checked={
+                                        selectedValues[
+                                            variant._id
+                                        ]?.includes(value) || false
+                                    }
+                                />
 
+                                {value}
 
+                            </MenuItem>
 
-</Stack>
+                        ))}
 
+                    </Select>
 
+                    <Box
+                        mt={1}
+                        display="flex"
+                        gap={1}
+                    >
 
-</Box>
+                        <TextField
+                            size="small"
+                            placeholder="Custom value"
+                            value={
+                                customValues[
+                                    variant._id
+                                ] || ""
+                            }
+                            onChange={(e) =>
+                                setCustomValues(prev => ({
+                                    ...prev,
+                                    [variant._id]:
+                                        e.target.value,
+                                }))
+                            }
+                        />
 
+                        <Button
+                            variant="outlined"
+                            onClick={() =>
+                                addCustomValue(
+                                    variant._id
+                                )
+                            }
+                        >
+                            Add
+                        </Button>
+
+                    </Box>
+
+                </FormControl>
+
+            ))}
+
+            <Button
+                variant="contained"
+                onClick={handleGenerate}
+            >
+                Generate Variants
+            </Button>
+
+            {formData.productVariants?.length > 0 && (
+
+                <Paper>
+
+                    <Table>
+
+                        <TableHead>
+
+                            <TableRow>
+
+                                <TableCell>
+                                    Attributes
+                                </TableCell>
+
+                                <TableCell>
+                                    SKU
+                                </TableCell>
+
+                                <TableCell>
+                                    Barcode
+                                </TableCell>
+
+                                <TableCell>
+                                    Stock
+                                </TableCell>
+
+                                <TableCell>
+                                    Selling Price
+                                </TableCell>
+
+                                <TableCell>
+                                    Action
+                                </TableCell>
+
+                            </TableRow>
+
+                        </TableHead>
+
+                        <TableBody>
+
+                            {formData.productVariants.map(
+                                (row, index) => (
+
+                                    <TableRow key={index}>
+
+                                        <TableCell>
+
+                                            {row.attributes?.map(
+                                                (a, i) => (
+
+                                                    <Chip
+                                                        key={i}
+                                                        sx={{ mr: 1, mb: 1 }}
+                                                        label={
+                                                            a.displayName
+                                                                ? `${a.displayName}: ${a.value}`
+                                                                : a.value
+                                                        }
+                                                    />
+
+                                                )
+                                            )}
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            <TextField
+                                                size="small"
+                                                value={row.sku}
+                                                onChange={(e) =>
+                                                    updateRow(
+                                                        index,
+                                                        "sku",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            <TextField
+                                                size="small"
+                                                value={row.barcode}
+                                                onChange={(e) =>
+                                                    updateRow(
+                                                        index,
+                                                        "barcode",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            <TextField
+                                                size="small"
+                                                type="number"
+                                                value={row.stock}
+                                                onChange={(e) =>
+                                                    updateRow(
+                                                        index,
+                                                        "stock",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            <TextField
+                                                size="small"
+                                                type="number"
+                                                value={row.sellingPrice}
+                                                onChange={(e) =>
+                                                    updateRow(
+                                                        index,
+                                                        "sellingPrice",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            <IconButton
+                                                color="error"
+                                                onClick={() =>
+                                                    deleteVariant(index)
+                                                }
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+
+                                        </TableCell>
+
+                                    </TableRow>
+
+                                )
+                            )}
+
+                        </TableBody>
+
+                    </Table>
+
+                </Paper>
+
+            )}
+
+        </Stack>
+
+    </Box>
 
 );
 
-
 };
-
 
 export default ProductVariants;
