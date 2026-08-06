@@ -59,81 +59,133 @@
 
 
 
+//---------------------------------------------------------------
 
+// import axiosInstance from "../../api/axiosInstance";
+
+
+// // // GET ALL PRODUCTS
+// // export const getProductsApi = () => {
+
+// //     return axiosInstance.get("/products");
+
+// // };
+
+// // GET FEATURED PRODUCTS
+// export const getFeaturedProductsApi = () => {
+
+//     return axiosInstance.get("/products/featured");
+
+// };
+
+
+// // GET FEATURED PRODUCTS
+// export const getFeaturedProductsApi = () => {
+
+//     // return axiosInstance.get("/products/featured");
+
+//           return axiosInstance.get("/products/featured-products");
+// };
+
+
+// // GET HOME COLLECTIONS
+// export const getHomeCollectionsApi = () => {
+
+//     return axiosInstance.get("/products/home-collections");
+
+// };
+
+
+// // GET PRODUCT BY ID
+// export const getProductByIdApi = (id) => {
+
+//     return axiosInstance.get(`/products/${id}`);
+
+// };
+
+
+// // CREATE PRODUCT
+// export const createProductApi = (data) => {
+
+//     return axiosInstance.post(
+//         "/products",
+//         data,
+//         {
+//             headers:{
+//                 "Content-Type":"multipart/form-data"
+//             }
+//         }
+//     );
+
+// };
+
+
+// // UPDATE PRODUCT
+// export const updateProductApi = (id,data) => {
+
+//     return axiosInstance.put(
+//         `/products/${id}`,
+//         data,
+//         {
+//             headers:{
+//                 "Content-Type":"multipart/form-data"
+//             }
+//         }
+//     );
+
+// };
+
+
+// // DELETE PRODUCT
+// export const deleteProductApi = (id) => {
+
+//     return axiosInstance.delete(
+//         `/products/${id}`
+//     );
+
+// };
 
 import axiosInstance from "../../api/axiosInstance";
 
-
 // GET ALL PRODUCTS
 export const getProductsApi = () => {
-
     return axiosInstance.get("/products");
-
 };
-
 
 // GET FEATURED PRODUCTS
 export const getFeaturedProductsApi = () => {
-
-    // return axiosInstance.get("/products/featured");
-
-          return axiosInstance.get("/products/featured-products");
+    return axiosInstance.get("/products/featured");
 };
-
 
 // GET HOME COLLECTIONS
 export const getHomeCollectionsApi = () => {
-
     return axiosInstance.get("/products/home-collections");
-
 };
-
 
 // GET PRODUCT BY ID
 export const getProductByIdApi = (id) => {
-
     return axiosInstance.get(`/products/${id}`);
-
 };
-
 
 // CREATE PRODUCT
 export const createProductApi = (data) => {
-
-    return axiosInstance.post(
-        "/products",
-        data,
-        {
-            headers:{
-                "Content-Type":"multipart/form-data"
-            }
-        }
-    );
-
+    return axiosInstance.post("/products", data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
 };
-
 
 // UPDATE PRODUCT
-export const updateProductApi = (id,data) => {
-
-    return axiosInstance.put(
-        `/products/${id}`,
-        data,
-        {
-            headers:{
-                "Content-Type":"multipart/form-data"
-            }
-        }
-    );
-
+export const updateProductApi = (id, data) => {
+    return axiosInstance.put(`/products/${id}`, data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
 };
-
 
 // DELETE PRODUCT
 export const deleteProductApi = (id) => {
-
-    return axiosInstance.delete(
-        `/products/${id}`
-    );
-
+    return axiosInstance.delete(`/products/${id}`);
 };

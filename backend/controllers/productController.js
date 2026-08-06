@@ -1165,6 +1165,12 @@ exports.createProduct = async (req, res) => {
                       req.body.isActive === "true",
         });
 
+
+
+        console.log(
+    "SAVED PRODUCT:",
+    JSON.stringify(product, null, 2)
+);
         const populatedProduct = await Product.findById(product._id)
             .populate("category", "categoryName")
             .populate(

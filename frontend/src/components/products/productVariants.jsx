@@ -758,531 +758,911 @@
 
 
 // export default ProductVariants;
-import {
-    useMemo,
-    useState,
-    useEffect,
-} from "react";
+
+//-----------------------------------------------------
+
+// import {
+//     Box,
+//     Grid,
+//     Typography,
+//     TextField,
+//     Paper,
+//     IconButton,
+// } from "@mui/material";
+
+// import DeleteIcon from "@mui/icons-material/Delete";
+
+// import { useSelector } from "react-redux";
+
+
+
+// const ProductVariants = ({
+//     formData,
+//     setFormData,
+// }) => {
+
+
+//     const variants =
+//         formData.productVariants || [];
+
+
+
+//     const {
+//         variants: variantTypes=[]
+//     } = useSelector(
+//         state=>state.variants
+//     );
+
+
+
+
+//     const updateField = (
+//         index,
+//         field,
+//         value
+//     )=>{
+
+
+//         const updated =
+//             [...variants];
+
+
+//         updated[index][field]=value;
+
+
+
+//         setFormData(prev=>({
+
+//             ...prev,
+
+//             productVariants:updated
+
+//         }));
+
+//     };
+
+
+
+
+
+//     const deleteVariant = (index)=>{
+
+
+//         const updated =
+//             variants.filter(
+//                 (_,i)=>i!==index
+//             );
+
+
+
+//         setFormData(prev=>({
+
+//             ...prev,
+
+//             productVariants:updated
+
+//         }));
+
+//     };
+
+
+
+
+
+
+//     const getVariantTitle = (variant)=>{
+
+
+//         return variant.attributes
+//         ?.map(attribute=>{
+
+
+//             const type =
+//                 variantTypes.find(
+//                     item=>
+//                     String(item._id)
+//                     ===
+//                     String(
+//                         attribute.variantType
+//                     )
+//                 );
+
+
+
+//             return type
+
+//             ?
+
+//             `${type.displayName}: ${attribute.value}`
+
+//             :
+
+//             attribute.value;
+
+
+
+//         })
+//         .join(" / ");
+
+
+//     };
+
+
+
+
+
+
+//     if(variants.length===0)
+//     {
+
+//         return (
+
+//             <Box mt={3}>
+
+//                 <Typography
+//                 color="text.secondary"
+//                 >
+
+//                     No variants generated.
+
+//                 </Typography>
+
+//             </Box>
+
+//         );
+
+//     }
+
+
+
+
+
+
+// return (
+
+// <Box mt={4}>
+
+
+// <Typography
+// variant="h6"
+// mb={2}
+// >
+
+// Variant Inventory
+
+// </Typography>
+
+
+
+
+
+// {
+// variants.map((variant,index)=>(
+
+
+// <Paper
+
+// key={index}
+
+// sx={{
+// p:2,
+// mb:2
+// }}
+
+// >
+
+
+// <Typography
+
+// fontWeight="bold"
+
+// mb={2}
+
+// >
+
+// {
+// getVariantTitle(variant)
+// }
+
+
+// </Typography>
+
+
+
+
+
+// <Grid
+// container
+// spacing={2}
+// >
+
+
+
+
+// {/* SKU */}
+
+// <Grid
+// item
+// xs={12}
+// md={4}
+// >
+
+
+// <TextField
+
+// fullWidth
+
+// label="SKU"
+
+// value={
+// variant.sku || ""
+// }
+
+// onChange={(e)=>
+
+// updateField(
+// index,
+// "sku",
+// e.target.value.toUpperCase()
+// )
+
+// }
+
+// />
+
+
+// </Grid>
+
+
+
+
+
+
+
+// {/* Barcode */}
+
+// <Grid
+// item
+// xs={12}
+// md={4}
+// >
+
+
+// <TextField
+
+// fullWidth
+
+// label="Barcode"
+
+// value={
+// variant.barcode || ""
+// }
+
+// onChange={(e)=>
+
+// updateField(
+// index,
+// "barcode",
+// e.target.value
+// )
+
+// }
+
+// />
+
+
+// </Grid>
+
+
+
+
+
+
+
+// {/* Stock */}
+
+// <Grid
+// item
+// xs={12}
+// md={4}
+// >
+
+
+// <TextField
+
+// fullWidth
+
+// label="Stock"
+
+// type="number"
+
+// value={
+// variant.stock ?? 0
+// }
+
+// onChange={(e)=>
+
+// updateField(
+// index,
+// "stock",
+// Math.max(
+// 0,
+// Number(e.target.value)
+// )
+// )
+
+// }
+
+// />
+
+
+// </Grid>
+
+
+
+
+
+
+
+
+// {/* Selling Price */}
+
+// <Grid
+// item
+// xs={12}
+// md={6}
+// >
+
+
+// <TextField
+
+// fullWidth
+
+// label="Selling Price"
+
+// type="number"
+
+// value={
+// variant.sellingPrice ?? ""
+// }
+
+// onChange={(e)=>
+
+// updateField(
+// index,
+// "sellingPrice",
+// Number(e.target.value)
+// )
+
+// }
+
+// />
+
+
+// </Grid>
+
+
+
+
+
+
+
+
+
+// {/* Delete */}
+
+// <Grid
+// item
+// xs={12}
+// md={6}
+// >
+
+
+// <IconButton
+
+// color="error"
+
+// onClick={()=>deleteVariant(index)}
+
+// >
+
+// <DeleteIcon/>
+
+// </IconButton>
+
+
+// </Grid>
+
+
+
+
+// </Grid>
+
+
+
+// </Paper>
+
+
+
+// ))
+
+// }
+
+
+
+// </Box>
+
+// );
+
+
+// };
+
+
+
+// export default ProductVariants;
+//--------------------------------------------
 
 import {
     Box,
+    Grid,
     Typography,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Chip,
-    OutlinedInput,
-    Stack,
-    Button,
-    Checkbox,
     TextField,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
     Paper,
+    IconButton,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useSelector } from "react-redux";
 
+
 const ProductVariants = ({
     formData,
     setFormData,
 }) => {
 
-    const { variants = [] } = useSelector(
+
+    const variants =
+        formData.productVariants || [];
+
+
+
+    const {
+        variants: variantTypes = []
+    } = useSelector(
         state => state.variants
     );
 
-    const [selectedValues, setSelectedValues] = useState({});
-    const [customValues, setCustomValues] = useState({});
 
-    // Clear selections when adding a new product
-    useEffect(() => {
 
-        if (!formData.productVariants?.length) {
 
-            setSelectedValues({});
-            setCustomValues({});
+    const updateField = (
+        index,
+        field,
+        value
+    ) => {
 
-            return;
-        }
 
-        // Populate selections while editing
-        const selected = {};
+        const updated = [
+            ...variants
+        ];
 
-        formData.productVariants.forEach(row => {
 
-            row.attributes?.forEach(attr => {
-
-                const id =
-                    typeof attr.variantType === "object"
-                        ? attr.variantType._id
-                        : attr.variantType;
-
-                if (!selected[id]) {
-                    selected[id] = [];
-                }
-
-                if (!selected[id].includes(attr.value)) {
-                    selected[id].push(attr.value);
-                }
-
-            });
-
-        });
-
-        setSelectedValues(selected);
-
-    }, [formData.productVariants]);
-
-    const handleChange = (variantId, values) => {
-
-        setSelectedValues(prev => ({
-            ...prev,
-            [variantId]: values,
-        }));
-
-    };
-
-    const addCustomValue = (variantId) => {
-
-        const value = customValues[variantId]?.trim();
-
-        if (!value) return;
-
-        setSelectedValues(prev => ({
-
-            ...prev,
-
-            [variantId]: [
-                ...(prev[variantId] || []),
-                value,
-            ],
-
-        }));
-
-        setCustomValues(prev => ({
-            ...prev,
-            [variantId]: "",
-        }));
-
-    };
-
-    const generatedVariants = useMemo(() => {
-
-        const activeVariants = variants.filter(
-            variant => selectedValues[variant._id]?.length
-        );
-
-        if (!activeVariants.length) return [];
-
-        const combine = (index, current) => {
-
-            if (index === activeVariants.length) {
-
-                return [
-                    {
-                        attributes: [...current],
-                    },
-                ];
-
-            }
-
-            let result = [];
-
-            const variant = activeVariants[index];
-
-            selectedValues[variant._id].forEach(value => {
-
-                result.push(
-
-                    ...combine(index + 1, [
-
-                        ...current,
-
-                        {
-                            variantType: variant._id,
-                            displayName: variant.displayName,
-                            value,
-                        },
-
-                    ])
-
-                );
-
-            });
-
-            return result;
-
+        updated[index] = {
+            ...updated[index],
+            [field]: value
         };
 
-        return combine(0, []);
-
-    }, [selectedValues, variants]);
-
-    const handleGenerate = () => {
-
-        const rows = generatedVariants.map(item => ({
-
-            attributes: item.attributes.map(attr => ({
-
-                variantType: attr.variantType,
-
-                displayName: attr.displayName,
-
-                value: attr.value,
-
-            })),
-
-            sku: "",
-
-            barcode: "",
-
-            stock: 0,
-
-            sellingPrice: "",
-
-        }));
-
-        console.log("ROWS", rows);
 
         setFormData(prev => ({
 
             ...prev,
 
-            productVariants: rows,
+            productVariants: updated
 
         }));
 
     };
 
-    const updateRow = (index, field, value) => {
 
-        const copy = [...formData.productVariants];
 
-        copy[index][field] = value;
 
-        setFormData(prev => ({
-
-            ...prev,
-
-            productVariants: copy,
-
-        }));
-
-    };
 
     const deleteVariant = (index) => {
 
+
+        const updated =
+            variants.filter(
+                (_, i) =>
+                    i !== index
+            );
+
+
         setFormData(prev => ({
 
             ...prev,
 
-            productVariants: prev.productVariants.filter(
-                (_, i) => i !== index
-            ),
+            productVariants: updated
 
         }));
 
     };
-    return (
 
-    <Box mt={3}>
 
-        <Typography variant="h6">
-            Product Variants
-        </Typography>
 
-        <Stack spacing={3} mt={2}>
 
-            {variants.map((variant) => (
 
-                <FormControl
-                    fullWidth
-                    key={variant._id}
+
+    const getVariantTitle = (variant) => {
+
+
+        return variant.attributes
+            ?.map(attribute => {
+
+
+
+                const type =
+                    variantTypes.find(item => {
+
+
+                        const attributeId =
+                            typeof attribute.variantType === "object"
+                            ?
+                            attribute.variantType._id
+                            :
+                            attribute.variantType;
+
+
+
+                        return (
+                            String(item._id)
+                            ===
+                            String(attributeId)
+                        );
+
+                    });
+
+
+
+
+
+                return type
+
+                    ?
+
+                    `${type.displayName || type.name}: ${attribute.value}`
+
+                    :
+
+                    attribute.value;
+
+
+
+            })
+            .join(" / ");
+
+    };
+
+
+
+
+
+
+    if (variants.length === 0) {
+
+        return (
+
+            <Box mt={3}>
+
+                <Typography
+                    color="text.secondary"
                 >
 
-                    <InputLabel>
-                        {variant.displayName}
-                    </InputLabel>
+                    No variants generated.
 
-                    <Select
-                        multiple
-                        value={selectedValues[variant._id] || []}
-                        onChange={(e) =>
-                            handleChange(
-                                variant._id,
-                                e.target.value
-                            )
-                        }
-                        input={
-                            <OutlinedInput
-                                label={variant.displayName}
-                            />
-                        }
-                        renderValue={(selected) => (
+                </Typography>
 
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    gap: 1,
-                                    flexWrap: "wrap",
-                                }}
-                            >
+            </Box>
 
-                                {selected.map((value) => (
+        );
 
-                                    <Chip
-                                        key={value}
-                                        label={value}
-                                    />
+    }
 
-                                ))}
 
-                            </Box>
 
-                        )}
+
+
+
+
+    return (
+
+        <Box mt={4}>
+
+
+            <Typography
+                variant="h6"
+                mb={2}
+            >
+
+                Variant Inventory
+
+            </Typography>
+
+
+
+
+
+            {
+                variants.map((variant, index) => (
+
+
+
+                    <Paper
+
+                        key={index}
+
+                        sx={{
+                            p: 2,
+                            mb: 2
+                        }}
+
                     >
 
-                        {variant.values?.map((value) => (
 
-                            <MenuItem
-                                key={value}
-                                value={value}
+
+                        <Typography
+
+                            fontWeight="bold"
+
+                            mb={2}
+
+                        >
+
+                            {
+                                getVariantTitle(variant)
+                            }
+
+                        </Typography>
+
+
+
+
+
+
+                        <Grid
+                            container
+                            spacing={2}
+                        >
+
+
+
+
+
+                            {/* SKU */}
+
+                            <Grid
+                                item
+                                xs={12}
+                                md={4}
                             >
 
-                                <Checkbox
-                                    checked={
-                                        selectedValues[
-                                            variant._id
-                                        ]?.includes(value) || false
+
+                                <TextField
+
+                                    fullWidth
+
+                                    label="SKU"
+
+                                    value={
+                                        variant.sku || ""
                                     }
+
+
+                                    onChange={(e) =>
+
+                                        updateField(
+                                            index,
+                                            "sku",
+                                            e.target.value.toUpperCase()
+                                        )
+
+                                    }
+
                                 />
 
-                                {value}
 
-                            </MenuItem>
+                            </Grid>
 
-                        ))}
 
-                    </Select>
 
-                    <Box
-                        mt={1}
-                        display="flex"
-                        gap={1}
-                    >
 
-                        <TextField
-                            size="small"
-                            placeholder="Custom value"
-                            value={
-                                customValues[
-                                    variant._id
-                                ] || ""
-                            }
-                            onChange={(e) =>
-                                setCustomValues(prev => ({
-                                    ...prev,
-                                    [variant._id]:
-                                        e.target.value,
-                                }))
-                            }
-                        />
 
-                        <Button
-                            variant="outlined"
-                            onClick={() =>
-                                addCustomValue(
-                                    variant._id
-                                )
-                            }
-                        >
-                            Add
-                        </Button>
 
-                    </Box>
 
-                </FormControl>
+                            {/* BARCODE */}
 
-            ))}
+                            <Grid
+                                item
+                                xs={12}
+                                md={4}
+                            >
 
-            <Button
-                variant="contained"
-                onClick={handleGenerate}
-            >
-                Generate Variants
-            </Button>
 
-            {formData.productVariants?.length > 0 && (
+                                <TextField
 
-                <Paper>
+                                    fullWidth
 
-                    <Table>
+                                    label="Barcode"
 
-                        <TableHead>
+                                    value={
+                                        variant.barcode || ""
+                                    }
 
-                            <TableRow>
 
-                                <TableCell>
-                                    Attributes
-                                </TableCell>
+                                    onChange={(e) =>
 
-                                <TableCell>
-                                    SKU
-                                </TableCell>
+                                        updateField(
+                                            index,
+                                            "barcode",
+                                            e.target.value
+                                        )
 
-                                <TableCell>
-                                    Barcode
-                                </TableCell>
+                                    }
 
-                                <TableCell>
-                                    Stock
-                                </TableCell>
+                                />
 
-                                <TableCell>
-                                    Selling Price
-                                </TableCell>
 
-                                <TableCell>
-                                    Action
-                                </TableCell>
+                            </Grid>
 
-                            </TableRow>
 
-                        </TableHead>
 
-                        <TableBody>
 
-                            {formData.productVariants.map(
-                                (row, index) => (
 
-                                    <TableRow key={index}>
 
-                                        <TableCell>
 
-                                            {row.attributes?.map(
-                                                (a, i) => (
+                            {/* STOCK */}
 
-                                                    <Chip
-                                                        key={i}
-                                                        sx={{ mr: 1, mb: 1 }}
-                                                        label={
-                                                            a.displayName
-                                                                ? `${a.displayName}: ${a.value}`
-                                                                : a.value
-                                                        }
-                                                    />
+                            <Grid
+                                item
+                                xs={12}
+                                md={4}
+                            >
 
-                                                )
-                                            )}
 
-                                        </TableCell>
+                                <TextField
 
-                                        <TableCell>
+                                    fullWidth
 
-                                            <TextField
-                                                size="small"
-                                                value={row.sku}
-                                                onChange={(e) =>
-                                                    updateRow(
-                                                        index,
-                                                        "sku",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
+                                    label="Stock"
 
-                                        </TableCell>
+                                    type="number"
 
-                                        <TableCell>
+                                    value={
+                                        variant.stock ?? 0
+                                    }
 
-                                            <TextField
-                                                size="small"
-                                                value={row.barcode}
-                                                onChange={(e) =>
-                                                    updateRow(
-                                                        index,
-                                                        "barcode",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
 
-                                        </TableCell>
+                                    onChange={(e) =>
 
-                                        <TableCell>
+                                        updateField(
+                                            index,
+                                            "stock",
+                                            Math.max(
+                                                0,
+                                                Number(e.target.value)
+                                            )
+                                        )
 
-                                            <TextField
-                                                size="small"
-                                                type="number"
-                                                value={row.stock}
-                                                onChange={(e) =>
-                                                    updateRow(
-                                                        index,
-                                                        "stock",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
+                                    }
 
-                                        </TableCell>
+                                />
 
-                                        <TableCell>
 
-                                            <TextField
-                                                size="small"
-                                                type="number"
-                                                value={row.sellingPrice}
-                                                onChange={(e) =>
-                                                    updateRow(
-                                                        index,
-                                                        "sellingPrice",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
+                            </Grid>
 
-                                        </TableCell>
 
-                                        <TableCell>
 
-                                            <IconButton
-                                                color="error"
-                                                onClick={() =>
-                                                    deleteVariant(index)
-                                                }
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton>
 
-                                        </TableCell>
 
-                                    </TableRow>
 
-                                )
-                            )}
 
-                        </TableBody>
+                            {/* SELLING PRICE */}
 
-                    </Table>
+                            <Grid
+                                item
+                                xs={12}
+                                md={6}
+                            >
 
-                </Paper>
 
-            )}
+                                <TextField
 
-        </Stack>
+                                    fullWidth
 
-    </Box>
+                                    label="Selling Price"
 
-);
+                                    type="number"
+
+                                    value={
+                                        variant.sellingPrice ?? ""
+                                    }
+
+
+                                    onChange={(e) =>
+
+                                        updateField(
+                                            index,
+                                            "sellingPrice",
+                                            Number(e.target.value)
+                                        )
+
+                                    }
+
+                                />
+
+
+                            </Grid>
+
+
+
+
+
+
+
+
+                            {/* DELETE */}
+
+                            <Grid
+                                item
+                                xs={12}
+                                md={6}
+                                display="flex"
+                                alignItems="center"
+                            >
+
+
+                                <IconButton
+
+                                    color="error"
+
+                                    onClick={() =>
+                                        deleteVariant(index)
+                                    }
+
+                                >
+
+                                    <DeleteIcon />
+
+                                </IconButton>
+
+
+                            </Grid>
+
+
+
+
+
+                        </Grid>
+
+
+
+                    </Paper>
+
+
+
+                ))
+            }
+
+
+
+
+
+        </Box>
+
+    );
+
 
 };
+
 
 export default ProductVariants;
