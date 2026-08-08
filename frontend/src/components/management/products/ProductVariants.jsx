@@ -2747,8 +2747,13 @@ const ProductVariants = ({
 
 
     const variants = formData.productVariants || [];
-    console.log("Inventory Variants:", variants);
-
+    //console.log("Inventory Variants:", variants);
+// console.log(
+//     JSON.stringify(variants, null, 2)
+// );
+console.log(
+    JSON.stringify(variants[0], null, 2)
+);
 
     const { variants: variantTypes = [] } = useSelector(
         (state) => state.variants
@@ -2999,7 +3004,7 @@ const updateField = (
 
 
                     {/* Color */}
-
+{/* 
                     <Grid
                         item
                         xs={12}
@@ -3028,9 +3033,92 @@ const updateField = (
 
                     />
 
-                    </Grid>
+                    </Grid> */}
+                    {/* Color */}
 
 
+
+<Grid item xs={12} md={4}>
+    <TextField
+        fullWidth
+        label="Color Code"
+        placeholder="#FF0000"
+
+        value={variant.attributes?.[0]?.colorCode || ""}
+
+        // onChange={(e) => {
+
+        //     const colorCode = e.target.value;
+
+        //     setFormData((prev) => ({
+
+        //         ...prev,
+
+        //         productVariants: prev.productVariants.map((v, i) => {
+
+        //             if (i !== index) return v;
+
+        //             return {
+
+        //                 ...v,
+
+        //                 attributes: v.attributes.map((attr) => ({
+
+        //                     ...attr,
+
+        //                     colorCode,
+
+        //                 })),
+
+        //             };
+
+        //         }),
+
+        //     }));
+
+        // }}
+
+        onChange={(e) => {
+    const colorCode = e.target.value;
+
+    setFormData((prev) => ({
+        ...prev,
+        productVariants: prev.productVariants.map((v, i) => {
+
+            if (i !== index) return v;
+
+            return {
+                ...v,
+                attributes: v.attributes.map((attr) => {
+
+                    const variantType = variantTypes.find((item) => {
+                        const id =
+                            typeof attr.variantType === "object"
+                                ? attr.variantType._id
+                                : attr.variantType;
+
+                        return String(item._id) === String(id);
+                    });
+
+                    const isColor =
+                        variantType?.displayName?.toLowerCase() === "color" ||
+                        variantType?.name?.toLowerCase() === "color";
+
+                    if (!isColor) {
+                        return attr;
+                    }
+
+                    return {
+                        ...attr,
+                        colorCode,
+                    };
+                }),
+            };
+        }),
+    }));
+}}
+    />
+</Grid>
 
 
 

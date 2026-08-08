@@ -367,6 +367,7 @@
 // };
 
 // export default ProductVariantSelector;
+//------------------------------------------------------
 
 import {
     Box,
@@ -633,134 +634,366 @@ const ProductVariantSelector = ({ formData, setFormData }) => {
         }));
     };
 
-    const createCombinations = (groups, index = 0) => {
-        if (index === groups.length) {
-            return [[]];
-        }
+    // const createCombinations = (groups, index = 0) => {
+    //     if (index === groups.length) {
+    //         return [[]];
+    //     }
 
-        const current = groups[index];
+    //     const current = groups[index];
 
-        const rest = createCombinations(groups, index + 1);
+    //     const rest = createCombinations(groups, index + 1);
 
-        let result = [];
+    //     let result = [];
 
-        current.values.forEach((value) => {
-            rest.forEach((item) => {
-                result.push([
-                    {
-                        variantType: current.variantType,
+    //     current.values.forEach((value) => {
+    //         rest.forEach((item) => {
+    //             result.push([
+    //                 {
+    //                     variantType: current.variantType,
 
-                        value,
-                    },
+    //                     value,
+    //                       colorCode: "",
+    //                 },
 
-                    ...item,
-                ]);
-            });
+    //                 ...item,
+    //             ]);
+    //         });
+    //     });
+
+    //     return result;
+    // };
+// const createCombinations = (groups, index = 0) => {
+//     if (index === groups.length) {
+//         return [[]];
+//     }
+
+//     const current = groups[index];
+//     const rest = createCombinations(groups, index + 1);
+
+//     let result = [];
+
+//     rest.forEach((item) => {
+//         current.values.forEach((value) => {
+//             result.push([
+//                 {
+//                     variantType: current.variantType,
+//                     value,
+//                 },
+//                 ...item,
+//             ]);
+//         });
+//     });
+
+//     return result;
+// };
+ const createCombinations = (groups, index = 0) => {
+    if (index === groups.length) {
+        return [[]];
+    }
+
+    const current = groups[index];
+    const rest = createCombinations(groups, index + 1);
+
+    let result = [];
+
+    current.values.forEach((value) => {
+        rest.forEach((item) => {
+            result.push([
+                {
+                    variantType: current.variantType,
+                    value,
+                    colorCode: "",
+                },
+                ...item,
+            ]);
         });
+    });
 
-        return result;
-    };
+    return result;
+};
+
+    // const generateVariants = () => {
+    //     console.log("Selected Values", selectedValues);
+    //     console.log("Generated", combinations);
+    //     const groups = Object.keys(selectedValues)
+    //         .map((id) => ({
+    //             variantType: id,
+
+    //             values: selectedValues[id],
+    //         }))
+    //         .filter((item) => item.values.length > 0);
+
+    //     if (groups.length === 0) return;
+
+    //     const combinations = createCombinations(groups);
+
+    //     // const productVariants = combinations.map((attributes) => ({
+    //     //   attributes,
+
+    //     //   sku: "",
+
+    //     //   barcode: "",
+
+    //     //   stock: 0,
+
+    //     //   sellingPrice: formData.sellingPrice || null,
+    //     // }));
+
+
+
+
+    //     const productVariants = combinations.map((attributes) => {
+
+
+    //         const existing =
+    //             formData.productVariants?.find(item => {
+
+    //                 if (
+    //                     item.attributes?.length !== attributes.length
+    //                 )
+    //                     return false;
+
+
+    //                 return attributes.every(attr =>
+
+    //                     item.attributes.some(oldAttr =>
+
+    //                         String(
+    //                             typeof oldAttr.variantType === "object"
+    //                                 ?
+    //                                 oldAttr.variantType._id
+    //                                 :
+    //                                 oldAttr.variantType
+    //                         )
+    //                         ===
+    //                         String(attr.variantType)
+
+    //                         &&
+
+    //                         oldAttr.value === attr.value
+
+    //                     )
+
+    //                 );
+
+    //             });
+
+
+    //         return {
+
+    //             attributes,
+
+    //             sku:
+    //                 existing?.sku || "",
+
+
+    //             barcode:
+    //                 existing?.barcode || "",
+
+
+    //             stock:
+    //                 existing?.stock || 0,
+
+
+    //             sellingPrice:
+    //                 existing?.sellingPrice ||
+    //                 formData.sellingPrice ||
+    //                 null
+
+    //         };
+
+
+    //     });
+
+    //     setFormData((prev) => ({
+    //         ...prev,
+
+    //         productVariants,
+    //     }));
+    // };
+
+
 
     const generateVariants = () => {
-        console.log("Selected Values", selectedValues);
-        console.log("Generated", combinations);
-        const groups = Object.keys(selectedValues)
-            .map((id) => ({
-                variantType: id,
 
-                values: selectedValues[id],
-            }))
-            .filter((item) => item.values.length > 0);
+    console.log("Selected Values:", selectedValues);
 
-        if (groups.length === 0) return;
+    const groups = Object.keys(selectedValues)
+        .map((id) => ({
+            variantType: id,
+            values: selectedValues[id],
+        }))
+        .filter((item) => item.values.length > 0);
 
-        const combinations = createCombinations(groups);
-
-        // const productVariants = combinations.map((attributes) => ({
-        //   attributes,
-
-        //   sku: "",
-
-        //   barcode: "",
-
-        //   stock: 0,
-
-        //   sellingPrice: formData.sellingPrice || null,
-        // }));
-
-
-
-
-        const productVariants = combinations.map((attributes) => {
-
-
-            const existing =
-                formData.productVariants?.find(item => {
-
-                    if (
-                        item.attributes?.length !== attributes.length
-                    )
-                        return false;
-
-
-                    return attributes.every(attr =>
-
-                        item.attributes.some(oldAttr =>
-
-                            String(
-                                typeof oldAttr.variantType === "object"
-                                    ?
-                                    oldAttr.variantType._id
-                                    :
-                                    oldAttr.variantType
-                            )
-                            ===
-                            String(attr.variantType)
-
-                            &&
-
-                            oldAttr.value === attr.value
-
-                        )
-
-                    );
-
-                });
-
-
-            return {
-
-                attributes,
-
-                sku:
-                    existing?.sku || "",
-
-
-                barcode:
-                    existing?.barcode || "",
-
-
-                stock:
-                    existing?.stock || 0,
-
-
-                sellingPrice:
-                    existing?.sellingPrice ||
-                    formData.sellingPrice ||
-                    null
-
-            };
-
-
-        });
-
+    if (groups.length === 0) {
         setFormData((prev) => ({
             ...prev,
-
-            productVariants,
+            productVariants: [],
         }));
-    };
+        return;
+    }
 
+    const combinations = createCombinations(groups);
+
+    console.log("Generated Combinations:", combinations);
+
+    // const productVariants = combinations.map((attributes) => {
+
+    //     const existing = formData.productVariants?.find((item) => {
+
+    //         if (item.attributes?.length !== attributes.length) {
+    //             return false;
+    //         }
+
+    //         return attributes.every((attr) =>
+    //             item.attributes.some((oldAttr) => {
+
+    //                 const oldVariantId =
+    //                     typeof oldAttr.variantType === "object"
+    //                         ? oldAttr.variantType._id
+    //                         : oldAttr.variantType;
+
+    //                 return (
+    //                     String(oldVariantId) === String(attr.variantType) &&
+    //                     oldAttr.value === attr.value
+    //                 );
+    //             })
+    //         );
+    //     });
+
+    //     return {
+    //         attributes,
+    //         sku: existing?.sku || "",
+    //         barcode: existing?.barcode || "",
+    //         color: existing?.color || "",
+    //         stock: existing?.stock || 0,
+    //         sellingPrice:
+    //             existing?.sellingPrice ||
+    //             formData.sellingPrice ||
+    //             "",
+    //     };
+    // });
+
+
+
+    const productVariants = combinations.map((attributes) => {
+
+    const existing = formData.productVariants?.find((item) => {
+
+        if (item.attributes?.length !== attributes.length) {
+            return false;
+        }
+
+        return attributes.every((attr) =>
+            item.attributes.some((oldAttr) => {
+
+                const oldVariantId =
+                    typeof oldAttr.variantType === "object"
+                        ? oldAttr.variantType._id
+                        : oldAttr.variantType;
+
+                return (
+                    String(oldVariantId) === String(attr.variantType) &&
+                    oldAttr.value === attr.value
+                );
+            })
+        );
+    });
+
+    // Preserve colorCode of every attribute
+    // const updatedAttributes = attributes.map((attr) => {
+
+    //     const oldAttr = existing?.attributes?.find((a) => {
+
+    //         const id =
+    //             typeof a.variantType === "object"
+    //                 ? a.variantType._id
+    //                 : a.variantType;
+
+    //         return (
+    //             String(id) === String(attr.variantType) &&
+    //             a.value === attr.value
+    //         );
+
+    //     });
+
+    //     return {
+    //         ...attr,
+    //         colorCode: oldAttr?.colorCode || "",
+    //     };
+
+    // });
+
+    const updatedAttributes = attributes.map((attr) => {
+    const oldAttr = existing?.attributes?.find((a) => {
+        const id =
+            typeof a.variantType === "object"
+                ? a.variantType._id
+                : a.variantType;
+
+        return (
+            String(id) === String(attr.variantType) &&
+            a.value === attr.value
+        );
+    });
+
+    const variant = variantTypes.find(
+        (v) => String(v._id) === String(attr.variantType)
+    );
+
+    const isColor =
+        variant?.displayName?.toLowerCase() === "color";
+
+    return {
+        ...attr,
+        colorCode: isColor
+            ? oldAttr?.colorCode || ""
+            : "",
+    };
+});
+
+    // return {
+    //     attributes: updatedAttributes,
+    //     sku: existing?.sku || "",
+    //     barcode: existing?.barcode || "",
+    //     stock: existing?.stock || 0,
+    //     sellingPrice:
+    //         existing?.sellingPrice ??
+    //         formData.sellingPrice ??
+    //         0,
+    // };
+
+
+//     return {
+//     attributes: updatedAttributes,
+//     sku: existing?.sku || "",
+//     barcode: existing?.barcode || "",
+//     colorCode: existing?.colorCode || "",   // <-- ADD THIS
+//     stock: existing?.stock || 0,
+//     sellingPrice:
+//         existing?.sellingPrice ??
+//         formData.sellingPrice ??
+//         0,
+// };
+
+return {
+    attributes: updatedAttributes,
+    sku: existing?.sku || "",
+    barcode: existing?.barcode || "",
+    stock: existing?.stock || 0,
+    sellingPrice:
+        existing?.sellingPrice ??
+        formData.sellingPrice ??
+        0,
+};
+});
+    console.log("Inventory Variants:", productVariants);
+
+    setFormData((prev) => ({
+        ...prev,
+        productVariants: productVariants,
+    }));
+};
     return (
         <Box mt={3}>
             <Typography variant="h6" mb={2}>

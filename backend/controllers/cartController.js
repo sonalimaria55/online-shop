@@ -1,22 +1,12 @@
 
 // const cartService = require("../services/cartService");
-
-
 // // Get cart owner (customer or guest)
 // const getOwner = (req) => {
-
 //   return {
-
 //     customer: req.user ? req.user._id : null,
-
 //     guestId: req.guestId || null,
-
 //   };
-
 // };
-
-
-
 // // ===============================
 // // Add To Cart
 // // ===============================
@@ -382,143 +372,132 @@
 //  mergeGuestCart
 
 // };
+//-----------------------------------------------------------------------------------------------
+
+// const cartService = require("../services/cartService");
+// const getOwner = (req) => ({
+//     customer: req.user ? req.user._id : null,
+//     guestId: req.guestId || null,
+// });
+
+// // const addToCart = async (req, res) => {
+// //     try {
+
+// //         const { productId, quantity } = req.body;
+
+// //         const cart = await cartService.addToCart(
+// //             getOwner(req),
+// //             productId,
+// //             quantity
+// //         );
+
+// //         res.status(200).json({
+// //             success: true,
+// //             cart,
+// //         });
+
+// //     // } catch (error) {
+
+// //     //     console.log(error);
+
+// //     //     res.status(500).json({
+// //     //         success: false,
+// //     //         message: error.message,
+// //     //     });
+// // } catch (error) {
+
+// //     console.log("========== ADD TO CART ERROR ==========");
+// //     console.log("Request Body:", req.body);
+// //     console.log(error);
+// //     console.log(error.stack);
+
+// //     res.status(500).json({
+// //         success: false,
+// //         message: error.message,
+// //     });
+
+// // }
+// //     }
+// // };
 
 
 
-const cartService = require("../services/cartService");
+// // const addToCart = async (req, res) => {
+// //     try {
 
-const getOwner = (req) => ({
-    customer: req.user ? req.user._id : null,
-    guestId: req.guestId || null,
-});
+// //         console.log("BODY:", req.body);
 
-const addToCart = async (req, res) => {
-    try {
+// //         const { productId, quantity } = req.body;
 
-        const { productId, quantity } = req.body;
+// //         const cart = await cartService.addToCart(
+// //             getOwner(req),
+// //             productId,
+// //             quantity
+// //         );
 
-        const cart = await cartService.addToCart(
-            getOwner(req),
-            productId,
-            quantity
-        );
+// //         res.status(200).json({
+// //             success: true,
+// //             cart,
+// //         });
 
-        res.status(200).json({
-            success: true,
-            cart,
-        });
+// //     } catch (error) {
 
-    } catch (error) {
+// //         console.log("========== ADD TO CART ERROR ==========");
+// //         console.log("Request Body:", req.body);
+// //         console.log(error);
+// //         console.log(error.stack);
 
-        console.log(error);
+// //         res.status(500).json({
+// //             success: false,
+// //             message: error.message,
+// //         });
 
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
+// //     }
+// // };
 
-    }
-};
 
-const getCart = async (req, res) => {
-    try {
-
-        const cart = await cartService.getCart(
-            getOwner(req)
-        );
-
-        res.json({
-            success: true,
-            cart,
-        });
-
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-
-    }
-};
-
-const updateCartQuantity = async (req, res) => {
-    try {
-
-        const cart = await cartService.updateCartQuantity(
-            getOwner(req),
-            req.params.productId,
-            req.body.quantity
-        );
-
-        res.json({
-            success: true,
-            cart,
-        });
-
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-
-    }
-};
-
-const removeFromCart = async (req, res) => {
-    try {
-
-        const cart = await cartService.removeFromCart(
-            getOwner(req),
-            req.params.productId
-        );
-
-        res.json({
-            success: true,
-            cart,
-        });
-
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-
-    }
-};
-
-const clearCart = async (req, res) => {
-    try {
-
-        const cart = await cartService.clearCart(
-            getOwner(req)
-        );
-
-        res.json({
-            success: true,
-            cart,
-        });
-
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-
-    }
-};
-
-// const mergeGuestCart = async (req, res) => {
+// const addToCart = async (req, res) => {
 //     try {
 
-//         const guestId = req.cookies.guestId;
+//         console.log("BODY:", req.body);
 
-//         const cart = await cartService.mergeGuestCart(
-//             guestId,
-//             req.user._id
+//         const { product, variant, quantity } = req.body;
+
+//         console.log("Product:", product);
+//         console.log("Variant:", variant);
+//         console.log("Quantity:", quantity);
+
+//         const cart = await cartService.addToCart(
+//             getOwner(req),
+//             product,
+//             variant,
+//             quantity
+//         );
+
+//         res.status(200).json({
+//             success: true,
+//             cart,
+//         });
+
+//     } catch (error) {
+
+//         console.log("========== ADD TO CART ERROR ==========");
+//         console.log(error);
+
+//         res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+
+//     }
+// };
+
+
+// const getCart = async (req, res) => {
+//     try {
+
+//         const cart = await cartService.getCart(
+//             getOwner(req)
 //         );
 
 //         res.json({
@@ -535,45 +514,797 @@ const clearCart = async (req, res) => {
 
 //     }
 // };
+
+// const updateCartQuantity = async (req, res) => {
+//     try {
+
+//         const cart = await cartService.updateCartQuantity(
+//             getOwner(req),
+//             req.params.productId,
+//             req.body.quantity
+//         );
+
+//         res.json({
+//             success: true,
+//             cart,
+//         });
+
+//     } catch (error) {
+
+//         res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+
+//     }
+// };
+
+// const removeFromCart = async (req, res) => {
+//     try {
+
+//         const cart = await cartService.removeFromCart(
+//             getOwner(req),
+//             req.params.productId
+//         );
+
+//         res.json({
+//             success: true,
+//             cart,
+//         });
+
+//     } catch (error) {
+
+//         res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+
+//     }
+// };
+
+// const clearCart = async (req, res) => {
+//     try {
+
+//         const cart = await cartService.clearCart(
+//             getOwner(req)
+//         );
+
+//         res.json({
+//             success: true,
+//             cart,
+//         });
+
+//     } catch (error) {
+
+//         res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+
+//     }
+// };
+
+// // const mergeGuestCart = async (req, res) => {
+// //     try {
+
+// //         const guestId = req.cookies.guestId;
+
+// //         const cart = await cartService.mergeGuestCart(
+// //             guestId,
+// //             req.user._id
+// //         );
+
+// //         res.json({
+// //             success: true,
+// //             cart,
+// //         });
+
+// //     } catch (error) {
+
+// //         res.status(500).json({
+// //             success: false,
+// //             message: error.message,
+// //         });
+
+// //     }
+// // };
+// const mergeGuestCart = async (req, res) => {
+//   try {
+
+//     if (!req.user) {
+//       return res.status(401).json({
+//         success: false,
+//         message: "Please login first",
+//       });
+//     }
+
+//     const guestId = req.cookies.guestId;
+
+//     if (!guestId) {
+//       return res.status(200).json({
+//         success: true,
+//         message: "No guest cart found",
+//       });
+//     }
+
+//     const cart = await cartService.mergeGuestCart(
+//       guestId,
+//       req.user._id
+//     );
+
+//     res.clearCookie("guestId");
+
+//     return res.status(200).json({
+//       success: true,
+//       cart,
+//     });
+
+//   } catch (error) {
+
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+
+//   }
+// };
+
+// module.exports = {
+//     addToCart,
+//     getCart,
+//     updateCartQuantity,
+//     removeFromCart,
+//     clearCart,
+//     mergeGuestCart,
+// };
+
+//----------------------------------------------------------
+//--------------
+
+// const cartService = require("../services/cartService");
+
+
+// // ======================================================
+// // GET OWNER
+// // ======================================================
+
+// const getOwner = (req) => {
+
+//     return {
+
+//         customer:
+//             req.user
+//                 ? req.user._id
+//                 : null,
+
+//         guestId:
+//             req.guestId || null,
+
+//     };
+
+// };
+
+
+// // ======================================================
+// // ADD TO CART
+// // ======================================================
+
+// const addToCart = async (req, res) => {
+
+//     try {
+
+//         console.log(
+//             "========== ADD TO CART =========="
+//         );
+
+//         console.log(
+//             "BODY:",
+//             req.body
+//         );
+
+//         console.log(
+//             "USER:",
+//             req.user
+//         );
+
+//         console.log(
+//             "GUEST ID:",
+//             req.guestId
+//         );
+
+
+//         const {
+//             product,
+//             variant,
+//             quantity,
+//         } = req.body;
+
+
+//         if (!product) {
+
+//             return res.status(400).json({
+
+//                 success: false,
+
+//                 message:
+//                     "Product is required",
+
+//             });
+
+//         }
+
+
+//         const cart =
+//             await cartService.addToCart(
+
+//                 getOwner(req),
+
+//                 product,
+
+//                 variant || null,
+
+//                 quantity || 1
+
+//             );
+
+
+//         return res.status(200).json({
+
+//             success: true,
+
+//             cart,
+
+//         });
+
+//     }
+
+//     catch (error) {
+
+//         console.log(
+//             "========== ADD TO CART ERROR =========="
+//         );
+
+//         console.log(error);
+
+//         console.log(
+//             error.stack
+//         );
+
+
+//         return res.status(500).json({
+
+//             success: false,
+
+//             message: error.message,
+
+//         });
+
+//     }
+
+// };
+
+
+// // ======================================================
+// // GET CART
+// // ======================================================
+
+// const getCart = async (req, res) => {
+
+//     try {
+
+//         const cart =
+//             await cartService.getCart(
+//                 getOwner(req)
+//             );
+
+
+//         return res.status(200).json({
+
+//             success: true,
+
+//             cart,
+
+//         });
+
+//     }
+
+//     catch (error) {
+
+//         console.log(
+//             "GET CART ERROR:",
+//             error
+//         );
+
+
+//         return res.status(500).json({
+
+//             success: false,
+
+//             message: error.message,
+
+//         });
+
+//     }
+
+// };
+
+
+// // ======================================================
+// // UPDATE QUANTITY
+// // ======================================================
+
+// const updateCartQuantity =
+//     async (req, res) => {
+
+//         try {
+
+//             const cart =
+//                 await cartService.updateCartQuantity(
+
+//                     getOwner(req),
+
+//                     req.params.productId,
+
+//                     req.body.quantity
+
+//                 );
+
+
+//             return res.status(200).json({
+
+//                 success: true,
+
+//                 cart,
+
+//             });
+
+//         }
+
+//         catch (error) {
+
+//             return res.status(500).json({
+
+//                 success: false,
+
+//                 message: error.message,
+
+//             });
+
+//         }
+
+//     };
+
+
+// // ======================================================
+// // REMOVE ITEM
+// // ======================================================
+
+// const removeFromCart =
+//     async (req, res) => {
+
+//         try {
+
+//             const cart =
+//                 await cartService.removeFromCart(
+
+//                     getOwner(req),
+
+//                     req.params.productId
+
+//                 );
+
+
+//             return res.status(200).json({
+
+//                 success: true,
+
+//                 cart,
+
+//             });
+
+//         }
+
+//         catch (error) {
+
+//             return res.status(500).json({
+
+//                 success: false,
+
+//                 message: error.message,
+
+//             });
+
+//         }
+
+//     };
+
+
+// // ======================================================
+// // CLEAR CART
+// // ======================================================
+
+// const clearCart =
+//     async (req, res) => {
+
+//         try {
+
+//             const cart =
+//                 await cartService.clearCart(
+//                     getOwner(req)
+//                 );
+
+
+//             return res.status(200).json({
+
+//                 success: true,
+
+//                 cart,
+
+//             });
+
+//         }
+
+//         catch (error) {
+
+//             return res.status(500).json({
+
+//                 success: false,
+
+//                 message: error.message,
+
+//             });
+
+//         }
+
+//     };
+
+
+// // ======================================================
+// // MERGE GUEST CART
+// // ======================================================
+
+// const mergeGuestCart =
+//     async (req, res) => {
+
+//         try {
+
+//             // User must be logged in
+//             if (!req.user) {
+
+//                 return res.status(401).json({
+
+//                     success: false,
+
+//                     message:
+//                         "Please login first",
+
+//                 });
+
+//             }
+
+
+//             const guestId =
+//                 req.cookies.guestId;
+
+
+//             // No guest cart
+//             if (!guestId) {
+
+//                 return res.status(200).json({
+
+//                     success: true,
+
+//                     message:
+//                         "No guest cart found",
+
+//                     cart: {
+//                         items: [],
+//                     },
+
+//                 });
+
+//             }
+
+
+//             const cart =
+//                 await cartService.mergeGuestCart(
+
+//                     guestId,
+
+//                     req.user._id
+
+//                 );
+
+
+//             // Remove guest cookie
+//             res.clearCookie(
+//                 "guestId"
+//             );
+
+
+//             return res.status(200).json({
+
+//                 success: true,
+
+//                 cart,
+
+//             });
+
+//         }
+
+//         catch (error) {
+
+//             console.log(
+//                 "MERGE CART ERROR:",
+//                 error
+//             );
+
+
+//             return res.status(500).json({
+
+//                 success: false,
+
+//                 message:
+//                     error.message,
+
+//             });
+
+//         }
+
+//     };
+
+
+// // ======================================================
+// // EXPORT
+// // ======================================================
+
+// module.exports = {
+
+//     addToCart,
+
+//     getCart,
+
+//     updateCartQuantity,
+
+//     removeFromCart,
+
+//     clearCart,
+
+//     mergeGuestCart,
+
+// };
+//---------------------
+const cartService = require("../services/cartService");
+
+// ======================================================
+// Get Cart Owner
+// ======================================================
+
+const getOwner = (req) => ({
+    customer: req.user ? req.user._id : null,
+    guestId: req.guestId || null,
+});
+
+// ======================================================
+// ADD TO CART
+// ======================================================
+
+const addToCart = async (req, res) => {
+    try {
+        console.log("========== ADD TO CART ==========");
+        console.log("BODY:", req.body);
+        console.log("USER:", req.user);
+        console.log("GUEST ID:", req.guestId);
+
+        const {
+            product,
+            variant,
+            quantity,
+        } = req.body;
+
+        if (!product) {
+            return res.status(400).json({
+                success: false,
+                message: "Product is required",
+            });
+        }
+
+        const cart = await cartService.addToCart(
+            getOwner(req),
+            product,
+            variant,
+            quantity
+        );
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.log(
+            "========== ADD TO CART ERROR =========="
+        );
+
+        console.log(error);
+        console.log(error.stack);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+// ======================================================
+// GET CART
+// ======================================================
+
+const getCart = async (req, res) => {
+    try {
+        const cart = await cartService.getCart(
+            getOwner(req)
+        );
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.log(
+            "========== GET CART ERROR =========="
+        );
+
+        console.log(error);
+        console.log(error.stack);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+// ======================================================
+// UPDATE QUANTITY
+// ======================================================
+
+const updateCartQuantity = async (req, res) => {
+    try {
+        const cart =
+            await cartService.updateCartQuantity(
+                getOwner(req),
+                req.params.productId,
+                req.body.quantity
+            );
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.log(
+            "========== UPDATE CART ERROR =========="
+        );
+
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+// ======================================================
+// REMOVE ITEM
+// ======================================================
+
+const removeFromCart = async (req, res) => {
+    try {
+        const cart =
+            await cartService.removeFromCart(
+                getOwner(req),
+                req.params.productId
+            );
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.log(
+            "========== REMOVE CART ERROR =========="
+        );
+
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+// ======================================================
+// CLEAR CART
+// ======================================================
+
+const clearCart = async (req, res) => {
+    try {
+        const cart =
+            await cartService.clearCart(
+                getOwner(req)
+            );
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.log(
+            "========== CLEAR CART ERROR =========="
+        );
+
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+// ======================================================
+// MERGE GUEST CART
+// ======================================================
+
 const mergeGuestCart = async (req, res) => {
-  try {
+    try {
+        // Login is required
+        if (!req.user) {
+            return res.status(401).json({
+                success: false,
+                message: "Please login first",
+            });
+        }
 
-    if (!req.user) {
-      return res.status(401).json({
-        success: false,
-        message: "Please login first",
-      });
+        const guestId = req.cookies?.guestId;
+
+        if (!guestId) {
+            return res.status(200).json({
+                success: true,
+                message: "No guest cart found",
+                cart: {
+                    items: [],
+                },
+            });
+        }
+
+        const cart =
+            await cartService.mergeGuestCart(
+                guestId,
+                req.user._id
+            );
+
+        res.clearCookie("guestId");
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.log(
+            "========== MERGE CART ERROR =========="
+        );
+
+        console.log(error);
+        console.log(error.stack);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
-
-    const guestId = req.cookies.guestId;
-
-    if (!guestId) {
-      return res.status(200).json({
-        success: true,
-        message: "No guest cart found",
-      });
-    }
-
-    const cart = await cartService.mergeGuestCart(
-      guestId,
-      req.user._id
-    );
-
-    res.clearCookie("guestId");
-
-    return res.status(200).json({
-      success: true,
-      cart,
-    });
-
-  } catch (error) {
-
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
 };
 
 module.exports = {

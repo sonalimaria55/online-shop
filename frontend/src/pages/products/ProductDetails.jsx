@@ -362,729 +362,1062 @@
 
 
 
+//---------------------------------------
 
+
+// import RemoveIcon from "@mui/icons-material/Remove";
+// import AddIcon from "@mui/icons-material/Add";
+
+// import {
+//     getProductById
+// } from "../../features/products/ProductsThunk";
+
+
+// import {
+//     addToCart,
+//     getCart
+// } from "../../features/cart/CartThunk";
+
+
+// import { 
+//     useEffect,
+//     useState
+// } from "react";
+
+
+// import {
+//     ToggleButton,
+//     ToggleButtonGroup,
+//     IconButton,
+//     Box,
+//     Typography,
+//     CircularProgress,
+//     Button
+// } from "@mui/material";
+
+
+// import {
+//     useDispatch,
+//     useSelector
+// } from "react-redux";
+
+
+// import {
+//     useParams
+// } from "react-router-dom";
+
+
+
+
+
+// const ProductDetails = () => {
+
+
+//     const { id } = useParams();
+
+//     const dispatch = useDispatch();
+
+
+
+//     const {
+//         selectedProduct,
+//         loading,
+//         error
+//     } = useSelector(
+//         state => state.products
+//     );
+
+
+
+
+//     const [selectedVariant,setSelectedVariant] = useState(null);
+
+//     const [quantity,setQuantity] = useState(1);
+
+
+
+
+
+//     useEffect(()=>{
+
+
+//         if(id){
+
+//             dispatch(
+//                 getProductById(id)
+//             );
+
+//         }
+
+
+//     },[dispatch,id]);
+
+
+
+
+
+
+
+
+//     const handleAddToCart = async()=>{
+
+
+//         if(!selectedVariant){
+
+
+//             alert(
+//                 "Please select size"
+//             );
+
+
+//             return;
+
+//         }
+
+
+
+//         const cartItem = {
+
+
+//             product:selectedProduct._id,
+
+
+//             variant:selectedVariant,
+
+
+//             quantity
+
+
+//         };
+
+
+
+//         console.log(
+//             "Sending:",
+//             cartItem
+//         );
+
+
+
+//         await dispatch(
+//             addToCart(cartItem)
+//         );
+
+
+//         dispatch(
+//             getCart()
+//         );
+
+
+//         alert(
+//             "Added to cart"
+//         );
+
+
+//     };
+
+
+
+
+
+
+
+
+//     if(loading){
+
+//         return <CircularProgress />;
+
+//     }
+
+
+
+
+
+//     if(error){
+
+//         return (
+
+//             <Typography>
+
+//                 {error}
+
+//             </Typography>
+
+//         );
+
+//     }
+
+
+
+
+
+
+
+//     if(!selectedProduct){
+
+
+//         return (
+
+//             <Typography>
+
+//                 Product not found
+
+//             </Typography>
+
+//         );
+
+//     }
+
+
+
+
+
+
+
+
+//     console.log("Product Variants:", selectedProduct.productVariants);
+
+// const sizes = selectedProduct.productVariants || [];
+
+
+
+
+
+
+
+
+//     return (
+
+
+//         <Box
+
+//             sx={{
+
+//                 py:8,
+
+//                 px:{
+//                     xs:2,
+//                     md:6
+//                 }
+
+//             }}
+
+//         >
+
+
+
+//             <Box
+
+//                 sx={{
+
+//                     display:"grid",
+
+//                     gridTemplateColumns:{
+
+//                         xs:"1fr",
+
+//                         md:"1fr 1fr"
+
+//                     },
+
+//                     gap:5
+
+//                 }}
+
+//             >
+
+
+
+
+
+//                 {/* IMAGE */}
+
+//                 <Box>
+
+
+//                     <Box
+
+//                         component="img"
+
+//                         src={
+//                             selectedProduct
+//                             .images?.[0]?.url
+//                         }
+
+
+//                         alt={
+//                             selectedProduct.productName
+//                         }
+
+
+//                         sx={{
+
+//                             width:"100%",
+
+//                             maxWidth:500,
+
+//                             height:"auto",
+
+//                             display:"block",
+
+//                             borderRadius:1,
+
+//                             boxShadow:
+//                             "0 8px 24px rgba(0,0,0,0.08)"
+
+//                         }}
+
+//                     />
+
+
+//                 </Box>
+
+
+
+
+
+
+
+//                 {/* DETAILS */}
+
+
+//                 <Box>
+
+
+
+//                     <Typography variant="h3">
+
+
+//                         {
+//                             selectedProduct.productName
+//                         }
+
+
+//                     </Typography>
+
+
+
+
+
+//                     <Typography mt={2}>
+
+
+//                         {
+//                             selectedProduct.description
+//                         }
+
+
+//                     </Typography>
+
+
+
+
+
+
+
+//                     <Typography
+
+
+//                         mt={3}
+
+
+//                         sx={{
+
+//                             fontSize:28,
+
+//                             fontWeight:600,
+
+//                             color:"#C9A227"
+
+//                         }}
+
+
+//                     >
+
+//                         ₹ {selectedProduct.sellingPrice}
+
+
+//                     </Typography>
+
+
+
+
+
+
+
+
+
+//                     {/* SIZE */}
+
+
+//                     <Typography
+
+//                         sx={{
+
+//                             mt:4,
+
+//                             mb:1,
+
+//                             fontWeight:600
+
+//                         }}
+
+//                     >
+
+//                         Size
+
+
+//                     </Typography>
+
+
+
+
+
+
+
+//                     <ToggleButtonGroup
+
+
+//                         value={
+//                             selectedVariant?.value || ""
+//                         }
+
+
+//                         exclusive
+
+
+//                         onChange={(e,value)=>{
+
+
+//                             if(value){
+
+
+//                                 const variant =
+
+//                                 selectedProduct
+//                                 .productVariants
+//                                 .find(
+
+//                                     item =>
+//                                     item.value === value
+
+//                                 );
+
+
+
+//                                 setSelectedVariant(
+//                                     variant
+//                                 );
+
+
+//                             }
+
+
+//                         }}
+
+
+//                     >
+
+
+
+//                     {
+
+//                     sizes?.map(
+//                         variant=>(
+
+
+//                             <ToggleButton
+
+
+//                                 key={
+//                                     variant.value
+//                                 }
+
+
+//                                 value={
+//                                     variant.value
+//                                 }
+
+
+//                             >
+
+//                                 {
+//                                     variant.value
+//                                 }
+
+
+//                             </ToggleButton>
+
+
+//                         )
+
+//                     )
+
+
+//                     }
+
+
+
+//                     </ToggleButtonGroup>
+
+
+
+
+
+
+
+
+
+//                     {/* COLOR */}
+
+
+//                     {
+//                         selectedVariant?.color &&
+
+//                         <Typography
+
+//                             sx={{
+
+//                                 mt:3,
+
+//                                 fontWeight:600
+
+//                             }}
+
+//                         >
+
+//                             Color:
+//                             {" "}
+//                             {
+//                                 selectedVariant.color
+//                             }
+
+//                         </Typography>
+
+//                     }
+
+
+
+
+
+
+
+
+
+//                     {/* QUANTITY */}
+
+
+//                     <Typography
+
+//                         sx={{
+
+//                             mt:4,
+
+//                             mb:1,
+
+//                             fontWeight:600
+
+//                         }}
+
+//                     >
+
+//                         Quantity
+
+
+//                     </Typography>
+
+
+
+
+
+//                     <Box
+
+//                         sx={{
+
+//                             display:"flex",
+
+//                             alignItems:"center",
+
+//                             gap:2
+
+//                         }}
+
+//                     >
+
+
+//                         <IconButton
+
+
+//                             onClick={()=>
+
+
+//                                 setQuantity(
+//                                     prev =>
+//                                     Math.max(
+//                                         1,
+//                                         prev-1
+//                                     )
+//                                 )
+
+
+//                             }
+
+
+//                         >
+
+//                             <RemoveIcon/>
+
+
+//                         </IconButton>
+
+
+
+
+
+//                         <Typography>
+
+//                             {
+//                                 quantity
+//                             }
+
+//                         </Typography>
+
+
+
+
+
+//                         <IconButton
+
+
+//                             onClick={()=>
+
+
+//                                 setQuantity(
+//                                     prev =>
+//                                     prev+1
+//                                 )
+
+
+//                             }
+
+
+//                         >
+
+//                             <AddIcon/>
+
+
+//                         </IconButton>
+
+
+//                     </Box>
+
+
+
+
+
+
+
+
+
+//                     {/* ADD CART */}
+
+
+//                     <Button
+
+
+//                         variant="contained"
+
+
+//                         onClick={
+//                             handleAddToCart
+//                         }
+
+
+//                         sx={{
+
+
+//                             mt:4,
+
+//                             background:"#C9A227",
+
+//                             color:"#fff",
+
+//                             px:5,
+
+//                             py:1.5,
+
+//                             borderRadius:0,
+
+
+//                             "&:hover":{
+
+//                                 background:"#B08D57"
+
+//                             }
+
+
+//                         }}
+
+
+//                     >
+
+//                         Add To Cart
+
+
+//                     </Button>
+
+
+
+
+
+//                 </Box>
+
+
+
+//             </Box>
+
+
+
+//         </Box>
+
+
+//     );
+
+
+// };
+
+
+
+// export default ProductDetails;
+
+import { useEffect, useState } from "react";
 
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    getProductById
-} from "../../features/products/ProductsThunk";
-
-
-import {
-    addToCart,
-    getCart
-} from "../../features/cart/CartThunk";
-
-
-import { 
-    useEffect,
-    useState
-} from "react";
-
-
-import {
-    ToggleButton,
-    ToggleButtonGroup,
-    IconButton,
     Box,
     Typography,
     CircularProgress,
-    Button
+    Button,
+    ToggleButton,
+    ToggleButtonGroup,
+    IconButton,
 } from "@mui/material";
-
 
 import {
     useDispatch,
-    useSelector
+    useSelector,
 } from "react-redux";
 
-
 import {
-    useParams
+    useParams,
+    useOutletContext,
 } from "react-router-dom";
 
+import {
+    getProductById,
+} from "../../features/products/ProductsThunk";
 
-
-
+import {
+    addToCart,
+    getCart,
+} from "../../features/cart/CartThunk";
 
 const ProductDetails = () => {
 
-
     const { id } = useParams();
-
+const { openCart } = useOutletContext();
     const dispatch = useDispatch();
-
-
 
     const {
         selectedProduct,
         loading,
-        error
+        error,
     } = useSelector(
-        state => state.products
+        (state) => state.products
     );
 
+    const [selectedVariant, setSelectedVariant] = useState(null);
 
+    const [quantity, setQuantity] = useState(1);
 
+    useEffect(() => {
 
-    const [selectedVariant,setSelectedVariant] = useState(null);
-
-    const [quantity,setQuantity] = useState(1);
-
-
-
-
-
-    useEffect(()=>{
-
-
-        if(id){
-
-            dispatch(
-                getProductById(id)
-            );
-
+        if (id) {
+            dispatch(getProductById(id));
         }
 
+    }, [dispatch, id]);
 
-    },[dispatch,id]);
+    if (loading) {
 
+        return (
+            <Box
+                display="flex"
+                justifyContent="center"
+                mt={5}
+            >
+                <CircularProgress />
+            </Box>
+        );
 
+    }
 
+    if (error) {
 
+        return (
+            <Typography color="error">
+                {error}
+            </Typography>
+        );
 
+    }
 
+    if (!selectedProduct) {
 
+        return (
+            <Typography>
+                Product not found
+            </Typography>
+        );
 
-    const handleAddToCart = async()=>{
+    }
 
+    const handleAddToCart = async () => {
 
-        if(!selectedVariant){
+        if (!selectedVariant) {
 
-
-            alert(
-                "Please select size"
-            );
-
-
+            alert("Please select size");
             return;
 
         }
 
-
-
         const cartItem = {
 
+            product: selectedProduct._id,
 
-            product:selectedProduct._id,
+            variant: selectedVariant._id,
 
-
-            variant:selectedVariant,
-
-
-            quantity
-
+            quantity,
 
         };
 
+        console.log(cartItem);
 
+        await dispatch(addToCart(cartItem));
 
-        console.log(
-            "Sending:",
-            cartItem
-        );
+        dispatch(getCart());
 
-
-
-        await dispatch(
-            addToCart(cartItem)
-        );
-
-
-        dispatch(
-            getCart()
-        );
-
-
-        alert(
-            "Added to cart"
-        );
-
+        alert("Added to cart");
 
     };
 
-
-
-
-
-
-
-
-    if(loading){
-
-        return <CircularProgress />;
-
-    }
-
-
-
-
-
-    if(error){
-
-        return (
-
-            <Typography>
-
-                {error}
-
-            </Typography>
-
-        );
-
-    }
-
-
-
-
-
-
-
-    if(!selectedProduct){
-
-
-        return (
-
-            <Typography>
-
-                Product not found
-
-            </Typography>
-
-        );
-
-    }
-
-
-
-
-
-
-
-
-    console.log("Product Variants:", selectedProduct.productVariants);
-
-const sizes = selectedProduct.productVariants || [];
-
-
-
-
-
-
-
-
     return (
 
-
         <Box
-
             sx={{
-
-                py:8,
-
-                px:{
-                    xs:2,
-                    md:6
-                }
-
+                py: 8,
+                px: {
+                    xs: 2,
+                    md: 6,
+                },
             }}
-
         >
 
-
-
             <Box
-
                 sx={{
-
-                    display:"grid",
-
-                    gridTemplateColumns:{
-
-                        xs:"1fr",
-
-                        md:"1fr 1fr"
-
+                    display: "grid",
+                    gridTemplateColumns: {
+                        xs: "1fr",
+                        md: "1fr 1fr",
                     },
-
-                    gap:5
-
+                    gap: 5,
                 }}
-
             >
-
-
-
-
 
                 {/* IMAGE */}
 
                 <Box>
 
-
                     <Box
-
                         component="img"
-
-                        src={
-                            selectedProduct
-                            .images?.[0]?.url
-                        }
-
-
-                        alt={
-                            selectedProduct.productName
-                        }
-
-
+                        src={selectedProduct.images?.[0]?.url}
+                        alt={selectedProduct.productName}
                         sx={{
-
-                            width:"100%",
-
-                            maxWidth:500,
-
-                            height:"auto",
-
-                            display:"block",
-
-                            borderRadius:1,
-
-                            boxShadow:
-                            "0 8px 24px rgba(0,0,0,0.08)"
-
+                            width: "100%",
+                            maxWidth: 500,
+                            borderRadius: 2,
                         }}
-
                     />
 
-
                 </Box>
-
-
-
-
-
-
 
                 {/* DETAILS */}
 
-
                 <Box>
 
-
-
                     <Typography variant="h3">
-
-
-                        {
-                            selectedProduct.productName
-                        }
-
-
+                        {selectedProduct.productName}
                     </Typography>
-
-
-
-
 
                     <Typography mt={2}>
-
-
-                        {
-                            selectedProduct.description
-                        }
-
-
+                        {selectedProduct.description}
                     </Typography>
-
-
-
-
-
-
 
                     <Typography
-
-
-                        mt={3}
-
-
                         sx={{
-
-                            fontSize:28,
-
-                            fontWeight:600,
-
-                            color:"#C9A227"
-
+                            mt: 3,
+                            fontSize: 30,
+                            fontWeight: 700,
+                            color: "#C9A227",
                         }}
-
-
                     >
-
                         ₹ {selectedProduct.sellingPrice}
-
-
                     </Typography>
-
-
-
-
-
-
-
-
 
                     {/* SIZE */}
 
-
                     <Typography
-
                         sx={{
-
-                            mt:4,
-
-                            mb:1,
-
-                            fontWeight:600
-
+                            mt: 5,
+                            mb: 2,
+                            fontWeight: 600,
                         }}
-
                     >
-
                         Size
-
-
                     </Typography>
 
-
-
-
-
-
-
                     <ToggleButtonGroup
-
-
-                        value={
-                            selectedVariant?.value || ""
-                        }
-
-
                         exclusive
+                        value={selectedVariant?._id || ""}
+                        onChange={(e, value) => {
 
+                            if (!value) return;
 
-                        onChange={(e,value)=>{
-
-
-                            if(value){
-
-
-                                const variant =
-
-                                selectedProduct
-                                .productVariants
-                                .find(
-
-                                    item =>
-                                    item.value === value
-
+                            const variant =
+                                selectedProduct.productVariants.find(
+                                    (item) => item._id === value
                                 );
 
-
-
-                                setSelectedVariant(
-                                    variant
-                                );
-
-
-                            }
-
+                            setSelectedVariant(variant);
 
                         }}
-
-
                     >
 
-
-
-                    {
-
-                    sizes?.map(
-                        variant=>(
-
+                        {selectedProduct.productVariants.map((variant) => (
 
                             <ToggleButton
-
-
-                                key={
-                                    variant.value
-                                }
-
-
-                                value={
-                                    variant.value
-                                }
-
-
+                                key={variant._id}
+                                value={variant._id}
                             >
 
                                 {
-                                    variant.value
+                                    variant.attributes
+                                        ?.map(attr => attr.value)
+                                        .join(" / ")
                                 }
-
 
                             </ToggleButton>
 
-
-                        )
-
-                    )
-
-
-                    }
-
-
+                        ))}
 
                     </ToggleButtonGroup>
 
+                    {/* VARIANT DETAILS */}
 
+                    {selectedVariant && (
 
+                        <Box mt={3}>
 
+                            <Typography>
+                                <b>Color :</b>{" "}
+                                {selectedVariant.color || "-"}
+                            </Typography>
 
+                            <Typography>
+                                <b>Stock :</b>{" "}
+                                {selectedVariant.stock}
+                            </Typography>
 
+                            <Typography>
+                                <b>SKU :</b>{" "}
+                                {selectedVariant.sku}
+                            </Typography>
 
+                        </Box>
 
-
-                    {/* COLOR */}
-
-
-                    {
-                        selectedVariant?.color &&
-
-                        <Typography
-
-                            sx={{
-
-                                mt:3,
-
-                                fontWeight:600
-
-                            }}
-
-                        >
-
-                            Color:
-                            {" "}
-                            {
-                                selectedVariant.color
-                            }
-
-                        </Typography>
-
-                    }
-
-
-
-
-
-
-
-
+                    )}
 
                     {/* QUANTITY */}
 
-
                     <Typography
-
                         sx={{
-
-                            mt:4,
-
-                            mb:1,
-
-                            fontWeight:600
-
+                            mt: 5,
+                            mb: 2,
+                            fontWeight: 600,
                         }}
-
                     >
-
                         Quantity
-
-
                     </Typography>
 
-
-
-
-
                     <Box
-
-                        sx={{
-
-                            display:"flex",
-
-                            alignItems:"center",
-
-                            gap:2
-
-                        }}
-
+                        display="flex"
+                        alignItems="center"
+                        gap={2}
                     >
 
-
                         <IconButton
-
-
-                            onClick={()=>
-
-
-                                setQuantity(
-                                    prev =>
-                                    Math.max(
-                                        1,
-                                        prev-1
-                                    )
+                            onClick={() =>
+                                setQuantity((q) =>
+                                    Math.max(1, q - 1)
                                 )
-
-
                             }
-
-
                         >
-
-                            <RemoveIcon/>
-
-
+                            <RemoveIcon />
                         </IconButton>
-
-
-
-
 
                         <Typography>
-
-                            {
-                                quantity
-                            }
-
+                            {quantity}
                         </Typography>
 
-
-
-
-
                         <IconButton
-
-
-                            onClick={()=>
-
-
-                                setQuantity(
-                                    prev =>
-                                    prev+1
-                                )
-
-
+                            onClick={() =>
+                                setQuantity((q) => q + 1)
                             }
-
-
                         >
-
-                            <AddIcon/>
-
-
+                            <AddIcon />
                         </IconButton>
-
 
                     </Box>
 
-
-
-
-
-
-
-
-
-                    {/* ADD CART */}
-
+                    {/* ADD TO CART */}
 
                     <Button
-
-
                         variant="contained"
-
-
-                        onClick={
-                            handleAddToCart
-                        }
-
-
+                        onClick={handleAddToCart}
                         sx={{
+                            mt: 5,
+                            background: "#C9A227",
+                            px: 5,
+                            py: 1.5,
 
-
-                            mt:4,
-
-                            background:"#C9A227",
-
-                            color:"#fff",
-
-                            px:5,
-
-                            py:1.5,
-
-                            borderRadius:0,
-
-
-                            "&:hover":{
-
-                                background:"#B08D57"
-
-                            }
-
-
+                            "&:hover": {
+                                background: "#B08D57",
+                            },
                         }}
-
-
                     >
-
                         Add To Cart
-
-
                     </Button>
-
-
-
-
 
                 </Box>
 
-
-
             </Box>
-
-
 
         </Box>
 
-
     );
 
-
 };
-
-
 
 export default ProductDetails;

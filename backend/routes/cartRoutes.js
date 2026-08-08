@@ -4,6 +4,10 @@ const router = express.Router();
 
 const guestMiddleware = require("../middleware/guestMiddleware");
 const optionalProtect = require("../middleware/optionalProtect");
+
+
+console.log("guestMiddleware =", guestMiddleware);
+console.log("optionalProtect =", optionalProtect);
 const {
     addToCart,
     getCart,

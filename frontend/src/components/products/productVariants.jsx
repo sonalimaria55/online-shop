@@ -1202,6 +1202,752 @@
 // export default ProductVariants;
 //--------------------------------------------
 
+// import {
+//     Box,
+//     Grid,
+//     Typography,
+//     TextField,
+//     Paper,
+//     IconButton,
+// } from "@mui/material";
+
+// import DeleteIcon from "@mui/icons-material/Delete";
+
+// import { useSelector } from "react-redux";
+
+
+// const ProductVariants = ({
+//     formData,
+//     setFormData,
+// }) => {
+
+
+//     const variants =
+//         formData.productVariants || [];
+
+
+
+//     const {
+//         variants: variantTypes = []
+//     } = useSelector(
+//         state => state.variants
+//     );
+
+
+
+
+//     const updateField = (
+//         index,
+//         field,
+//         value
+//     ) => {
+
+
+//         const updated = [
+//             ...variants
+//         ];
+
+
+//         updated[index] = {
+//             ...updated[index],
+//             [field]: value
+//         };
+
+
+//         setFormData(prev => ({
+
+//             ...prev,
+
+//             productVariants: updated
+
+//         }));
+
+//     };
+
+
+
+
+
+//     const deleteVariant = (index) => {
+
+
+//         const updated =
+//             variants.filter(
+//                 (_, i) =>
+//                     i !== index
+//             );
+
+
+//         setFormData(prev => ({
+
+//             ...prev,
+
+//             productVariants: updated
+
+//         }));
+
+//     };
+
+
+
+
+
+
+//     const getVariantTitle = (variant) => {
+
+
+//         return variant.attributes
+//             ?.map(attribute => {
+
+
+
+//                 const type =
+//                     variantTypes.find(item => {
+
+
+//                         const attributeId =
+//                             typeof attribute.variantType === "object"
+//                             ?
+//                             attribute.variantType._id
+//                             :
+//                             attribute.variantType;
+
+
+
+//                         return (
+//                             String(item._id)
+//                             ===
+//                             String(attributeId)
+//                         );
+
+//                     });
+
+
+
+
+
+//                 return type
+
+//                     ?
+
+//                     `${type.displayName || type.name}: ${attribute.value}`
+
+//                     :
+
+//                     attribute.value;
+
+
+
+//             })
+//             .join(" / ");
+
+//     };
+
+
+
+
+
+
+//     if (variants.length === 0) {
+
+//         return (
+
+//             <Box mt={3}>
+
+//                 <Typography
+//                     color="text.secondary"
+//                 >
+
+//                     No variants generated.
+
+//                 </Typography>
+
+//             </Box>
+
+//         );
+
+//     }
+
+
+
+
+
+
+
+//     return (
+
+//         <Box mt={4}>
+
+
+//             <Typography
+//                 variant="h6"
+//                 mb={2}
+//             >
+
+//                 Variant Inventory
+
+//             </Typography>
+
+
+
+
+
+//             {
+//                 variants.map((variant, index) => (
+
+
+
+//                     <Paper
+
+//                         key={index}
+
+//                         sx={{
+//                             p: 2,
+//                             mb: 2
+//                         }}
+
+//                     >
+
+
+
+//                         <Typography
+
+//                             fontWeight="bold"
+
+//                             mb={2}
+
+//                         >
+
+//                             {
+//                                 getVariantTitle(variant)
+//                             }
+
+//                         </Typography>
+
+
+
+
+
+
+//                         <Grid
+//                             container
+//                             spacing={2}
+//                         >
+
+
+
+
+
+//                             {/* SKU */}
+
+//                             <Grid
+//                                 item
+//                                 xs={12}
+//                                 md={4}
+//                             >
+
+
+//                                 <TextField
+
+//                                     fullWidth
+
+//                                     label="SKU"
+
+//                                     value={
+//                                         variant.sku || ""
+//                                     }
+
+
+//                                     onChange={(e) =>
+
+//                                         updateField(
+//                                             index,
+//                                             "sku",
+//                                             e.target.value.toUpperCase()
+//                                         )
+
+//                                     }
+
+//                                 />
+
+
+//                             </Grid>
+
+
+
+
+
+
+
+//                             {/* BARCODE */}
+
+//                             <Grid
+//                                 item
+//                                 xs={12}
+//                                 md={4}
+//                             >
+
+
+//                                 <TextField
+
+//                                     fullWidth
+
+//                                     label="Barcode"
+
+//                                     value={
+//                                         variant.barcode || ""
+//                                     }
+
+
+//                                     onChange={(e) =>
+
+//                                         updateField(
+//                                             index,
+//                                             "barcode",
+//                                             e.target.value
+//                                         )
+
+//                                     }
+
+//                                 />
+
+
+//                             </Grid>
+
+
+
+
+
+
+
+//                             {/* STOCK */}
+
+//                             <Grid
+//                                 item
+//                                 xs={12}
+//                                 md={4}
+//                             >
+
+
+//                                 <TextField
+
+//                                     fullWidth
+
+//                                     label="Stock"
+
+//                                     type="number"
+
+//                                     value={
+//                                         variant.stock ?? 0
+//                                     }
+
+
+//                                     onChange={(e) =>
+
+//                                         updateField(
+//                                             index,
+//                                             "stock",
+//                                             Math.max(
+//                                                 0,
+//                                                 Number(e.target.value)
+//                                             )
+//                                         )
+
+//                                     }
+
+//                                 />
+
+
+//                             </Grid>
+
+
+
+
+
+
+
+//                             {/* SELLING PRICE */}
+
+//                             <Grid
+//                                 item
+//                                 xs={12}
+//                                 md={6}
+//                             >
+
+
+//                                 <TextField
+
+//                                     fullWidth
+
+//                                     label="Selling Price"
+
+//                                     type="number"
+
+//                                     value={
+//                                         variant.sellingPrice ?? ""
+//                                     }
+
+
+//                                     onChange={(e) =>
+
+//                                         updateField(
+//                                             index,
+//                                             "sellingPrice",
+//                                             Number(e.target.value)
+//                                         )
+
+//                                     }
+
+//                                 />
+
+
+//                             </Grid>
+
+
+
+
+
+
+
+
+//                             {/* DELETE */}
+
+//                             <Grid
+//                                 item
+//                                 xs={12}
+//                                 md={6}
+//                                 display="flex"
+//                                 alignItems="center"
+//                             >
+
+
+//                                 <IconButton
+
+//                                     color="error"
+
+//                                     onClick={() =>
+//                                         deleteVariant(index)
+//                                     }
+
+//                                 >
+
+//                                     <DeleteIcon />
+
+//                                 </IconButton>
+
+
+//                             </Grid>
+
+
+
+
+
+//                         </Grid>
+
+
+
+//                     </Paper>
+
+
+
+//                 ))
+//             }
+
+
+
+
+
+//         </Box>
+
+//     );
+
+
+// };
+
+
+// export default ProductVariants;
+//------------------------------------------------
+
+// import {
+//     Box,
+//     Grid,
+//     Typography,
+//     TextField,
+//     Paper,
+//     IconButton,
+// } from "@mui/material";
+
+// import DeleteIcon from "@mui/icons-material/Delete";
+
+// import { useSelector } from "react-redux";
+
+// const ProductVariants = ({
+//     formData,
+//     setFormData,
+// }) => {
+
+//     const variants = formData.productVariants || [];
+
+//     const { variants: variantTypes = [] } = useSelector(
+//         (state) => state.variants
+//     );
+
+//     const updateField = (index, field, value) => {
+
+//         const updated = [...variants];
+
+//         updated[index] = {
+//             ...updated[index],
+//             [field]: value,
+//         };
+
+//         setFormData((prev) => ({
+//             ...prev,
+//             productVariants: updated,
+//         }));
+//     };
+
+//     // const updateColor = (index, value) => {
+
+//     //     const updated = [...variants];
+
+//     //     updated[index] = {
+//     //         ...updated[index],
+//     //         attributes: updated[index].attributes.map((attribute, i) =>
+//     //             i === 0
+//     //                 ? {
+//     //                       ...attribute,
+//     //                       colorCode: value,
+//     //                   }
+//     //                 : attribute
+//     //         ),
+//     //     };
+
+//     //     setFormData((prev) => ({
+//     //         ...prev,
+//     //         productVariants: updated,
+//     //     }));
+//     // };
+
+
+
+
+//     const updateColor = (index, value) => {
+
+//         const updated = [...variants];
+
+//         updated[index] = {
+//             ...updated[index],
+//             attributes: updated[index].attributes.map((attribute, i) =>
+//                 i === 0
+//                     ? {
+//                         ...attribute,
+//                         colorCode: value,
+//                     }
+//                     : attribute
+//             ),
+//         };
+
+//         console.log(
+//             "UPDATED VARIANTS",
+//             JSON.stringify(updated, null, 2)
+//         );
+
+//         setFormData((prev) => ({
+//             ...prev,
+//             productVariants: updated,
+//         }));
+//     };
+//     const deleteVariant = (index) => {
+
+//         const updated = variants.filter((_, i) => i !== index);
+
+//         setFormData((prev) => ({
+//             ...prev,
+//             productVariants: updated,
+//         }));
+//     };
+
+//     const getVariantTitle = (variant) => {
+
+//         return variant.attributes
+//             ?.map((attribute) => {
+
+//                 const type = variantTypes.find((item) => {
+
+//                     const attributeId =
+//                         typeof attribute.variantType === "object"
+//                             ? attribute.variantType._id
+//                             : attribute.variantType;
+
+//                     return String(item._id) === String(attributeId);
+
+//                 });
+
+//                 return type
+//                     ? `${type.displayName || type.name}: ${attribute.value}`
+//                     : attribute.value;
+
+//             })
+//             .join(" / ");
+//     };
+
+//     if (variants.length === 0) {
+
+//         return (
+//             <Box mt={3}>
+//                 <Typography color="text.secondary">
+//                     No variants generated.
+//                 </Typography>
+//             </Box>
+//         );
+//     }
+
+//     return (
+//         <Box mt={4}>
+
+//             <Typography variant="h6" mb={2}>
+//                 Variant Inventory
+//             </Typography>
+
+//             {variants.map((variant, index) => (
+
+//                 <Paper
+//                     key={index}
+//                     sx={{
+//                         p: 2,
+//                         mb: 2,
+//                     }}
+//                 >
+
+//                     <Typography fontWeight="bold" mb={2}>
+//                         {getVariantTitle(variant)}
+//                     </Typography>
+
+//                     <Grid container spacing={2}>
+
+//                         {/* SKU */}
+
+//                         <Grid item xs={12} md={4}>
+//                             <TextField
+//                                 fullWidth
+//                                 label="SKU"
+//                                 value={variant.sku || ""}
+//                                 onChange={(e) =>
+//                                     updateField(
+//                                         index,
+//                                         "sku",
+//                                         e.target.value.toUpperCase()
+//                                     )
+//                                 }
+//                             />
+//                         </Grid>
+
+//                         {/* BARCODE */}
+
+//                         <Grid item xs={12} md={4}>
+//                             <TextField
+//                                 fullWidth
+//                                 label="Barcode"
+//                                 value={variant.barcode || ""}
+//                                 onChange={(e) =>
+//                                     updateField(
+//                                         index,
+//                                         "barcode",
+//                                         e.target.value
+//                                     )
+//                                 }
+//                             />
+//                         </Grid>
+
+//                         {/* COLOR */}
+
+//                         <Grid item xs={12} md={4}>
+//                             <TextField
+//                                 fullWidth
+//                                 label="Color"
+//                                 placeholder="#FF0000"
+//                                 value={
+//                                     variant.attributes?.[0]?.colorCode || ""
+//                                 }
+//                                 onChange={(e) =>
+//                                     updateColor(
+//                                         index,
+//                                         e.target.value
+//                                     )
+//                                 }
+//                             />
+//                         </Grid>
+
+//                         {/* STOCK */}
+
+//                         <Grid item xs={12} md={4}>
+//                             <TextField
+//                                 fullWidth
+//                                 label="Stock"
+//                                 type="number"
+//                                 value={variant.stock ?? 0}
+//                                 onChange={(e) =>
+//                                     updateField(
+//                                         index,
+//                                         "stock",
+//                                         Math.max(
+//                                             0,
+//                                             Number(e.target.value)
+//                                         )
+//                                     )
+//                                 }
+//                             />
+//                         </Grid>
+
+//                         {/* SELLING PRICE */}
+
+//                         <Grid item xs={12} md={4}>
+//                             <TextField
+//                                 fullWidth
+//                                 label="Selling Price"
+//                                 type="number"
+//                                 value={variant.sellingPrice ?? ""}
+//                                 onChange={(e) =>
+//                                     updateField(
+//                                         index,
+//                                         "sellingPrice",
+//                                         Number(e.target.value)
+//                                     )
+//                                 }
+//                             />
+//                         </Grid>
+
+//                         {/* DELETE */}
+
+//                         <Grid
+//                             item
+//                             xs={12}
+//                             md={4}
+//                             display="flex"
+//                             alignItems="center"
+//                         >
+//                             <IconButton
+//                                 color="error"
+//                                 onClick={() => deleteVariant(index)}
+//                             >
+//                                 <DeleteIcon />
+//                             </IconButton>
+//                         </Grid>
+
+//                     </Grid>
+
+//                 </Paper>
+
+//             ))}
+
+//         </Box>
+//     );
+// };
+
+// export default ProductVariants;
+//----------------------------------------
+
 import {
     Box,
     Grid,
@@ -1215,335 +1961,257 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useSelector } from "react-redux";
 
-
 const ProductVariants = ({
     formData,
     setFormData,
 }) => {
 
+    const variants = formData.productVariants || [];
 
-    const variants =
-        formData.productVariants || [];
-
-
-
-    const {
-        variants: variantTypes = []
-    } = useSelector(
-        state => state.variants
+    const { variants: variantTypes = [] } = useSelector(
+        (state) => state.variants
     );
 
+    const updateField = (index, field, value) => {
 
-
-
-    const updateField = (
-        index,
-        field,
-        value
-    ) => {
-
-
-        const updated = [
-            ...variants
-        ];
-
+        const updated = [...variants];
 
         updated[index] = {
             ...updated[index],
-            [field]: value
+            [field]: value,
         };
 
-
-        setFormData(prev => ({
-
+        setFormData((prev) => ({
             ...prev,
-
-            productVariants: updated
-
+            productVariants: updated,
         }));
-
     };
 
+    // ---------------------------------------
+    // Update Color Code / Color Name
+    // ---------------------------------------
 
+    const updateColor = (index, value) => {
 
+        const updated = [...variants];
 
+        updated[index] = {
+            ...updated[index],
+            attributes: updated[index].attributes.map((attribute) => {
+
+                const variant = variantTypes.find((v) => {
+
+                    const id =
+                        typeof attribute.variantType === "object"
+                            ? attribute.variantType._id
+                            : attribute.variantType;
+
+                    return String(v._id) === String(id);
+
+                });
+
+                const isColor =
+                    variant?.displayName?.toLowerCase() === "color";
+
+                if (!isColor) {
+                    return attribute;
+                }
+
+                return {
+                    ...attribute,
+                    colorCode: value,
+                };
+
+            }),
+        };
+
+        setFormData((prev) => ({
+            ...prev,
+            productVariants: updated,
+        }));
+    };
 
     const deleteVariant = (index) => {
 
+        const updated = variants.filter((_, i) => i !== index);
 
-        const updated =
-            variants.filter(
-                (_, i) =>
-                    i !== index
-            );
-
-
-        setFormData(prev => ({
-
+        setFormData((prev) => ({
             ...prev,
-
-            productVariants: updated
-
+            productVariants: updated,
         }));
-
     };
 
-
-
-
-
+    // ---------------------------------------
+    // Variant Title
+    // ---------------------------------------
 
     const getVariantTitle = (variant) => {
 
-
         return variant.attributes
-            ?.map(attribute => {
+            ?.map((attribute) => {
 
+                const type = variantTypes.find((item) => {
 
+                    const attributeId =
+                        typeof attribute.variantType === "object"
+                            ? attribute.variantType._id
+                            : attribute.variantType;
 
-                const type =
-                    variantTypes.find(item => {
+                    return (
+                        String(item._id) ===
+                        String(attributeId)
+                    );
 
-
-                        const attributeId =
-                            typeof attribute.variantType === "object"
-                            ?
-                            attribute.variantType._id
-                            :
-                            attribute.variantType;
-
-
-
-                        return (
-                            String(item._id)
-                            ===
-                            String(attributeId)
-                        );
-
-                    });
-
-
-
-
+                });
 
                 return type
-
-                    ?
-
-                    `${type.displayName || type.name}: ${attribute.value}`
-
-                    :
-
-                    attribute.value;
-
-
+                    ? `${type.displayName}: ${attribute.value}`
+                    : attribute.value;
 
             })
             .join(" / ");
 
     };
 
+    // ---------------------------------------
+    // Get Color Attribute
+    // ---------------------------------------
 
+    const getColorAttribute = (variant) => {
 
+        return variant.attributes?.find((attribute) => {
 
+            const type = variantTypes.find((item) => {
 
+                const attributeId =
+                    typeof attribute.variantType === "object"
+                        ? attribute.variantType._id
+                        : attribute.variantType;
 
-    if (variants.length === 0) {
+                return (
+                    String(item._id) ===
+                    String(attributeId)
+                );
+
+            });
+
+            return (
+                type?.displayName?.toLowerCase() ===
+                "color"
+            );
+
+        });
+
+    };
+
+    if (!variants.length) {
 
         return (
-
             <Box mt={3}>
-
-                <Typography
-                    color="text.secondary"
-                >
-
+                <Typography color="text.secondary">
                     No variants generated.
-
                 </Typography>
-
             </Box>
-
         );
-
     }
-
-
-
-
-
-
 
     return (
 
         <Box mt={4}>
 
-
             <Typography
                 variant="h6"
                 mb={2}
             >
-
                 Variant Inventory
-
             </Typography>
 
+            {variants.map((variant, index) => {
 
+                const colorAttribute =
+                    getColorAttribute(variant);
 
-
-
-            {
-                variants.map((variant, index) => (
-
-
+                return (
 
                     <Paper
-
                         key={index}
-
                         sx={{
                             p: 2,
-                            mb: 2
+                            mb: 2,
                         }}
-
                     >
 
-
-
                         <Typography
-
                             fontWeight="bold"
-
                             mb={2}
-
                         >
-
-                            {
-                                getVariantTitle(variant)
-                            }
-
+                            {getVariantTitle(variant)}
                         </Typography>
 
-
-
-
-
-
-                        <Grid
-                            container
-                            spacing={2}
-                        >
-
-
-
-
+                        <Grid container spacing={2}>
 
                             {/* SKU */}
 
-                            <Grid
-                                item
-                                xs={12}
-                                md={4}
-                            >
-
-
+                            <Grid item xs={12} md={4}>
                                 <TextField
-
                                     fullWidth
-
                                     label="SKU"
-
-                                    value={
-                                        variant.sku || ""
-                                    }
-
-
+                                    value={variant.sku || ""}
                                     onChange={(e) =>
-
                                         updateField(
                                             index,
                                             "sku",
                                             e.target.value.toUpperCase()
                                         )
-
                                     }
-
                                 />
-
-
                             </Grid>
 
+                            {/* Barcode */}
 
-
-
-
-
-
-                            {/* BARCODE */}
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={4}
-                            >
-
-
+                            <Grid item xs={12} md={4}>
                                 <TextField
-
                                     fullWidth
-
                                     label="Barcode"
-
-                                    value={
-                                        variant.barcode || ""
-                                    }
-
-
+                                    value={variant.barcode || ""}
                                     onChange={(e) =>
-
                                         updateField(
                                             index,
                                             "barcode",
                                             e.target.value
                                         )
-
                                     }
-
                                 />
-
-
                             </Grid>
 
+                            {/* Color */}
 
-
-
-
-
-
-                            {/* STOCK */}
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={4}
-                            >
-
-
+                            <Grid item xs={12} md={4}>
                                 <TextField
-
                                     fullWidth
-
-                                    label="Stock"
-
-                                    type="number"
-
+                                    label="Color Name / Hex"
+                                    placeholder="Red or #FF0000"
                                     value={
-                                        variant.stock ?? 0
+                                        colorAttribute?.colorCode || ""
                                     }
-
-
                                     onChange={(e) =>
+                                        updateColor(
+                                            index,
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </Grid>
 
+                            {/* Stock */}
+
+                            <Grid item xs={12} md={4}>
+                                <TextField
+                                    fullWidth
+                                    type="number"
+                                    label="Stock"
+                                    value={variant.stock ?? 0}
+                                    onChange={(e) =>
                                         updateField(
                                             index,
                                             "stock",
@@ -1552,117 +2220,63 @@ const ProductVariants = ({
                                                 Number(e.target.value)
                                             )
                                         )
-
                                     }
-
                                 />
-
-
                             </Grid>
 
+                            {/* Selling Price */}
 
-
-
-
-
-
-                            {/* SELLING PRICE */}
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}
-                            >
-
-
+                            <Grid item xs={12} md={4}>
                                 <TextField
-
                                     fullWidth
-
-                                    label="Selling Price"
-
                                     type="number"
-
+                                    label="Selling Price"
                                     value={
                                         variant.sellingPrice ?? ""
                                     }
-
-
                                     onChange={(e) =>
-
                                         updateField(
                                             index,
                                             "sellingPrice",
-                                            Number(e.target.value)
+                                            Number(
+                                                e.target.value
+                                            )
                                         )
-
                                     }
-
                                 />
-
-
                             </Grid>
 
-
-
-
-
-
-
-
-                            {/* DELETE */}
+                            {/* Delete */}
 
                             <Grid
                                 item
                                 xs={12}
-                                md={6}
+                                md={4}
                                 display="flex"
                                 alignItems="center"
                             >
-
-
                                 <IconButton
-
                                     color="error"
-
                                     onClick={() =>
                                         deleteVariant(index)
                                     }
-
                                 >
-
                                     <DeleteIcon />
-
                                 </IconButton>
-
-
                             </Grid>
-
-
-
-
 
                         </Grid>
 
-
-
                     </Paper>
 
+                );
 
-
-                ))
-            }
-
-
-
-
+            })}
 
         </Box>
 
     );
 
-
 };
-
 
 export default ProductVariants;

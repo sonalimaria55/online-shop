@@ -1131,9 +1131,9 @@ exports.createProduct = async (req, res) => {
 
         const images = req.files
             ? req.files.map((file) => ({
-                  url: file.path,
-                  publicId: file.filename,
-              }))
+                url: file.path,
+                publicId: file.filename,
+            }))
             : [];
 
         const product = await Product.create({
@@ -1162,15 +1162,15 @@ exports.createProduct = async (req, res) => {
                 req.body.isActive === undefined
                     ? true
                     : req.body.isActive === true ||
-                      req.body.isActive === "true",
+                    req.body.isActive === "true",
         });
 
 
 
         console.log(
-    "SAVED PRODUCT:",
-    JSON.stringify(product, null, 2)
-);
+            "SAVED PRODUCT:",
+            JSON.stringify(product, null, 2)
+        );
         const populatedProduct = await Product.findById(product._id)
             .populate("category", "categoryName")
             .populate(
@@ -1306,6 +1306,9 @@ exports.getProductById = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     try {
 
+        console.log("===== UPDATE PRODUCT =====");
+        console.log("BODY:", req.body);
+        console.log("FILES:", req.files);
         const product = await Product.findById(req.params.id);
 
         if (!product) {
@@ -1335,25 +1338,46 @@ exports.updateProduct = async (req, res) => {
                 req.body.isActive === undefined
                     ? true
                     : req.body.isActive === true ||
-                      req.body.isActive === "true",
+                    req.body.isActive === "true",
         };
 
         // Product Variants
+        // if (req.body.productVariants) {
+
+        //     updateData.productVariants =
+        //         typeof req.body.productVariants === "string"
+        //             ? JSON.parse(req.body.productVariants)
+        //             : req.body.productVariants;
+
+        //     updateData.productVariants =
+        //         updateData.productVariants.filter(
+        //             (variant) =>
+        //                 variant.attributes &&
+        //                 Array.isArray(variant.attributes) &&
+        //                 variant.attributes.length > 0
+        //         );
+        // }
+
         if (req.body.productVariants) {
 
-            updateData.productVariants =
-                typeof req.body.productVariants === "string"
-                    ? JSON.parse(req.body.productVariants)
-                    : req.body.productVariants;
+    updateData.productVariants =
+        typeof req.body.productVariants === "string"
+            ? JSON.parse(req.body.productVariants)
+            : req.body.productVariants;
 
-            updateData.productVariants =
-                updateData.productVariants.filter(
-                    (variant) =>
-                        variant.attributes &&
-                        Array.isArray(variant.attributes) &&
-                        variant.attributes.length > 0
-                );
-        }
+    console.log(
+        "PARSED VARIANTS:",
+        JSON.stringify(updateData.productVariants, null, 2)
+    );
+
+    updateData.productVariants =
+        updateData.productVariants.filter(
+            (variant) =>
+                variant.attributes &&
+                Array.isArray(variant.attributes) &&
+                variant.attributes.length > 0
+        );
+}
 
         // Images
         if (req.files && req.files.length > 0) {
@@ -1363,7 +1387,10 @@ exports.updateProduct = async (req, res) => {
                 publicId: file.filename,
             }));
         }
-
+console.log(
+    "UPDATE DATA:",
+    JSON.stringify(updateData, null, 2)
+);
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
             updateData,

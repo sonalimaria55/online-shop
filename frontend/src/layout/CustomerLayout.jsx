@@ -41,28 +41,405 @@
 
 // export default CustomerLayout;
 
+//----------------------------------------
+
+// import { useState } from "react";
+// import { Outlet } from "react-router-dom";
+
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+// import CartDrawer from "../components/cart/CartDrawer";
+
+// const CustomerLayout = () => {
+//   const [cartOpen, setCartOpen] = useState(false);
+
+//   return (
+//     <>
+//       <CustomerNavbar
+//         onCartClick={() => setCartOpen(true)}
+//       />
+//       <Outlet />
+
+//       <CartDrawer
+//         open={cartOpen}
+//         onClose={() => setCartOpen(false)}
+//       />
+//     </>
+//   );
+// };
+
+// export default CustomerLayout;
+//----------------------------------------------
+
+// import { useState } from "react";
+
+// import {
+//     Outlet,
+// } from "react-router-dom";
+
+// import CustomerNavbar
+//     from "../components/navbar/CustomerNavbar";
+
+// import CartDrawer
+//     from "../components/cart/CartDrawer";
+
+// const CustomerLayout = () => {
+
+//     const [
+//         cartOpen,
+//         setCartOpen,
+//     ] = useState(false);
+
+//     return (
+
+//         <>
+//             <CustomerNavbar
+//                 onCartClick={() =>
+//                     setCartOpen(true)
+//                 }
+//             />
+
+//             {/* Space for fixed navbar */}
+
+//             <Box
+//                 sx={{
+//                     pt: 10,
+//                 }}
+//             >
+//                 <Outlet />
+//             </Box>
+
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={() =>
+//                     setCartOpen(false)
+//                 }
+//             />
+
+//         </>
+
+//     );
+// };
+
+// export default CustomerLayout;
+//--------------------------------------------
+
+// import { useState } from "react";
+
+// import {
+//     Box,
+// } from "@mui/material";
+
+// import {
+//     Outlet,
+// } from "react-router-dom";
+
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+
+// import CartDrawer from "../components/cart/CartDrawer";
+
+
+// const CustomerLayout = () => {
+
+//     const [
+//         cartOpen,
+//         setCartOpen,
+//     ] = useState(false);
+
+
+//     return (
+
+//         <>
+
+//             {/* ============================= */}
+//             {/* CUSTOMER NAVBAR */}
+//             {/* ============================= */}
+
+//             <CustomerNavbar
+//                 onCartClick={() =>
+//                     setCartOpen(true)
+//                 }
+//             />
+
+
+//             {/* ============================= */}
+//             {/* PAGE CONTENT */}
+//             {/* ============================= */}
+
+//             <Box
+//                 sx={{
+//                     pt: 10,
+//                 }}
+//             >
+
+//                 <Outlet />
+
+//             </Box>
+
+
+//             {/* ============================= */}
+//             {/* CART DRAWER */}
+//             {/* ============================= */}
+
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={() =>
+//                     setCartOpen(false)
+//                 }
+//             />
+
+//         </>
+
+//     );
+
+// };
+
+
+// export default CustomerLayout;
+//-----------------------------------------------------------
+
+// import { useState } from "react";
+
+// import {
+//     Box,
+// } from "@mui/material";
+
+// import {
+//     Outlet,
+// } from "react-router-dom";
+
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+
+// import CartDrawer from "../components/cart/CartDrawer";
+
+// const CustomerLayout = () => {
+//     const [
+//         cartOpen,
+//         setCartOpen,
+//     ] = useState(false);
+
+//     return (
+//         <>
+//             <CustomerNavbar
+//                 onCartClick={() =>
+//                     setCartOpen(true)
+//                 }
+//             />
+
+//             <Box
+//                 sx={{
+//                     pt: 10,
+//                 }}
+//             >
+//                 <Outlet />
+//             </Box>
+
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={() =>
+//                     setCartOpen(false)
+//                 }
+//             />
+//         </>
+//     );
+// };
+
+// export default CustomerLayout;
+
+// import { useState } from "react";
+// import { Box } from "@mui/material";
+// import { Outlet } from "react-router-dom";
+
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+// import CartDrawer from "../components/cart/CartDrawer";
+
+// const CustomerLayout = () => {
+//     const [cartOpen, setCartOpen] = useState(false);
+
+//     return (
+//         <>
+//             {/* CUSTOMER NAVBAR */}
+//             <CustomerNavbar
+//                 onCartClick={() => setCartOpen(true)}
+//             />
+
+//             {/* CUSTOMER PAGE CONTENT */}
+//             <Box
+//                 sx={{
+//                     pt: 10,
+//                 }}
+//             >
+//                 <Outlet />
+//             </Box>
+
+//             {/* CART DRAWER */}
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={() => setCartOpen(false)}
+//             />
+//         </>
+//     );
+// };
+
+// export default CustomerLayout;
+//---------------------------------------------------------
+
+// import { useState } from "react";
+
+// import { Box } from "@mui/material";
+
+// import { Outlet } from "react-router-dom";
+
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+// import CartDrawer from "../components/cart/CartDrawer";
+
+// const CustomerLayout = () => {
+
+//     // ============================================
+//     // CART DRAWER STATE
+//     // ============================================
+
+//     const [cartOpen, setCartOpen] = useState(false);
+
+
+//     // ============================================
+//     // OPEN CART
+//     // ============================================
+
+//     const openCart = () => {
+
+//         console.log("CUSTOMER LAYOUT: OPEN CART");
+
+//         setCartOpen(true);
+
+//     };
+
+
+//     // ============================================
+//     // CLOSE CART
+//     // ============================================
+
+//     const closeCart = () => {
+
+//         console.log("CUSTOMER LAYOUT: CLOSE CART");
+
+//         setCartOpen(false);
+
+//     };
+
+
+//     return (
+//         <>
+
+//             {/* ========================================= */}
+//             {/* CUSTOMER NAVBAR */}
+//             {/* ========================================= */}
+
+//             <CustomerNavbar
+//                 onCartClick={openCart}
+//             />
+
+
+//             {/* ========================================= */}
+//             {/* CUSTOMER PAGE CONTENT */}
+//             {/* ========================================= */}
+
+//             <Box
+//                 sx={{
+//                     pt: 10,
+//                 }}
+//             >
+
+//                 <Outlet
+//                     context={{
+//                         openCart,
+//                     }}
+//                 />
+
+//             </Box>
+
+
+//             {/* ========================================= */}
+//             {/* CART DRAWER */}
+//             {/* ========================================= */}
+
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={closeCart}
+//             />
+
+//         </>
+//     );
+
+// };
+
+// export default CustomerLayout;
+//----------------------------
 import { useState } from "react";
+
+import { Box } from "@mui/material";
+
 import { Outlet } from "react-router-dom";
 
 import CustomerNavbar from "../components/navbar/CustomerNavbar";
 import CartDrawer from "../components/cart/CartDrawer";
 
 const CustomerLayout = () => {
-  const [cartOpen, setCartOpen] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
 
-  return (
-    <>
-      <CustomerNavbar
-        onCartClick={() => setCartOpen(true)}
-      />
-      <Outlet />
+    // ============================================
+    // OPEN CART
+    // ============================================
 
-      <CartDrawer
-        open={cartOpen}
-        onClose={() => setCartOpen(false)}
-      />
-    </>
-  );
+    const openCart = () => {
+        console.log("CUSTOMER LAYOUT: OPEN CART");
+        setCartOpen(true);
+    };
+
+    // ============================================
+    // CLOSE CART
+    // ============================================
+
+    const closeCart = () => {
+        console.log("CUSTOMER LAYOUT: CLOSE CART");
+        setCartOpen(false);
+    };
+
+    return (
+        <>
+            {/* ========================================= */}
+            {/* CUSTOMER NAVBAR */}
+            {/* ========================================= */}
+
+            <CustomerNavbar
+                onCartClick={openCart}
+            />
+
+            {/* ========================================= */}
+            {/* PAGE CONTENT */}
+            {/* ========================================= */}
+
+            <Box
+                sx={{
+                    pt: 10,
+                }}
+            >
+                <Outlet
+                    context={{
+                        openCart,
+                    }}
+                />
+            </Box>
+
+            {/* ========================================= */}
+            {/* CART DRAWER */}
+            {/* ========================================= */}
+
+            <CartDrawer
+                open={cartOpen}
+                onClose={closeCart}
+            />
+        </>
+    );
 };
 
 export default CustomerLayout;

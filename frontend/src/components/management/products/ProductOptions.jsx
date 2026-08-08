@@ -571,7 +571,10 @@ const ProductOptions = ({
     // ---------------------------------
     // Generate Variant Combinations
     // ---------------------------------
-
+console.log(
+    "FINAL PRODUCT VARIANTS",
+    JSON.stringify(productVariants, null, 2)
+);
     const generateVariants = () => {
 
         const activeVariants = variants.filter(
