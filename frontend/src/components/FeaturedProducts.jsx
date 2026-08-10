@@ -340,89 +340,368 @@
 // };
 // export default FeaturedProducts;
 //-----------------------------------
+
+// import {
+//     Box,
+//     Typography,
+//     Container,
+//     Card,
+//     CardMedia,
+//     CardContent,
+// } from "@mui/material";
+
+// import { useEffect } from "react";
+
+// import {
+//     useDispatch,
+//     useSelector,
+// } from "react-redux";
+
+// import {
+//     getFeaturedProducts,
+// } from "../features/products/ProductsThunk";
+
+// import {
+//     useNavigate,
+// } from "react-router-dom";
+
+
+// // =====================================================
+// // IMAGE URL HELPER
+// // =====================================================
+
+// const getImageUrl = (image) => {
+
+//     if (!image) {
+//         return "/default-product.jpg";
+//     }
+
+//     // If backend already gives complete URL
+//     if (
+//         typeof image === "string" &&
+//         (
+//             image.startsWith("http://") ||
+//             image.startsWith("https://")
+//         )
+//     ) {
+//         return image;
+//     }
+
+//     // If image is an object
+//     if (
+//         typeof image === "object" &&
+//         image.url
+//     ) {
+
+//         if (
+//             image.url.startsWith("http://") ||
+//             image.url.startsWith("https://")
+//         ) {
+//             return image.url;
+//         }
+
+//         return `http://localhost:3000${image.url}`;
+//     }
+
+//     // If image itself is a relative path
+//     if (
+//         typeof image === "string"
+//     ) {
+
+//         return `http://localhost:3000${image}`;
+//     }
+
+//     return "/default-product.jpg";
+// };
+
+
+// // =====================================================
+// // COMPONENT
+// // =====================================================
+
+// const FeaturedProducts = () => {
+
+//     const dispatch = useDispatch();
+
+//     const navigate = useNavigate();
+
+//     const {
+//         featuredProducts = [],
+//     } = useSelector(
+//         (state) => state.products
+//     );
+
+
+//     // =================================================
+//     // GET FEATURED PRODUCTS
+//     // =================================================
+
+//     useEffect(() => {
+
+//         dispatch(
+//             getFeaturedProducts()
+//         );
+
+//     }, [dispatch]);
+
+
+//     // =================================================
+//     // DEBUG
+//     // =================================================
+
+//     console.log(
+//         "FEATURED PRODUCTS:",
+//         featuredProducts
+//     );
+
+
+//     // =================================================
+//     // UI
+//     // =================================================
+
+//     return (
+
+//         <Box
+//             sx={{
+//                 py: 10,
+//                 background: "#fff",
+//             }}
+//         >
+
+//             <Container maxWidth="lg">
+
+//                 {/* ===================================== */}
+//                 {/* TITLE */}
+//                 {/* ===================================== */}
+
+//                 <Typography
+//                     textAlign="center"
+//                     sx={{
+//                         fontSize: {
+//                             xs: "32px",
+//                             md: "45px",
+//                         },
+
+//                         letterSpacing: 5,
+
+//                         fontWeight: 500,
+
+//                         mb: 6,
+//                     }}
+//                 >
+//                     FEATURED PRODUCTS
+//                 </Typography>
+
+
+//                 {/* ===================================== */}
+//                 {/* PRODUCTS */}
+//                 {/* ===================================== */}
+
+//                 <Box
+//                     sx={{
+//                         display: "grid",
+
+//                         gridTemplateColumns: {
+//                             xs: "1fr",
+//                             sm: "repeat(2, 1fr)",
+//                             md: "repeat(3, 1fr)",
+//                         },
+
+//                         gap: 4,
+//                     }}
+//                 >
+
+//                     {featuredProducts.map(
+//                         (product) => {
+
+//                             const imageUrl =
+//                                 getImageUrl(
+//                                     product.images?.[0]
+//                                 );
+
+
+//                             console.log(
+//                                 "PRODUCT:",
+//                                 product.productName
+//                             );
+
+//                             console.log(
+//                                 "IMAGE OBJECT:",
+//                                 product.images?.[0]
+//                             );
+
+//                             console.log(
+//                                 "FINAL IMAGE URL:",
+//                                 imageUrl
+//                             );
+
+
+//                             return (
+
+//                                 <Card
+//                                     key={
+//                                         product._id
+//                                     }
+
+//                                     onClick={() =>
+//                                         navigate(
+//                                             `/boutique/product/${product._id}`
+//                                         )
+//                                     }
+
+//                                     sx={{
+//                                         borderRadius: 0,
+
+//                                         boxShadow: "none",
+
+//                                         cursor: "pointer",
+
+//                                         background: "#fff",
+
+//                                         transition:
+//                                             "transform 0.2s ease",
+
+//                                         "&:hover": {
+//                                             transform:
+//                                                 "translateY(-4px)",
+//                                         },
+//                                     }}
+//                                 >
+
+//                                     {/* ================================= */}
+//                                     {/* IMAGE */}
+//                                     {/* ================================= */}
+
+//                                     <CardMedia
+//                                         component="img"
+
+//                                         src={imageUrl}
+
+//                                         alt={
+//                                             product.productName
+//                                         }
+
+//                                         onError={(event) => {
+
+//                                             console.error(
+//                                                 "IMAGE FAILED:",
+//                                                 imageUrl
+//                                             );
+
+//                                             event.currentTarget.onerror =
+//                                                 null;
+
+//                                             event.currentTarget.src =
+//                                                 "/default-product.jpg";
+//                                         }}
+
+//                                         sx={{
+//                                             width: "100%",
+
+//                                             height: 350,
+
+//                                             objectFit:
+//                                                 "cover",
+
+//                                             display:
+//                                                 "block",
+
+//                                             backgroundColor:
+//                                                 "#f5f5f5",
+//                                         }}
+//                                     />
+
+
+//                                     {/* ================================= */}
+//                                     {/* PRODUCT INFO */}
+//                                     {/* ================================= */}
+
+//                                     <CardContent
+//                                         sx={{
+//                                             px: 2,
+
+//                                             py: 2,
+//                                         }}
+//                                     >
+
+//                                         <Typography
+//                                             sx={{
+//                                                 fontSize: 16,
+
+//                                                 fontWeight: 500,
+//                                             }}
+//                                         >
+//                                             {
+//                                                 product.productName
+//                                             }
+//                                         </Typography>
+
+
+//                                         <Typography
+//                                             sx={{
+//                                                 mt: 0.5,
+
+//                                                 fontSize: 15,
+//                                             }}
+//                                         >
+//                                             ₹{" "}
+//                                             {
+//                                                 product.sellingPrice
+//                                             }
+//                                         </Typography>
+
+//                                     </CardContent>
+
+//                                 </Card>
+
+//                             );
+
+//                         }
+//                     )}
+
+//                 </Box>
+
+//             </Container>
+
+//         </Box>
+
+//     );
+
+// };
+
+// export default FeaturedProducts;
+//--------------------------------------------------
+import { useEffect } from "react";
+
 import {
     Box,
     Typography,
     Container,
     Card,
-    CardMedia,
-    CardContent,
 } from "@mui/material";
-
-import { useEffect } from "react";
 
 import {
     useDispatch,
     useSelector,
 } from "react-redux";
 
+import { useNavigate } from "react-router-dom";
+
 import {
     getFeaturedProducts,
 } from "../features/products/ProductsThunk";
 
-import {
-    useNavigate,
-} from "react-router-dom";
-
-
-// =====================================================
-// IMAGE URL HELPER
-// =====================================================
-
-const getImageUrl = (image) => {
-
-    if (!image) {
-        return "/default-product.jpg";
-    }
-
-    // If backend already gives complete URL
-    if (
-        typeof image === "string" &&
-        (
-            image.startsWith("http://") ||
-            image.startsWith("https://")
-        )
-    ) {
-        return image;
-    }
-
-    // If image is an object
-    if (
-        typeof image === "object" &&
-        image.url
-    ) {
-
-        if (
-            image.url.startsWith("http://") ||
-            image.url.startsWith("https://")
-        ) {
-            return image.url;
-        }
-
-        return `http://localhost:3000${image.url}`;
-    }
-
-    // If image itself is a relative path
-    if (
-        typeof image === "string"
-    ) {
-
-        return `http://localhost:3000${image}`;
-    }
-
-    return "/default-product.jpg";
-};
-
-
-// =====================================================
-// COMPONENT
-// =====================================================
 
 const FeaturedProducts = () => {
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+
+
+    // ============================================
+    // FEATURED PRODUCTS STATE
+    // ============================================
 
     const {
         featuredProducts = [],
@@ -431,9 +710,9 @@ const FeaturedProducts = () => {
     );
 
 
-    // =================================================
+    // ============================================
     // GET FEATURED PRODUCTS
-    // =================================================
+    // ============================================
 
     useEffect(() => {
 
@@ -444,19 +723,26 @@ const FeaturedProducts = () => {
     }, [dispatch]);
 
 
-    // =================================================
-    // DEBUG
-    // =================================================
+    // ============================================
+    // OPEN PRODUCT DETAILS
+    // ============================================
 
-    console.log(
-        "FEATURED PRODUCTS:",
-        featuredProducts
-    );
+    const handleProductClick = (productId) => {
+
+        if (!productId) {
+            return;
+        }
+
+        navigate(
+            `/product/${productId}`
+        );
+
+    };
 
 
-    // =================================================
-    // UI
-    // =================================================
+    // ============================================
+    // RENDER
+    // ============================================
 
     return (
 
@@ -493,7 +779,7 @@ const FeaturedProducts = () => {
 
 
                 {/* ===================================== */}
-                {/* PRODUCTS */}
+                {/* PRODUCTS GRID */}
                 {/* ===================================== */}
 
                 <Box
@@ -513,10 +799,12 @@ const FeaturedProducts = () => {
                     {featuredProducts.map(
                         (product) => {
 
+                            // =====================================
+                            // PRODUCT IMAGE
+                            // =====================================
+
                             const imageUrl =
-                                getImageUrl(
-                                    product.images?.[0]
-                                );
+                                product.images?.[0]?.url;
 
 
                             console.log(
@@ -525,26 +813,23 @@ const FeaturedProducts = () => {
                             );
 
                             console.log(
-                                "IMAGE OBJECT:",
-                                product.images?.[0]
-                            );
-
-                            console.log(
-                                "FINAL IMAGE URL:",
+                                "IMAGE URL:",
                                 imageUrl
                             );
 
 
+                            // =====================================
+                            // PRODUCT CARD
+                            // =====================================
+
                             return (
 
                                 <Card
-                                    key={
-                                        product._id
-                                    }
+                                    key={product._id}
 
                                     onClick={() =>
-                                        navigate(
-                                            `/boutique/product/${product._id}`
+                                        handleProductClick(
+                                            product._id
                                         )
                                     }
 
@@ -555,55 +840,64 @@ const FeaturedProducts = () => {
 
                                         cursor: "pointer",
 
-                                        background: "#fff",
+                                        overflow: "hidden",
 
-                                        transition:
-                                            "transform 0.2s ease",
+                                        backgroundColor:
+                                            "#f5f5f5",
 
-                                        "&:hover": {
+                                        "&:hover img": {
                                             transform:
-                                                "translateY(-4px)",
+                                                "scale(1.03)",
                                         },
                                     }}
                                 >
 
                                     {/* ================================= */}
-                                    {/* IMAGE */}
+                                    {/* PRODUCT IMAGE */}
                                     {/* ================================= */}
 
-                                    <CardMedia
+                                    <Box
                                         component="img"
 
-                                        src={imageUrl}
+                                        src={
+                                            imageUrl ||
+                                            "/no-image.png"
+                                        }
 
                                         alt={
-                                            product.productName
+                                            product.productName ||
+                                            "Product"
                                         }
 
                                         onError={(event) => {
 
                                             console.error(
-                                                "IMAGE FAILED:",
+                                                "IMAGE ERROR:",
                                                 imageUrl
                                             );
 
-                                            event.currentTarget.onerror =
-                                                null;
-
                                             event.currentTarget.src =
-                                                "/default-product.jpg";
+                                                "/no-image.png";
+
                                         }}
 
                                         sx={{
                                             width: "100%",
 
-                                            height: 350,
+                                            height: {
+                                                xs: 400,
+                                                sm: 400,
+                                                md: 450,
+                                            },
 
                                             objectFit:
-                                                "cover",
+                                                "contain",
 
                                             display:
                                                 "block",
+
+                                            transition:
+                                                "transform 0.4s",
 
                                             backgroundColor:
                                                 "#f5f5f5",
@@ -612,22 +906,27 @@ const FeaturedProducts = () => {
 
 
                                     {/* ================================= */}
-                                    {/* PRODUCT INFO */}
+                                    {/* PRODUCT INFORMATION */}
                                     {/* ================================= */}
 
-                                    <CardContent
+                                    <Box
                                         sx={{
-                                            px: 2,
+                                            p: 2,
 
-                                            py: 2,
+                                            backgroundColor:
+                                                "#fff",
                                         }}
                                     >
 
+                                        {/* PRODUCT NAME */}
+
                                         <Typography
                                             sx={{
-                                                fontSize: 16,
+                                                fontSize: 17,
 
                                                 fontWeight: 500,
+
+                                                mb: 1,
                                             }}
                                         >
                                             {
@@ -636,11 +935,16 @@ const FeaturedProducts = () => {
                                         </Typography>
 
 
+                                        {/* PRODUCT PRICE */}
+
                                         <Typography
                                             sx={{
-                                                mt: 0.5,
+                                                fontSize: 16,
 
-                                                fontSize: 15,
+                                                fontWeight: 600,
+
+                                                color:
+                                                    "#C9A227",
                                             }}
                                         >
                                             ₹{" "}
@@ -649,7 +953,7 @@ const FeaturedProducts = () => {
                                             }
                                         </Typography>
 
-                                    </CardContent>
+                                    </Box>
 
                                 </Card>
 
@@ -665,7 +969,7 @@ const FeaturedProducts = () => {
         </Box>
 
     );
-
 };
+
 
 export default FeaturedProducts;

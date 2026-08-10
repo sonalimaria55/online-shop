@@ -291,106 +291,456 @@
 
 // export default Collections;
 
+//------------------------------------------------------------
 
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// import {
+//   Box,
+//   Typography,
+//   Container,
+//   Card,
+//   CardMedia,
+// } from "@mui/material";
+
+// import { getCategories } from "../features/categories/CategoriesThunk";
+
+// const Collections = () => {
+//   const dispatch = useDispatch();
+
+//   const { categories = [] } = useSelector(
+//     (state) => state.categories
+//   );
+
+//   useEffect(() => {
+//     dispatch(getCategories());
+//   }, [dispatch]);
+
+//   return (
+//     <Box
+//       sx={{
+//         py: 10,
+//         background: "#faf8f3",
+//       }}
+//     >
+//       <Container maxWidth="lg">
+//         <Typography
+//           textAlign="center"
+//           sx={{
+//             fontSize: {
+//               xs: "32px",
+//               md: "45px",
+//             },
+//             letterSpacing: 5,
+//             fontWeight: 500,
+//             mb: 6,
+//           }}
+//         >
+//           OUR COLLECTIONS
+//         </Typography>
+
+//         <Box
+//           sx={{
+//             display: "grid",
+//             gridTemplateColumns: {
+//               xs: "1fr",
+//               sm: "repeat(2,1fr)",
+//               md: "repeat(3,1fr)",
+//             },
+//             gap: 3,
+//           }}
+//         >
+//           {categories.map((item) => (
+//             <Card
+//               key={item._id}
+//               sx={{
+//                 borderRadius: 0,
+//                 boxShadow: "none",
+//                 overflow: "hidden",
+//                 cursor: "pointer",
+
+//                 "&:hover img": {
+//                   transform: "scale(1.05)",
+//                 },
+//               }}
+//             >
+//               {/* <CardMedia
+//                 component="img"
+//                 image={item.image}
+//                 alt={item.categoryName}
+//                 sx={{
+//                   height: 280,
+//                   objectFit: "cover",
+//                   transition: "0.5s",
+//                 }}
+//               /> */}
+
+//               <CardMedia
+//                 component="img"
+//                 src={imageUrl}
+//                 alt={item.categoryName}
+//                 onError={(event) => {
+//                   event.currentTarget.onerror = null;
+//                   event.currentTarget.src = "/no-image.png";
+//                 }}
+//                 sx={{
+//                   width: "100%",
+
+//                   height: {
+//                     xs: 300,
+//                     sm: 380,
+//                     md: 450,
+//                   },
+
+//                   display: "block",
+
+//                   objectFit: "contain",
+
+//                   backgroundColor: "#f5f5f5",
+
+//                   transition: "transform 0.5s",
+
+//                   "&:hover": {
+//                     transform: "scale(1.02)",
+//                   },
+//                 }}
+//               />
+
+
+
+
+//               <Typography
+//                 textAlign="center"
+//                 sx={{
+//                   py: 2,
+//                   fontSize: "20px",
+//                   letterSpacing: 2,
+//                 }}
+//               >
+//                 {item.categoryName}
+//               </Typography>
+//             </Card>
+//           ))}
+//         </Box>
+//       </Container>
+//     </Box>
+//   );
+// };
+
+// export default Collections;
+//-----------------------------------------------------
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
-  Box,
-  Typography,
-  Container,
-  Card,
-  CardMedia,
+    useDispatch,
+    useSelector,
+} from "react-redux";
+
+import {
+    Box,
+    Typography,
+    Container,
+    Card,
+    CardMedia,
 } from "@mui/material";
 
-import { getCategories } from "../features/categories/CategoriesThunk";
+import {
+    getCategories,
+} from "../features/categories/CategoriesThunk";
+
+
+// =====================================================
+// GET IMAGE URL
+// =====================================================
+
+const getImageUrl = (image) => {
+
+    // No image
+    if (!image) {
+        return "/no-image.png";
+    }
+
+
+    // Image is a string
+    if (typeof image === "string") {
+
+        if (
+            image.startsWith("http://") ||
+            image.startsWith("https://")
+        ) {
+            return image;
+        }
+
+        return `http://localhost:3000${image}`;
+    }
+
+
+    // Image is an object
+    if (
+        typeof image === "object" &&
+        image.url
+    ) {
+
+        if (
+            image.url.startsWith("http://") ||
+            image.url.startsWith("https://")
+        ) {
+            return image.url;
+        }
+
+        return `http://localhost:3000${image.url}`;
+    }
+
+
+    return "/no-image.png";
+};
+
+
+// =====================================================
+// COLLECTIONS
+// =====================================================
 
 const Collections = () => {
-  const dispatch = useDispatch();
 
-  const { categories = [] } = useSelector(
-    (state) => state.categories
-  );
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
 
-  return (
-    <Box
-      sx={{
-        py: 10,
-        background: "#faf8f3",
-      }}
-    >
-      <Container maxWidth="lg">
-        <Typography
-          textAlign="center"
-          sx={{
-            fontSize: {
-              xs: "32px",
-              md: "45px",
-            },
-            letterSpacing: 5,
-            fontWeight: 500,
-            mb: 6,
-          }}
-        >
-          OUR COLLECTIONS
-        </Typography>
+    // =================================================
+    // REDUX
+    // =================================================
+
+    const {
+        categories = [],
+    } = useSelector(
+        (state) => state.categories
+    );
+
+
+    // =================================================
+    // GET CATEGORIES
+    // =================================================
+
+    useEffect(() => {
+
+        dispatch(
+            getCategories()
+        );
+
+    }, [dispatch]);
+
+
+    // =================================================
+    // UI
+    // =================================================
+
+    return (
 
         <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2,1fr)",
-              md: "repeat(3,1fr)",
-            },
-            gap: 3,
-          }}
+            sx={{
+                py: 10,
+                background: "#FAF8F3",
+            }}
         >
-          {categories.map((item) => (
-            <Card
-              key={item._id}
-              sx={{
-                borderRadius: 0,
-                boxShadow: "none",
-                overflow: "hidden",
-                cursor: "pointer",
 
-                "&:hover img": {
-                  transform: "scale(1.05)",
-                },
-              }}
-            >
-              <CardMedia
-                component="img"
-                image={item.image}
-                alt={item.categoryName}
-                sx={{
-                  height: 280,
-                  objectFit: "cover",
-                  transition: "0.5s",
-                }}
-              />
+            <Container maxWidth="lg">
 
-              <Typography
-                textAlign="center"
-                sx={{
-                  py: 2,
-                  fontSize: "20px",
-                  letterSpacing: 2,
-                }}
-              >
-                {item.categoryName}
-              </Typography>
-            </Card>
-          ))}
+                {/* ===================================== */}
+                {/* TITLE */}
+                {/* ===================================== */}
+
+                <Typography
+                    textAlign="center"
+                    sx={{
+                        fontSize: {
+                            xs: "32px",
+                            md: "45px",
+                        },
+
+                        letterSpacing: 5,
+
+                        fontWeight: 500,
+
+                        mb: 6,
+                    }}
+                >
+                    OUR COLLECTIONS
+                </Typography>
+
+
+                {/* ===================================== */}
+                {/* COLLECTION GRID */}
+                {/* ===================================== */}
+
+                <Box
+                    sx={{
+                        display: "grid",
+
+                        gridTemplateColumns: {
+                            xs: "1fr",
+                            sm: "repeat(2, 1fr)",
+                            md: "repeat(3, 1fr)",
+                        },
+
+                        gap: 3,
+                    }}
+                >
+
+                    {
+                        categories.map(
+                            (item) => {
+
+                                // Get image URL
+                                const imageUrl =
+                                    getImageUrl(
+                                        item.image
+                                    );
+
+
+                                return (
+
+                                    <Card
+                                        key={
+                                            item._id
+                                        }
+
+                                        sx={{
+                                            borderRadius: 0,
+
+                                            boxShadow:
+                                                "none",
+
+                                            overflow:
+                                                "hidden",
+
+                                            cursor:
+                                                "pointer",
+
+                                            backgroundColor:
+                                                "#fff",
+
+                                            "&:hover img": {
+                                                transform:
+                                                    "scale(1.02)",
+                                            },
+                                        }}
+                                    >
+
+                                        {/* ================================= */}
+                                        {/* IMAGE CONTAINER */}
+                                        {/* ================================= */}
+
+                                        <Box
+                                            sx={{
+                                                width: "100%",
+
+                                                height: {
+                                                    xs: 350,
+                                                    sm: 400,
+                                                    md: 450,
+                                                },
+
+                                                display: "flex",
+
+                                                alignItems:
+                                                    "center",
+
+                                                justifyContent:
+                                                    "center",
+
+                                                backgroundColor:
+                                                    "#f5f5f5",
+
+                                                overflow:
+                                                    "hidden",
+                                            }}
+                                        >
+
+                                            <CardMedia
+                                                component="img"
+
+                                                src={
+                                                    imageUrl
+                                                }
+
+                                                alt={
+                                                    item.categoryName ||
+                                                    "Collection"
+                                                }
+
+                                                onError={(
+                                                    event
+                                                ) => {
+
+                                                    event.currentTarget.onerror =
+                                                        null;
+
+                                                    event.currentTarget.src =
+                                                        "/no-image.png";
+
+                                                }}
+
+                                                sx={{
+                                                    width:
+                                                        "100%",
+
+                                                    height:
+                                                        "100%",
+
+                                                    display:
+                                                        "block",
+
+                                                    objectFit:
+                                                        "contain",
+
+                                                    transition:
+                                                        "transform 0.5s",
+                                                }}
+                                            />
+
+                                        </Box>
+
+
+                                        {/* ================================= */}
+                                        {/* COLLECTION NAME */}
+                                        {/* ================================= */}
+
+                                        <Typography
+                                            textAlign="center"
+
+                                            sx={{
+                                                py: 2,
+
+                                                fontSize:
+                                                    "20px",
+
+                                                letterSpacing:
+                                                    2,
+
+                                                backgroundColor:
+                                                    "#fff",
+                                            }}
+                                        >
+                                            {
+                                                item.categoryName
+                                            }
+                                        </Typography>
+
+                                    </Card>
+
+                                );
+
+                            }
+                        )
+                    }
+
+                </Box>
+
+            </Container>
+
         </Box>
-      </Container>
-    </Box>
-  );
+    );
 };
+
 
 export default Collections;

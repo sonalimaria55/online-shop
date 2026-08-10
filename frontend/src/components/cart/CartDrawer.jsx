@@ -100,6 +100,333 @@
 // };
 
 // export default CartDrawer;
+//-------------------------------------------------------------------------
+
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// import {
+//     Drawer,
+//     Box,
+//     Typography,
+//     IconButton,
+//     Divider,
+//     CircularProgress,
+// } from "@mui/material";
+
+// import CloseIcon from "@mui/icons-material/Close";
+
+// import { getCart } from "../../features/cart/CartThunk";
+
+// import CartItem from "./CartItem";
+// import CartSummary from "./CartSummary";
+
+
+// const CartDrawer = ({
+//     open,
+//     onClose,
+// }) => {
+
+//     const dispatch = useDispatch();
+
+
+//     const {
+//         items,
+//         loading,
+//     } = useSelector(
+//         (state) => state.cart
+//     );
+
+
+//     useEffect(() => {
+
+//         if (open) {
+
+//             dispatch(getCart());
+
+//         }
+
+//     }, [
+//         open,
+//         dispatch,
+//     ]);
+
+
+//     return (
+
+//         <Drawer
+//             anchor="right"
+//             open={open}
+//             onClose={onClose}
+
+//             PaperProps={{
+//                 sx: {
+//                     width: {
+//                         xs: "100%",
+//                         sm: 420,
+//                     },
+
+//                     bgcolor: "#FAF8F3",
+
+//                     display: "flex",
+
+//                     flexDirection: "column",
+//                 },
+//             }}
+//         >
+
+//             {/* HEADER */}
+
+//             <Box
+//                 sx={{
+//                     display: "flex",
+//                     justifyContent: "space-between",
+//                     alignItems: "center",
+//                     p: 2,
+//                 }}
+//             >
+
+//                 <Typography
+//                     variant="h6"
+//                     fontWeight={600}
+//                 >
+//                     YOUR CART ({items.length})
+//                 </Typography>
+
+
+//                 <IconButton
+//                     onClick={onClose}
+//                 >
+//                     <CloseIcon />
+//                 </IconButton>
+
+//             </Box>
+
+
+//             <Divider />
+
+
+//             {/* ITEMS */}
+
+//             <Box
+//                 sx={{
+//                     flex: 1,
+//                     overflowY: "auto",
+//                     p: 2,
+//                 }}
+//             >
+
+//                 {loading ? (
+
+//                     <Box
+//                         display="flex"
+//                         justifyContent="center"
+//                         p={3}
+//                     >
+//                         <CircularProgress />
+//                     </Box>
+
+//                 ) : items.length === 0 ? (
+
+//                     <Typography>
+//                         Your cart is empty.
+//                     </Typography>
+
+//                 ) : (
+
+//                     items.map(
+//                         (item, index) => {
+
+//                             if (!item.product) {
+//                                 return null;
+//                             }
+
+
+//                             return (
+
+//                                 <CartItem
+//                                     key={
+//                                         `${item.product._id}-${index}`
+//                                     }
+//                                     item={item}
+//                                 />
+
+//                             );
+
+//                         }
+//                     )
+
+//                 )}
+
+//             </Box>
+
+
+//             {/* SUMMARY */}
+
+//             <CartSummary />
+
+//         </Drawer>
+
+//     );
+
+// };
+
+
+// export default CartDrawer;
+//-------------------------------------------------------------
+
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// import {
+//     Drawer,
+//     Box,
+//     Typography,
+//     IconButton,
+//     Divider,
+//     CircularProgress,
+// } from "@mui/material";
+
+// import CloseIcon from "@mui/icons-material/Close";
+
+// import { getCart } from "../../features/cart/CartThunk";
+
+// import CartItem from "./CartItem";
+// import CartSummary from "./CartSummary";
+
+// const CartDrawer = ({
+//     open,
+//     onClose,
+// }) => {
+
+//     const dispatch = useDispatch();
+
+//     const {
+//         items = [],
+//         loading,
+//     } = useSelector(
+//         (state) => state.cart
+//     );
+
+//     useEffect(() => {
+
+//         if (open) {
+//             dispatch(getCart());
+//         }
+
+//     }, [open, dispatch]);
+
+
+//     return (
+
+//         <Drawer
+//             anchor="right"
+//             open={open}
+//             onClose={onClose}
+
+//             PaperProps={{
+//                 sx: {
+//                     width: {
+//                         xs: "100%",
+//                         sm: 420,
+//                     },
+
+//                     bgcolor: "#FAF8F3",
+
+//                     display: "flex",
+
+//                     flexDirection: "column",
+//                 },
+//             }}
+//         >
+
+//             {/* HEADER */}
+
+//             <Box
+//                 sx={{
+//                     display: "flex",
+//                     justifyContent: "space-between",
+//                     alignItems: "center",
+//                     p: 2,
+//                 }}
+//             >
+
+//                 <Typography
+//                     variant="h6"
+//                     fontWeight={600}
+//                 >
+//                     YOUR CART ({items.length})
+//                 </Typography>
+
+//                 <IconButton onClick={onClose}>
+//                     <CloseIcon />
+//                 </IconButton>
+
+//             </Box>
+
+
+//             <Divider />
+
+
+//             {/* CART ITEMS */}
+
+//             <Box
+//                 sx={{
+//                     flex: 1,
+//                     overflowY: "auto",
+//                     p: 2,
+//                 }}
+//             >
+
+//                 {loading ? (
+
+//                     <Box
+//                         display="flex"
+//                         justifyContent="center"
+//                         p={3}
+//                     >
+//                         <CircularProgress />
+//                     </Box>
+
+//                 ) : items.length === 0 ? (
+
+//                     <Typography>
+//                         Your cart is empty.
+//                     </Typography>
+
+//                 ) : (
+
+//                     items.map((item, index) => {
+
+//                         if (!item.product) {
+//                             return null;
+//                         }
+
+//                         return (
+//                             <CartItem
+//                                 key={`${item.product._id}-${index}`}
+//                                 item={item}
+//                             />
+//                         );
+
+//                     })
+
+//                 )}
+
+//             </Box>
+
+
+//             {/* SUMMARY */}
+
+//             {items.length > 0 && (
+//                 <CartSummary />
+//             )}
+
+//         </Drawer>
+//     );
+// };
+
+// export default CartDrawer;
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -118,7 +445,7 @@ import { getCart } from "../../features/cart/CartThunk";
 
 import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
-
+import EmptyCart from "./EmptyCart";
 
 const CartDrawer = ({
     open,
@@ -127,9 +454,8 @@ const CartDrawer = ({
 
     const dispatch = useDispatch();
 
-
     const {
-        items,
+        items = [],
         loading,
     } = useSelector(
         (state) => state.cart
@@ -139,15 +465,10 @@ const CartDrawer = ({
     useEffect(() => {
 
         if (open) {
-
             dispatch(getCart());
-
         }
 
-    }, [
-        open,
-        dispatch,
-    ]);
+    }, [open, dispatch]);
 
 
     return (
@@ -173,7 +494,9 @@ const CartDrawer = ({
             }}
         >
 
+            {/* ================================= */}
             {/* HEADER */}
+            {/* ================================= */}
 
             <Box
                 sx={{
@@ -204,7 +527,9 @@ const CartDrawer = ({
             <Divider />
 
 
-            {/* ITEMS */}
+            {/* ================================= */}
+            {/* CART CONTENT */}
+            {/* ================================= */}
 
             <Box
                 sx={{
@@ -219,6 +544,7 @@ const CartDrawer = ({
                     <Box
                         display="flex"
                         justifyContent="center"
+                        alignItems="center"
                         p={3}
                     >
                         <CircularProgress />
@@ -226,48 +552,42 @@ const CartDrawer = ({
 
                 ) : items.length === 0 ? (
 
-                    <Typography>
-                        Your cart is empty.
-                    </Typography>
+                    <EmptyCart
+                        onContinueShopping={onClose}
+                    />
 
                 ) : (
 
-                    items.map(
-                        (item, index) => {
+                    items.map((item, index) => {
 
-                            if (!item.product) {
-                                return null;
-                            }
-
-
-                            return (
-
-                                <CartItem
-                                    key={
-                                        `${item.product._id}-${index}`
-                                    }
-                                    item={item}
-                                />
-
-                            );
-
+                        if (!item.product) {
+                            return null;
                         }
-                    )
+
+                        return (
+                            <CartItem
+                                key={`${item.product._id}-${index}`}
+                                item={item}
+                            />
+                        );
+
+                    })
 
                 )}
 
             </Box>
 
 
+            {/* ================================= */}
             {/* SUMMARY */}
+            {/* ================================= */}
 
-            <CartSummary />
+            {items.length > 0 && (
+                <CartSummary />
+            )}
 
         </Drawer>
-
     );
-
 };
-
 
 export default CartDrawer;

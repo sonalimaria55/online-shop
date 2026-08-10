@@ -130,7 +130,7 @@ const Dashboard = () => {
 
 
 
-                                <CardMedia
+                                {/* <CardMedia
 
                                     component="img"
 
@@ -152,7 +152,26 @@ const Dashboard = () => {
 
                                     }}
 
-                                />
+                                /> */}
+
+
+                                <CardMedia
+    component="img"
+    image={
+        product.images?.[0]?.url ||
+        "/placeholder.jpg"
+    }
+    alt={product.productName}
+    onError={(e) => {
+        e.currentTarget.src = "/placeholder.jpg";
+    }}
+    sx={{
+        width: "100%",
+        height: 320,
+        objectFit: "cover",
+        display: "block",
+    }}
+/>
 
 
 

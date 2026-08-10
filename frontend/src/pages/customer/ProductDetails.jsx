@@ -1145,48 +1145,1036 @@
 // export default ProductDetails;
 
 //---------------------------------------------------------
-import { useEffect, useState } from "react";
 
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
+// import { useEffect, useState } from "react";
 
-import {
-    Box,
-    Typography,
-    CircularProgress,
-    Button,
-    ToggleButton,
-    ToggleButtonGroup,
-    IconButton,
-} from "@mui/material";
+// import RemoveIcon from "@mui/icons-material/Remove";
+// import AddIcon from "@mui/icons-material/Add";
 
-import {
-    useDispatch,
-    useSelector,
-} from "react-redux";
+// import {
+//     Box,
+//     Typography,
+//     CircularProgress,
+//     Button,
+//     ToggleButton,
+//     ToggleButtonGroup,
+//     IconButton,
+// } from "@mui/material";
 
-import {
-    useParams,
-    useOutletContext,
-} from "react-router-dom";
+// import {
+//     useDispatch,
+//     useSelector,
+// } from "react-redux";
 
-import {
-    getProductById,
-} from "../../features/products/ProductsThunk";
+// import {
+//     useParams,
+//     useOutletContext,
+// } from "react-router-dom";
 
-import {
-    addToCart,
-    getCart,
-} from "../../features/cart/CartThunk";
+// import {
+//     getProductById,
+// } from "../../features/products/ProductsThunk";
+
+// import {
+//     addToCart,
+//     getCart,
+// } from "../../features/cart/CartThunk";
 
 
+// // const ProductDetails = () => {
+
+// //     const { id } = useParams();
+
+// //     // =====================================================
+// //     // CART FUNCTIONS FROM CUSTOMER LAYOUT
+// //     // =====================================================
+
+// //     const {
+// //         openCart,
+// //     } = useOutletContext();
+
+
+// //     const dispatch = useDispatch();
+
+
+// //     // =====================================================
+// //     // PRODUCT STATE
+// //     // =====================================================
+
+// //     const {
+// //         selectedProduct,
+// //         loading,
+// //         error,
+// //     } = useSelector(
+// //         (state) => state.products
+// //     );
+
+
+// //     // =====================================================
+// //     // CART STATE
+// //     // =====================================================
+
+// //     const {
+// //         loading: cartLoading,
+// //     } = useSelector(
+// //         (state) => state.cart
+// //     );
+
+
+// //     // =====================================================
+// //     // LOCAL STATE
+// //     // =====================================================
+
+// //     const [
+// //         selectedVariant,
+// //         setSelectedVariant,
+// //     ] = useState(null);
+
+
+// //     const [
+// //         quantity,
+// //         setQuantity,
+// //     ] = useState(1);
+
+
+// //     // =====================================================
+// //     // GET PRODUCT
+// //     // =====================================================
+
+// //     useEffect(() => {
+
+// //         if (!id) {
+// //             return;
+// //         }
+
+// //         dispatch(
+// //             getProductById(id)
+// //         );
+
+// //     }, [
+// //         dispatch,
+// //         id,
+// //     ]);
+
+
+// //     // =====================================================
+// //     // LOADING
+// //     // =====================================================
+
+// //     if (loading) {
+
+// //         return (
+
+// //             <Box
+// //                 sx={{
+// //                     minHeight: "70vh",
+// //                     display: "flex",
+// //                     justifyContent: "center",
+// //                     alignItems: "center",
+// //                 }}
+// //             >
+
+// //                 <CircularProgress />
+
+// //             </Box>
+
+// //         );
+
+// //     }
+
+
+// //     // =====================================================
+// //     // ERROR
+// //     // =====================================================
+
+// //     if (error) {
+
+// //         return (
+
+// //             <Box
+// //                 sx={{
+// //                     py: 15,
+// //                     textAlign: "center",
+// //                 }}
+// //             >
+
+// //                 <Typography
+// //                     color="error"
+// //                 >
+// //                     {error}
+// //                 </Typography>
+
+// //             </Box>
+
+// //         );
+
+// //     }
+
+
+// //     // =====================================================
+// //     // PRODUCT NOT FOUND
+// //     // =====================================================
+
+// //     if (!selectedProduct) {
+
+// //         return (
+
+// //             <Box
+// //                 sx={{
+// //                     py: 15,
+// //                     textAlign: "center",
+// //                 }}
+// //             >
+
+// //                 <Typography>
+// //                     Product not found
+// //                 </Typography>
+
+// //             </Box>
+
+// //         );
+
+// //     }
+
+
+// //     // =====================================================
+// //     // VARIANTS
+// //     // =====================================================
+
+// //     const variants =
+// //         selectedProduct.productVariants || [];
+
+
+// //     // =====================================================
+// //     // ADD TO CART
+// //     // =====================================================
+
+// //     // const handleAddToCart = async () => {
+
+// //     //     // -------------------------------------------------
+// //     //     // VARIANT REQUIRED
+// //     //     // -------------------------------------------------
+
+// //     //     if (!selectedVariant) {
+
+// //     //         alert(
+// //     //             "Please select size"
+// //     //         );
+
+// //     //         return;
+
+// //     //     }
+
+
+// //     //     // -------------------------------------------------
+// //     //     // STOCK CHECK
+// //     //     // -------------------------------------------------
+
+// //     //     const stock =
+// //     //         Number(
+// //     //             selectedVariant.stock || 0
+// //     //         );
+
+
+// //     //     if (stock <= 0) {
+
+// //     //         alert(
+// //     //             "This variant is out of stock"
+// //     //         );
+
+// //     //         return;
+
+// //     //     }
+
+
+// //     //     // -------------------------------------------------
+// //     //     // QUANTITY CHECK
+// //     //     // -------------------------------------------------
+
+// //     //     if (quantity > stock) {
+
+// //     //         alert(
+// //     //             `Only ${stock} items available`
+// //     //         );
+
+// //     //         return;
+
+// //     //     }
+
+
+// //     //     // -------------------------------------------------
+// //     //     // CART DATA
+// //     //     // -------------------------------------------------
+
+// //     //     const cartItem = {
+
+// //     //         product:
+// //     //             selectedProduct._id,
+
+// //     //         variant:
+// //     //             selectedVariant._id,
+
+// //     //         quantity:
+// //     //             Number(quantity),
+
+// //     //     };
+
+
+// //     //     console.log(
+// //     //         "PRODUCT DETAILS: ADD TO CART",
+// //     //         cartItem
+// //     //     );
+
+
+// //     //     try {
+
+// //     //         // =============================================
+// //     //         // ADD PRODUCT TO CART
+// //     //         // =============================================
+
+// //     //         await dispatch(
+// //     //             addToCart(cartItem)
+// //     //         ).unwrap();
+
+
+// //     //         console.log(
+// //     //             "PRODUCT DETAILS: PRODUCT ADDED"
+// //     //         );
+
+
+// //     //         // =============================================
+// //     //         // REFRESH CART
+// //     //         // =============================================
+
+// //     //         await dispatch(
+// //     //             getCart()
+// //     //         ).unwrap();
+
+
+// //     //         console.log(
+// //     //             "PRODUCT DETAILS: CART UPDATED"
+// //     //         );
+
+
+// //     //         // =============================================
+// //     //         // OPEN CART DRAWER
+// //     //         // =============================================
+
+// //     //         console.log(
+// //     //             "PRODUCT DETAILS: OPENING CART DRAWER"
+// //     //         );
+
+
+// //     //         openCart();
+
+
+// //     //         console.log(
+// //     //             "PRODUCT DETAILS: CART DRAWER OPENED"
+// //     //         );
+
+
+// //     //     } catch (err) {
+
+// //     //         console.error(
+// //     //             "PRODUCT DETAILS: ADD TO CART FAILED",
+// //     //             err
+// //     //         );
+
+// //     //     }
+
+// //     // };
+// // const handleAddToCart = async () => {
+// //     try {
+// //         // =========================================
+// //         // CHECK VARIANT
+// //         // =========================================
+
+// //         if (!selectedVariant) {
+// //             alert("Please select size");
+// //             return;
+// //         }
+
+// //         // =========================================
+// //         // CHECK STOCK
+// //         // =========================================
+
+// //         if (Number(selectedVariant.stock) <= 0) {
+// //             alert("Product is out of stock");
+// //             return;
+// //         }
+
+// //         // =========================================
+// //         // CHECK QUANTITY
+// //         // =========================================
+
+// //         if (quantity > Number(selectedVariant.stock)) {
+// //             alert("Quantity exceeds available stock");
+// //             return;
+// //         }
+
+// //         // =========================================
+// //         // CART DATA
+// //         // =========================================
+
+// //         const cartItem = {
+// //             product: selectedProduct._id,
+// //             variant: selectedVariant._id,
+// //             quantity: Number(quantity),
+// //         };
+
+// //         console.log(
+// //             "PRODUCT DETAILS: ADD TO CART",
+// //             cartItem
+// //         );
+
+// //         // =========================================
+// //         // ADD TO CART
+// //         // =========================================
+
+// //         await dispatch(
+// //             addToCart(cartItem)
+// //         ).unwrap();
+
+// //         // =========================================
+// //         // REFRESH CART
+// //         // =========================================
+
+// //         await dispatch(
+// //             getCart()
+// //         ).unwrap();
+
+// //         // =========================================
+// //         // OPEN SAME CART DRAWER
+// //         // =========================================
+
+// //         console.log(
+// //             "PRODUCT DETAILS: OPENING CART DRAWER"
+// //         );
+
+// //         openCart();
+
+// //     } catch (error) {
+// //         console.error(
+// //             "ADD TO CART FAILED:",
+// //             error
+// //         );
+// //     }
+// // };
+
+// //     // =====================================================
+// //     // VARIANT CHANGE
+// //     // =====================================================
+
+// //     const handleVariantChange = (
+// //         event,
+// //         value
+// //     ) => {
+
+// //         if (!value) {
+// //             return;
+// //         }
+
+
+// //         const variant =
+// //             variants.find(
+// //                 (item) =>
+// //                     item._id === value
+// //             );
+
+
+// //         if (!variant) {
+// //             return;
+// //         }
+
+
+// //         setSelectedVariant(
+// //             variant
+// //         );
+
+
+// //         setQuantity(1);
+
+// //     };
+
+
+// //     // =====================================================
+// //     // DECREASE QUANTITY
+// //     // =====================================================
+
+// //     const decreaseQuantity = () => {
+
+// //         setQuantity(
+// //             (previous) =>
+// //                 Math.max(
+// //                     1,
+// //                     previous - 1
+// //                 )
+// //         );
+
+// //     };
+
+
+// //     // =====================================================
+// //     // INCREASE QUANTITY
+// //     // =====================================================
+
+// //     const increaseQuantity = () => {
+
+// //         const stock =
+// //             Number(
+// //                 selectedVariant?.stock || 0
+// //             );
+
+
+// //         setQuantity(
+// //             (previous) =>
+// //                 Math.min(
+// //                     stock,
+// //                     previous + 1
+// //                 )
+// //         );
+
+// //     };
+
+
+// //     // =====================================================
+// //     // PRICE
+// //     // =====================================================
+
+// //     const price =
+// //         selectedVariant?.sellingPrice ??
+// //         selectedProduct.sellingPrice ??
+// //         0;
+
+
+// //     // =====================================================
+// //     // UI
+// //     // =====================================================
+
+// //     return (
+
+// //         <Box
+// //             sx={{
+// //                 py: 8,
+
+// //                 px: {
+// //                     xs: 2,
+// //                     sm: 3,
+// //                     md: 6,
+// //                 },
+// //             }}
+// //         >
+
+// //             <Box
+// //                 sx={{
+// //                     display: "grid",
+
+// //                     gridTemplateColumns: {
+// //                         xs: "1fr",
+// //                         md: "1fr 1fr",
+// //                     },
+
+// //                     gap: {
+// //                         xs: 4,
+// //                         md: 6,
+// //                     },
+
+// //                     maxWidth: 1400,
+
+// //                     mx: "auto",
+// //                 }}
+// //             >
+
+// //                 {/* ================================================= */}
+// //                 {/* LEFT - IMAGE */}
+// //                 {/* ================================================= */}
+
+// //                 <Box>
+
+// //                     <Box
+// //                         component="img"
+
+// //                         src={
+// //                             selectedProduct
+// //                                 .images?.[0]?.url
+// //                         }
+
+// //                         alt={
+// //                             selectedProduct.productName
+// //                         }
+
+// //                         sx={{
+// //                             width: "100%",
+
+// //                             maxWidth: 600,
+
+// //                             height: {
+// //                                 xs: 400,
+// //                                 sm: 500,
+// //                                 md: 600,
+// //                             },
+
+// //                             objectFit: "cover",
+
+// //                             borderRadius: 2,
+
+// //                             display: "block",
+// //                         }}
+// //                     />
+
+
+// //                     {/* THUMBNAILS */}
+
+// //                     <Box
+// //                         sx={{
+// //                             display: "flex",
+// //                             gap: 2,
+// //                             mt: 2,
+// //                             flexWrap: "wrap",
+// //                         }}
+// //                     >
+
+// //                         {selectedProduct.images?.map(
+// //                             (
+// //                                 image,
+// //                                 index
+// //                             ) => (
+
+// //                                 <Box
+// //                                     key={
+// //                                         image._id ||
+// //                                         index
+// //                                     }
+
+// //                                     component="img"
+
+// //                                     src={
+// //                                         image.url
+// //                                     }
+
+// //                                     alt={
+// //                                         selectedProduct.productName
+// //                                     }
+
+// //                                     sx={{
+// //                                         width: 80,
+// //                                         height: 80,
+// //                                         objectFit: "cover",
+// //                                         borderRadius: 1,
+// //                                         cursor: "pointer",
+// //                                     }}
+// //                                 />
+
+// //                             )
+// //                         )}
+
+// //                     </Box>
+
+// //                 </Box>
+
+
+// //                 {/* ================================================= */}
+// //                 {/* RIGHT - DETAILS */}
+// //                 {/* ================================================= */}
+
+// //                 <Box>
+
+// //                     <Typography
+// //                         variant="h3"
+// //                         sx={{
+// //                             fontSize: {
+// //                                 xs: 32,
+// //                                 md: 44,
+// //                             },
+
+// //                             fontWeight: 500,
+// //                         }}
+// //                     >
+// //                         {
+// //                             selectedProduct.productName
+// //                         }
+// //                     </Typography>
+
+
+// //                     {/* DESCRIPTION */}
+
+// //                     {selectedProduct.description && (
+
+// //                         <Typography
+// //                             mt={2}
+// //                             color="text.secondary"
+// //                             sx={{
+// //                                 lineHeight: 1.8,
+// //                             }}
+// //                         >
+// //                             {
+// //                                 selectedProduct.description
+// //                             }
+// //                         </Typography>
+
+// //                     )}
+
+
+// //                     {/* PRICE */}
+
+// //                     <Typography
+// //                         sx={{
+// //                             mt: 3,
+
+// //                             fontSize: 30,
+
+// //                             fontWeight: 700,
+
+// //                             color: "#C9A227",
+// //                         }}
+// //                     >
+// //                         ₹ {price}
+// //                     </Typography>
+
+
+// //                     {/* ================================================= */}
+// //                     {/* SIZE */}
+// //                     {/* ================================================= */}
+
+// //                     {variants.length > 0 && (
+
+// //                         <>
+
+// //                             <Typography
+// //                                 sx={{
+// //                                     mt: 5,
+// //                                     mb: 2,
+// //                                     fontWeight: 600,
+// //                                 }}
+// //                             >
+// //                                 Size
+// //                             </Typography>
+
+
+// //                             <ToggleButtonGroup
+// //                                 exclusive
+
+// //                                 value={
+// //                                     selectedVariant?._id ||
+// //                                     ""
+// //                                 }
+
+// //                                 onChange={
+// //                                     handleVariantChange
+// //                                 }
+
+// //                                 sx={{
+// //                                     flexWrap: "wrap",
+// //                                     gap: 1,
+// //                                 }}
+// //                             >
+
+// //                                 {variants.map(
+// //                                     (
+// //                                         variant
+// //                                     ) => (
+
+// //                                         <ToggleButton
+// //                                             key={
+// //                                                 variant._id
+// //                                             }
+
+// //                                             value={
+// //                                                 variant._id
+// //                                             }
+
+// //                                             sx={{
+// //                                                 minWidth: 70,
+// //                                             }}
+// //                                         >
+
+// //                                             {
+// //                                                 variant.attributes
+// //                                                     ?.map(
+// //                                                         (
+// //                                                             attr
+// //                                                         ) =>
+// //                                                             attr.value
+// //                                                     )
+// //                                                     .filter(
+// //                                                         Boolean
+// //                                                     )
+// //                                                     .join(
+// //                                                         " / "
+// //                                                     ) ||
+// //                                                 "Variant"
+// //                                             }
+
+// //                                         </ToggleButton>
+
+// //                                     )
+// //                                 )}
+
+// //                             </ToggleButtonGroup>
+
+// //                         </>
+
+// //                     )}
+
+
+// //                     {/* ================================================= */}
+// //                     {/* SELECTED VARIANT */}
+// //                     {/* ================================================= */}
+
+// //                     {selectedVariant && (
+
+// //                         <Box
+// //                             mt={3}
+// //                         >
+
+// //                             <Typography>
+// //                                 <b>Color:</b>{" "}
+// //                                 {
+// //                                     selectedVariant.color ||
+// //                                     "-"
+// //                                 }
+// //                             </Typography>
+
+
+// //                             <Typography>
+// //                                 <b>Stock:</b>{" "}
+// //                                 {
+// //                                     selectedVariant.stock
+// //                                 }
+// //                             </Typography>
+
+
+// //                             <Typography>
+// //                                 <b>SKU:</b>{" "}
+// //                                 {
+// //                                     selectedVariant.sku ||
+// //                                     "-"
+// //                                 }
+// //                             </Typography>
+
+
+// //                             <Typography>
+// //                                 <b>Barcode:</b>{" "}
+// //                                 {
+// //                                     selectedVariant.barcode ||
+// //                                     "-"
+// //                                 }
+// //                             </Typography>
+
+// //                         </Box>
+
+// //                     )}
+
+
+// //                     {/* ================================================= */}
+// //                     {/* QUANTITY */}
+// //                     {/* ================================================= */}
+
+// //                     <Typography
+// //                         sx={{
+// //                             mt: 5,
+// //                             mb: 2,
+// //                             fontWeight: 600,
+// //                         }}
+// //                     >
+// //                         Quantity
+// //                     </Typography>
+
+
+// //                     <Box
+// //                         sx={{
+// //                             display: "flex",
+// //                             alignItems: "center",
+// //                             gap: 2,
+// //                         }}
+// //                     >
+
+// //                         <IconButton
+// //                             onClick={
+// //                                 decreaseQuantity
+// //                             }
+
+// //                             disabled={
+// //                                 quantity <= 1
+// //                             }
+// //                         >
+
+// //                             <RemoveIcon />
+
+// //                         </IconButton>
+
+
+// //                         <Typography
+// //                             sx={{
+// //                                 fontSize: 20,
+// //                                 minWidth: 30,
+// //                                 textAlign: "center",
+// //                             }}
+// //                         >
+// //                             {quantity}
+// //                         </Typography>
+
+
+// //                         <IconButton
+// //                             onClick={
+// //                                 increaseQuantity
+// //                             }
+
+// //                             disabled={
+// //                                 !selectedVariant ||
+// //                                 quantity >=
+// //                                     Number(
+// //                                         selectedVariant.stock ||
+// //                                         0
+// //                                     )
+// //                             }
+// //                         >
+
+// //                             <AddIcon />
+
+// //                         </IconButton>
+
+// //                     </Box>
+
+
+// //                     {/* ================================================= */}
+// //                     {/* ADD TO CART */}
+// //                     {/* ================================================= */}
+
+// //                     <Button
+// //                         variant="contained"
+
+// //                         disabled={
+// //                             cartLoading ||
+// //                             !selectedVariant ||
+// //                             Number(
+// //                                 selectedVariant.stock ||
+// //                                 0
+// //                             ) <= 0
+// //                         }
+
+// //                         onClick={
+// //                             handleAddToCart
+// //                         }
+
+// //                         sx={{
+// //                             mt: 5,
+
+// //                             background:
+// //                                 "#C9A227",
+
+// //                             color: "#fff",
+
+// //                             px: 5,
+
+// //                             py: 1.5,
+
+// //                             fontSize: 16,
+
+// //                             fontWeight: 600,
+
+// //                             "&:hover": {
+// //                                 background:
+// //                                     "#B08D57",
+// //                             },
+// //                         }}
+// //                     >
+
+// //                         {cartLoading
+// //                             ? "ADDING..."
+// //                             : "ADD TO CART"}
+
+// //                     </Button>
+
+// //                 </Box>
+
+// //             </Box>
+
+// //         </Box>
+
+// //     );
+
+// // };
 // const ProductDetails = () => {
 
 //     const { id } = useParams();
 
-//     // =====================================================
-//     // CART FUNCTIONS FROM CUSTOMER LAYOUT
-//     // =====================================================
+//     // SAME CART DRAWER USED BY CUSTOMER LAYOUT
+//     const { openCart } = useOutletContext();
+
+//     const dispatch = useDispatch();
+
+//     const {
+//         selectedProduct,
+//         loading,
+//         error,
+//     } = useSelector(
+//         (state) => state.products
+//     );
+
+//     const [selectedVariant, setSelectedVariant] =
+//         useState(null);
+
+//     const [quantity, setQuantity] =
+//         useState(1);
+
+//     // ...
+// };
+
+// export default ProductDetails;
+//-------------------------------------------------------------------------
+
+// import {
+//     useEffect,
+//     useState,
+// } from "react";
+
+// import RemoveIcon
+//     from "@mui/icons-material/Remove";
+
+// import AddIcon
+//     from "@mui/icons-material/Add";
+
+// import {
+//     Box,
+//     Typography,
+//     CircularProgress,
+//     Button,
+//     ToggleButton,
+//     ToggleButtonGroup,
+//     IconButton,
+// } from "@mui/material";
+
+// import {
+//     useDispatch,
+//     useSelector,
+// } from "react-redux";
+
+// import {
+//     useParams,
+//     useOutletContext,
+// } from "react-router-dom";
+
+// import {
+//     getProductById,
+// } from "../../features/products/ProductsThunk";
+
+// import {
+//     addToCart,
+//     getCart,
+// } from "../../features/cart/CartThunk";
+
+
+// const ProductDetails = () => {
+
+//     const {
+//         id,
+//     } = useParams();
+
+
+//     // ============================================
+//     // IMPORTANT
+//     // ============================================
 
 //     const {
 //         openCart,
@@ -1196,9 +2184,9 @@ import {
 //     const dispatch = useDispatch();
 
 
-//     // =====================================================
+//     // ============================================
 //     // PRODUCT STATE
-//     // =====================================================
+//     // ============================================
 
 //     const {
 //         selectedProduct,
@@ -1209,9 +2197,9 @@ import {
 //     );
 
 
-//     // =====================================================
+//     // ============================================
 //     // CART STATE
-//     // =====================================================
+//     // ============================================
 
 //     const {
 //         loading: cartLoading,
@@ -1220,9 +2208,9 @@ import {
 //     );
 
 
-//     // =====================================================
+//     // ============================================
 //     // LOCAL STATE
-//     // =====================================================
+//     // ============================================
 
 //     const [
 //         selectedVariant,
@@ -1236,9 +2224,9 @@ import {
 //     ] = useState(1);
 
 
-//     // =====================================================
+//     // ============================================
 //     // GET PRODUCT
-//     // =====================================================
+//     // ============================================
 
 //     useEffect(() => {
 
@@ -1256,21 +2244,19 @@ import {
 //     ]);
 
 
-//     // =====================================================
+//     // ============================================
 //     // LOADING
-//     // =====================================================
+//     // ============================================
 
 //     if (loading) {
 
 //         return (
 
 //             <Box
-//                 sx={{
-//                     minHeight: "70vh",
-//                     display: "flex",
-//                     justifyContent: "center",
-//                     alignItems: "center",
-//                 }}
+//                 display="flex"
+//                 justifyContent="center"
+//                 alignItems="center"
+//                 minHeight="70vh"
 //             >
 
 //                 <CircularProgress />
@@ -1282,9 +2268,9 @@ import {
 //     }
 
 
-//     // =====================================================
+//     // ============================================
 //     // ERROR
-//     // =====================================================
+//     // ============================================
 
 //     if (error) {
 
@@ -1292,7 +2278,7 @@ import {
 
 //             <Box
 //                 sx={{
-//                     py: 15,
+//                     py: 10,
 //                     textAlign: "center",
 //                 }}
 //             >
@@ -1310,9 +2296,9 @@ import {
 //     }
 
 
-//     // =====================================================
+//     // ============================================
 //     // PRODUCT NOT FOUND
-//     // =====================================================
+//     // ============================================
 
 //     if (!selectedProduct) {
 
@@ -1320,7 +2306,7 @@ import {
 
 //             <Box
 //                 sx={{
-//                     py: 15,
+//                     py: 10,
 //                     textAlign: "center",
 //                 }}
 //             >
@@ -1336,233 +2322,17 @@ import {
 //     }
 
 
-//     // =====================================================
+//     // ============================================
 //     // VARIANTS
-//     // =====================================================
+//     // ============================================
 
 //     const variants =
 //         selectedProduct.productVariants || [];
 
 
-//     // =====================================================
-//     // ADD TO CART
-//     // =====================================================
-
-//     // const handleAddToCart = async () => {
-
-//     //     // -------------------------------------------------
-//     //     // VARIANT REQUIRED
-//     //     // -------------------------------------------------
-
-//     //     if (!selectedVariant) {
-
-//     //         alert(
-//     //             "Please select size"
-//     //         );
-
-//     //         return;
-
-//     //     }
-
-
-//     //     // -------------------------------------------------
-//     //     // STOCK CHECK
-//     //     // -------------------------------------------------
-
-//     //     const stock =
-//     //         Number(
-//     //             selectedVariant.stock || 0
-//     //         );
-
-
-//     //     if (stock <= 0) {
-
-//     //         alert(
-//     //             "This variant is out of stock"
-//     //         );
-
-//     //         return;
-
-//     //     }
-
-
-//     //     // -------------------------------------------------
-//     //     // QUANTITY CHECK
-//     //     // -------------------------------------------------
-
-//     //     if (quantity > stock) {
-
-//     //         alert(
-//     //             `Only ${stock} items available`
-//     //         );
-
-//     //         return;
-
-//     //     }
-
-
-//     //     // -------------------------------------------------
-//     //     // CART DATA
-//     //     // -------------------------------------------------
-
-//     //     const cartItem = {
-
-//     //         product:
-//     //             selectedProduct._id,
-
-//     //         variant:
-//     //             selectedVariant._id,
-
-//     //         quantity:
-//     //             Number(quantity),
-
-//     //     };
-
-
-//     //     console.log(
-//     //         "PRODUCT DETAILS: ADD TO CART",
-//     //         cartItem
-//     //     );
-
-
-//     //     try {
-
-//     //         // =============================================
-//     //         // ADD PRODUCT TO CART
-//     //         // =============================================
-
-//     //         await dispatch(
-//     //             addToCart(cartItem)
-//     //         ).unwrap();
-
-
-//     //         console.log(
-//     //             "PRODUCT DETAILS: PRODUCT ADDED"
-//     //         );
-
-
-//     //         // =============================================
-//     //         // REFRESH CART
-//     //         // =============================================
-
-//     //         await dispatch(
-//     //             getCart()
-//     //         ).unwrap();
-
-
-//     //         console.log(
-//     //             "PRODUCT DETAILS: CART UPDATED"
-//     //         );
-
-
-//     //         // =============================================
-//     //         // OPEN CART DRAWER
-//     //         // =============================================
-
-//     //         console.log(
-//     //             "PRODUCT DETAILS: OPENING CART DRAWER"
-//     //         );
-
-
-//     //         openCart();
-
-
-//     //         console.log(
-//     //             "PRODUCT DETAILS: CART DRAWER OPENED"
-//     //         );
-
-
-//     //     } catch (err) {
-
-//     //         console.error(
-//     //             "PRODUCT DETAILS: ADD TO CART FAILED",
-//     //             err
-//     //         );
-
-//     //     }
-
-//     // };
-// const handleAddToCart = async () => {
-//     try {
-//         // =========================================
-//         // CHECK VARIANT
-//         // =========================================
-
-//         if (!selectedVariant) {
-//             alert("Please select size");
-//             return;
-//         }
-
-//         // =========================================
-//         // CHECK STOCK
-//         // =========================================
-
-//         if (Number(selectedVariant.stock) <= 0) {
-//             alert("Product is out of stock");
-//             return;
-//         }
-
-//         // =========================================
-//         // CHECK QUANTITY
-//         // =========================================
-
-//         if (quantity > Number(selectedVariant.stock)) {
-//             alert("Quantity exceeds available stock");
-//             return;
-//         }
-
-//         // =========================================
-//         // CART DATA
-//         // =========================================
-
-//         const cartItem = {
-//             product: selectedProduct._id,
-//             variant: selectedVariant._id,
-//             quantity: Number(quantity),
-//         };
-
-//         console.log(
-//             "PRODUCT DETAILS: ADD TO CART",
-//             cartItem
-//         );
-
-//         // =========================================
-//         // ADD TO CART
-//         // =========================================
-
-//         await dispatch(
-//             addToCart(cartItem)
-//         ).unwrap();
-
-//         // =========================================
-//         // REFRESH CART
-//         // =========================================
-
-//         await dispatch(
-//             getCart()
-//         ).unwrap();
-
-//         // =========================================
-//         // OPEN SAME CART DRAWER
-//         // =========================================
-
-//         console.log(
-//             "PRODUCT DETAILS: OPENING CART DRAWER"
-//         );
-
-//         openCart();
-
-//     } catch (error) {
-//         console.error(
-//             "ADD TO CART FAILED:",
-//             error
-//         );
-//     }
-// };
-
-//     // =====================================================
-//     // VARIANT CHANGE
-//     // =====================================================
+//     // ============================================
+//     // SELECT VARIANT
+//     // ============================================
 
 //     const handleVariantChange = (
 //         event,
@@ -1573,32 +2343,24 @@ import {
 //             return;
 //         }
 
-
 //         const variant =
 //             variants.find(
 //                 (item) =>
 //                     item._id === value
 //             );
 
-
-//         if (!variant) {
-//             return;
-//         }
-
-
 //         setSelectedVariant(
 //             variant
 //         );
-
 
 //         setQuantity(1);
 
 //     };
 
 
-//     // =====================================================
-//     // DECREASE QUANTITY
-//     // =====================================================
+//     // ============================================
+//     // QUANTITY DECREASE
+//     // ============================================
 
 //     const decreaseQuantity = () => {
 
@@ -1613,9 +2375,9 @@ import {
 //     };
 
 
-//     // =====================================================
-//     // INCREASE QUANTITY
-//     // =====================================================
+//     // ============================================
+//     // QUANTITY INCREASE
+//     // ============================================
 
 //     const increaseQuantity = () => {
 
@@ -1623,7 +2385,6 @@ import {
 //             Number(
 //                 selectedVariant?.stock || 0
 //             );
-
 
 //         setQuantity(
 //             (previous) =>
@@ -1636,19 +2397,154 @@ import {
 //     };
 
 
-//     // =====================================================
-//     // PRICE
-//     // =====================================================
+//     // ============================================
+//     // ADD TO CART
+//     // ============================================
 
-//     const price =
-//         selectedVariant?.sellingPrice ??
-//         selectedProduct.sellingPrice ??
-//         0;
+//     const handleAddToCart = async () => {
+
+//         // ----------------------------------------
+//         // VARIANT REQUIRED
+//         // ----------------------------------------
+
+//         if (!selectedVariant) {
+
+//             alert(
+//                 "Please select size"
+//             );
+
+//             return;
+
+//         }
 
 
-//     // =====================================================
-//     // UI
-//     // =====================================================
+//         // ----------------------------------------
+//         // STOCK
+//         // ----------------------------------------
+
+//         const stock =
+//             Number(
+//                 selectedVariant.stock || 0
+//             );
+
+
+//         if (stock <= 0) {
+
+//             alert(
+//                 "This variant is out of stock"
+//             );
+
+//             return;
+
+//         }
+
+
+//         // ----------------------------------------
+//         // QUANTITY
+//         // ----------------------------------------
+
+//         if (
+//             quantity < 1 ||
+//             quantity > stock
+//         ) {
+
+//             alert(
+//                 "Invalid quantity"
+//             );
+
+//             return;
+
+//         }
+
+
+//         // ----------------------------------------
+//         // CART DATA
+//         // ----------------------------------------
+
+//         const cartItem = {
+
+//             product:
+//                 selectedProduct._id,
+
+//             variant:
+//                 selectedVariant._id,
+
+//             quantity:
+//                 Number(quantity),
+
+//         };
+
+
+//         console.log(
+//             "PRODUCT DETAILS: ADD TO CART",
+//             cartItem
+//         );
+
+
+//         try {
+
+//             // ====================================
+//             // ADD PRODUCT
+//             // ====================================
+
+//             await dispatch(
+//                 addToCart(cartItem)
+//             ).unwrap();
+
+
+//             console.log(
+//                 "PRODUCT DETAILS: CART UPDATED"
+//             );
+
+
+//             // ====================================
+//             // GET LATEST CART
+//             // ====================================
+
+//             await dispatch(
+//                 getCart()
+//             ).unwrap();
+
+
+//             console.log(
+//                 "PRODUCT DETAILS: OPENING CART"
+//             );
+
+
+//             // ====================================
+//             // OPEN CART DRAWER
+//             // ====================================
+
+//             openCart();
+
+
+//         } catch (err) {
+
+//             console.error(
+//                 "ADD TO CART FAILED:",
+//                 err
+//             );
+
+//             alert(
+//                 typeof err === "string"
+//                     ? err
+//                     : "Unable to add product to cart"
+//             );
+
+//         }
+
+//     };
+
+
+//     // ============================================
+//     // CURRENT STOCK
+//     // ============================================
+
+//     const currentStock =
+//         Number(
+//             selectedVariant?.stock || 0
+//         );
+
 
 //     return (
 
@@ -1658,7 +2554,6 @@ import {
 
 //                 px: {
 //                     xs: 2,
-//                     sm: 3,
 //                     md: 6,
 //                 },
 //             }}
@@ -1673,10 +2568,7 @@ import {
 //                         md: "1fr 1fr",
 //                     },
 
-//                     gap: {
-//                         xs: 4,
-//                         md: 6,
-//                     },
+//                     gap: 5,
 
 //                     maxWidth: 1400,
 
@@ -1684,9 +2576,9 @@ import {
 //                 }}
 //             >
 
-//                 {/* ================================================= */}
-//                 {/* LEFT - IMAGE */}
-//                 {/* ================================================= */}
+//                 {/* ================================= */}
+//                 {/* IMAGE */}
+//                 {/* ================================= */}
 
 //                 <Box>
 
@@ -1694,8 +2586,9 @@ import {
 //                         component="img"
 
 //                         src={
-//                             selectedProduct
-//                                 .images?.[0]?.url
+//                             selectedProduct.images
+//                                 ?. [0]
+//                                 ?.url
 //                         }
 
 //                         alt={
@@ -1708,9 +2601,8 @@ import {
 //                             maxWidth: 600,
 
 //                             height: {
-//                                 xs: 400,
-//                                 sm: 500,
-//                                 md: 600,
+//                                 xs: 450,
+//                                 md: 650,
 //                             },
 
 //                             objectFit: "cover",
@@ -1721,69 +2613,23 @@ import {
 //                         }}
 //                     />
 
-
-//                     {/* THUMBNAILS */}
-
-//                     <Box
-//                         sx={{
-//                             display: "flex",
-//                             gap: 2,
-//                             mt: 2,
-//                             flexWrap: "wrap",
-//                         }}
-//                     >
-
-//                         {selectedProduct.images?.map(
-//                             (
-//                                 image,
-//                                 index
-//                             ) => (
-
-//                                 <Box
-//                                     key={
-//                                         image._id ||
-//                                         index
-//                                     }
-
-//                                     component="img"
-
-//                                     src={
-//                                         image.url
-//                                     }
-
-//                                     alt={
-//                                         selectedProduct.productName
-//                                     }
-
-//                                     sx={{
-//                                         width: 80,
-//                                         height: 80,
-//                                         objectFit: "cover",
-//                                         borderRadius: 1,
-//                                         cursor: "pointer",
-//                                     }}
-//                                 />
-
-//                             )
-//                         )}
-
-//                     </Box>
-
 //                 </Box>
 
 
-//                 {/* ================================================= */}
-//                 {/* RIGHT - DETAILS */}
-//                 {/* ================================================= */}
+//                 {/* ================================= */}
+//                 {/* DETAILS */}
+//                 {/* ================================= */}
 
 //                 <Box>
+
+//                     {/* PRODUCT NAME */}
 
 //                     <Typography
 //                         variant="h3"
 //                         sx={{
 //                             fontSize: {
 //                                 xs: 32,
-//                                 md: 44,
+//                                 md: 48,
 //                             },
 
 //                             fontWeight: 500,
@@ -1827,13 +2673,17 @@ import {
 //                             color: "#C9A227",
 //                         }}
 //                     >
-//                         ₹ {price}
+//                         ₹{" "}
+//                         {
+//                             selectedVariant?.sellingPrice ??
+//                             selectedProduct.sellingPrice
+//                         }
 //                     </Typography>
 
 
-//                     {/* ================================================= */}
-//                     {/* SIZE */}
-//                     {/* ================================================= */}
+//                     {/* ================================= */}
+//                     {/* SIZE / VARIANT */}
+//                     {/* ================================= */}
 
 //                     {variants.length > 0 && (
 
@@ -1863,15 +2713,13 @@ import {
 //                                 }
 
 //                                 sx={{
-//                                     flexWrap: "wrap",
-//                                     gap: 1,
+//                                     flexWrap:
+//                                         "wrap",
 //                                 }}
 //                             >
 
 //                                 {variants.map(
-//                                     (
-//                                         variant
-//                                     ) => (
+//                                     (variant) => (
 
 //                                         <ToggleButton
 //                                             key={
@@ -1883,12 +2731,28 @@ import {
 //                                             }
 
 //                                             sx={{
-//                                                 minWidth: 70,
+//                                                 minWidth: 60,
+
+//                                                 "&.Mui-selected":
+//                                                     {
+//                                                         backgroundColor:
+//                                                             "#C9A227",
+
+//                                                         color:
+//                                                             "#fff",
+
+//                                                         "&:hover":
+//                                                             {
+//                                                                 backgroundColor:
+//                                                                     "#B08D57",
+//                                                             },
+//                                                     },
 //                                             }}
 //                                         >
 
 //                                             {
-//                                                 variant.attributes
+//                                                 variant
+//                                                     .attributes
 //                                                     ?.map(
 //                                                         (
 //                                                             attr
@@ -1900,8 +2764,7 @@ import {
 //                                                     )
 //                                                     .join(
 //                                                         " / "
-//                                                     ) ||
-//                                                 "Variant"
+//                                                     )
 //                                             }
 
 //                                         </ToggleButton>
@@ -1916,9 +2779,9 @@ import {
 //                     )}
 
 
-//                     {/* ================================================= */}
-//                     {/* SELECTED VARIANT */}
-//                     {/* ================================================= */}
+//                     {/* ================================= */}
+//                     {/* SELECTED VARIANT DETAILS */}
+//                     {/* ================================= */}
 
 //                     {selectedVariant && (
 
@@ -1929,13 +2792,25 @@ import {
 //                             <Typography>
 //                                 <b>Color:</b>{" "}
 //                                 {
-//                                     selectedVariant.color ||
+//                                     selectedVariant
+//                                         .color ||
+//                                     selectedVariant
+//                                         .attributes
+//                                         ?.find(
+//                                             (
+//                                                 attr
+//                                             ) =>
+//                                                 attr.colorCode
+//                                         )
+//                                         ?.colorCode ||
 //                                     "-"
 //                                 }
 //                             </Typography>
 
 
-//                             <Typography>
+//                             <Typography
+//                                 mt={1}
+//                             >
 //                                 <b>Stock:</b>{" "}
 //                                 {
 //                                     selectedVariant.stock
@@ -1943,7 +2818,9 @@ import {
 //                             </Typography>
 
 
-//                             <Typography>
+//                             <Typography
+//                                 mt={1}
+//                             >
 //                                 <b>SKU:</b>{" "}
 //                                 {
 //                                     selectedVariant.sku ||
@@ -1952,7 +2829,9 @@ import {
 //                             </Typography>
 
 
-//                             <Typography>
+//                             <Typography
+//                                 mt={1}
+//                             >
 //                                 <b>Barcode:</b>{" "}
 //                                 {
 //                                     selectedVariant.barcode ||
@@ -1965,9 +2844,9 @@ import {
 //                     )}
 
 
-//                     {/* ================================================= */}
+//                     {/* ================================= */}
 //                     {/* QUANTITY */}
-//                     {/* ================================================= */}
+//                     {/* ================================= */}
 
 //                     <Typography
 //                         sx={{
@@ -1981,11 +2860,9 @@ import {
 
 
 //                     <Box
-//                         sx={{
-//                             display: "flex",
-//                             alignItems: "center",
-//                             gap: 2,
-//                         }}
+//                         display="flex"
+//                         alignItems="center"
+//                         gap={2}
 //                     >
 
 //                         <IconButton
@@ -2021,11 +2898,7 @@ import {
 
 //                             disabled={
 //                                 !selectedVariant ||
-//                                 quantity >=
-//                                     Number(
-//                                         selectedVariant.stock ||
-//                                         0
-//                                     )
+//                                 quantity >= currentStock
 //                             }
 //                         >
 
@@ -2036,9 +2909,9 @@ import {
 //                     </Box>
 
 
-//                     {/* ================================================= */}
+//                     {/* ================================= */}
 //                     {/* ADD TO CART */}
-//                     {/* ================================================= */}
+//                     {/* ================================= */}
 
 //                     <Button
 //                         variant="contained"
@@ -2046,10 +2919,7 @@ import {
 //                         disabled={
 //                             cartLoading ||
 //                             !selectedVariant ||
-//                             Number(
-//                                 selectedVariant.stock ||
-//                                 0
-//                             ) <= 0
+//                             currentStock <= 0
 //                         }
 
 //                         onClick={
@@ -2059,7 +2929,7 @@ import {
 //                         sx={{
 //                             mt: 5,
 
-//                             background:
+//                             backgroundColor:
 //                                 "#C9A227",
 
 //                             color: "#fff",
@@ -2070,18 +2940,27 @@ import {
 
 //                             fontSize: 16,
 
-//                             fontWeight: 600,
-
 //                             "&:hover": {
-//                                 background:
+//                                 backgroundColor:
 //                                     "#B08D57",
+//                             },
+
+//                             "&.Mui-disabled": {
+//                                 backgroundColor:
+//                                     "#ddd",
+
+//                                 color:
+//                                     "#777",
 //                             },
 //                         }}
 //                     >
 
 //                         {cartLoading
 //                             ? "ADDING..."
-//                             : "ADD TO CART"}
+//                             : currentStock <= 0 &&
+//                               selectedVariant
+//                                 ? "OUT OF STOCK"
+//                                 : "ADD TO CART"}
 
 //                     </Button>
 
@@ -2094,14 +2973,60 @@ import {
 //     );
 
 // };
+
+
+// export default ProductDetails;
+import {
+    useEffect,
+    useState,
+} from "react";
+
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+
+import {
+    Box,
+    Typography,
+    CircularProgress,
+    Button,
+    ToggleButton,
+    ToggleButtonGroup,
+    IconButton,
+} from "@mui/material";
+
+import {
+    useDispatch,
+    useSelector,
+} from "react-redux";
+
+import {
+    useParams,
+} from "react-router-dom";
+
+import {
+    getProductById,
+} from "../../features/products/ProductsThunk";
+
+import {
+    addToCart,
+    getCart,
+} from "../../features/cart/CartThunk";
+
+import VisitorNavbar from "../../components/navbar/VisitorNavbar";
+
+import CartDrawer from "../../components/cart/CartDrawer";
+
+
 const ProductDetails = () => {
 
     const { id } = useParams();
 
-    // SAME CART DRAWER USED BY CUSTOMER LAYOUT
-    const { openCart } = useOutletContext();
-
     const dispatch = useDispatch();
+
+
+    // ============================================
+    // PRODUCT STATE
+    // ============================================
 
     const {
         selectedProduct,
@@ -2111,13 +3036,909 @@ const ProductDetails = () => {
         (state) => state.products
     );
 
-    const [selectedVariant, setSelectedVariant] =
-        useState(null);
 
-    const [quantity, setQuantity] =
-        useState(1);
+    // ============================================
+    // CART STATE
+    // ============================================
 
-    // ...
+    const {
+        loading: cartLoading,
+    } = useSelector(
+        (state) => state.cart
+    );
+
+
+    // ============================================
+    // LOCAL STATE
+    // ============================================
+
+    const [
+        selectedVariant,
+        setSelectedVariant,
+    ] = useState(null);
+
+
+    const [
+        quantity,
+        setQuantity,
+    ] = useState(1);
+
+
+    const [
+        cartOpen,
+        setCartOpen,
+    ] = useState(false);
+
+
+    // ============================================
+    // GET PRODUCT
+    // ============================================
+
+    useEffect(() => {
+
+        if (!id) {
+            return;
+        }
+
+        // Clear previous product visually
+        setSelectedVariant(null);
+        setQuantity(1);
+
+        dispatch(
+            getProductById(id)
+        );
+
+    }, [
+        dispatch,
+        id,
+    ]);
+
+
+    // ============================================
+    // LOADING
+    // ============================================
+
+    if (loading) {
+
+        return (
+
+            <>
+                <VisitorNavbar
+                    onCartClick={() =>
+                        setCartOpen(true)
+                    }
+                />
+
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minHeight="70vh"
+                >
+
+                    <CircularProgress />
+
+                </Box>
+
+                <CartDrawer
+                    open={cartOpen}
+                    onClose={() =>
+                        setCartOpen(false)
+                    }
+                />
+
+            </>
+
+        );
+
+    }
+
+
+    // ============================================
+    // ERROR
+    // ============================================
+
+    if (error) {
+
+        return (
+
+            <>
+                <VisitorNavbar
+                    onCartClick={() =>
+                        setCartOpen(true)
+                    }
+                />
+
+                <Box
+                    sx={{
+                        py: 15,
+                        textAlign: "center",
+                    }}
+                >
+
+                    <Typography
+                        color="error"
+                    >
+                        {error}
+                    </Typography>
+
+                </Box>
+
+                <CartDrawer
+                    open={cartOpen}
+                    onClose={() =>
+                        setCartOpen(false)
+                    }
+                />
+
+            </>
+
+        );
+
+    }
+
+
+    // ============================================
+    // PRODUCT NOT FOUND
+    // ============================================
+
+    if (!selectedProduct) {
+
+        return (
+
+            <>
+                <VisitorNavbar
+                    onCartClick={() =>
+                        setCartOpen(true)
+                    }
+                />
+
+                <Box
+                    sx={{
+                        py: 15,
+                        textAlign: "center",
+                    }}
+                >
+
+                    <Typography
+                        variant="h6"
+                    >
+                        Product not found
+                    </Typography>
+
+                </Box>
+
+                <CartDrawer
+                    open={cartOpen}
+                    onClose={() =>
+                        setCartOpen(false)
+                    }
+                />
+
+            </>
+
+        );
+
+    }
+
+
+    // ============================================
+    // VARIANTS
+    // ============================================
+
+    const variants =
+        selectedProduct.productVariants || [];
+
+
+    // ============================================
+    // SELECT VARIANT
+    // ============================================
+
+    const handleVariantChange = (
+        event,
+        value
+    ) => {
+
+        if (!value) {
+            return;
+        }
+
+        const variant =
+            variants.find(
+                (item) =>
+                    item._id === value
+            );
+
+        setSelectedVariant(
+            variant
+        );
+
+        setQuantity(1);
+
+    };
+
+
+    // ============================================
+    // DECREASE
+    // ============================================
+
+    const decreaseQuantity = () => {
+
+        setQuantity(
+            (previous) =>
+                Math.max(
+                    1,
+                    previous - 1
+                )
+        );
+
+    };
+
+
+    // ============================================
+    // INCREASE
+    // ============================================
+
+    const increaseQuantity = () => {
+
+        const stock =
+            Number(
+                selectedVariant?.stock || 0
+            );
+
+        setQuantity(
+            (previous) =>
+                Math.min(
+                    stock,
+                    previous + 1
+                )
+        );
+
+    };
+
+
+    // ============================================
+    // ADD TO CART
+    // ============================================
+
+    const handleAddToCart = async () => {
+
+        // ----------------------------------------
+        // REQUIRE VARIANT
+        // ----------------------------------------
+
+        if (!selectedVariant) {
+
+            alert(
+                "Please select a size"
+            );
+
+            return;
+
+        }
+
+
+        // ----------------------------------------
+        // STOCK
+        // ----------------------------------------
+
+        const stock =
+            Number(
+                selectedVariant.stock || 0
+            );
+
+
+        if (stock <= 0) {
+
+            alert(
+                "This variant is out of stock"
+            );
+
+            return;
+
+        }
+
+
+        // ----------------------------------------
+        // QUANTITY
+        // ----------------------------------------
+
+        if (
+            quantity < 1 ||
+            quantity > stock
+        ) {
+
+            alert(
+                "Invalid quantity"
+            );
+
+            return;
+
+        }
+
+
+        // ----------------------------------------
+        // CART DATA
+        // ----------------------------------------
+
+        const cartItem = {
+
+            product:
+                selectedProduct._id,
+
+            variant:
+                selectedVariant._id,
+
+            quantity:
+                Number(quantity),
+
+        };
+
+
+        console.log(
+            "PRODUCT DETAILS: ADD TO CART",
+            cartItem
+        );
+
+
+        try {
+
+            // ====================================
+            // ADD
+            // ====================================
+
+            await dispatch(
+                addToCart(cartItem)
+            ).unwrap();
+
+
+            // ====================================
+            // REFRESH CART
+            // ====================================
+
+            await dispatch(
+                getCart()
+            ).unwrap();
+
+
+            // ====================================
+            // OPEN CART
+            // ====================================
+
+            setCartOpen(true);
+
+
+        } catch (err) {
+
+            console.error(
+                "ADD TO CART FAILED:",
+                err
+            );
+
+            alert(
+                typeof err === "string"
+                    ? err
+                    : "Unable to add product to cart"
+            );
+
+        }
+
+    };
+
+
+    // ============================================
+    // CURRENT STOCK
+    // ============================================
+
+    const currentStock =
+        Number(
+            selectedVariant?.stock || 0
+        );
+
+
+    // ============================================
+    // RENDER
+    // ============================================
+
+    return (
+
+        <>
+
+            {/* =====================================
+                VISITOR NAVBAR
+            ===================================== */}
+
+            <VisitorNavbar
+                onCartClick={() =>
+                    setCartOpen(true)
+                }
+            />
+
+
+            {/* =====================================
+                PRODUCT
+            ===================================== */}
+
+            <Box
+                sx={{
+                    pt: 14,
+                    pb: 8,
+                    px: {
+                        xs: 2,
+                        md: 6,
+                    },
+                }}
+            >
+
+                <Box
+                    sx={{
+                        display: "grid",
+
+                        gridTemplateColumns: {
+                            xs: "1fr",
+                            md: "1fr 1fr",
+                        },
+
+                        gap: 5,
+
+                        maxWidth: 1400,
+
+                        mx: "auto",
+                    }}
+                >
+
+                    {/* =================================
+                        IMAGE
+                    ================================= */}
+
+                    <Box>
+
+                        <Box
+                            component="img"
+
+                            src={
+                                selectedProduct
+                                    .images
+                                    ?. [0]
+                                    ?.url ||
+                                "/no-image.png"
+                            }
+
+                            alt={
+                                selectedProduct
+                                    .productName ||
+                                "Product"
+                            }
+
+                            onError={(event) => {
+
+                                event.currentTarget.src =
+                                    "/no-image.png";
+
+                            }}
+
+                            sx={{
+                                width: "100%",
+
+                                maxWidth: 600,
+
+                                height: {
+                                    xs: 450,
+                                    md: 650,
+                                },
+
+                                objectFit: "cover",
+
+                                borderRadius: 2,
+
+                                display: "block",
+
+                                backgroundColor:
+                                    "#f5f5f5",
+                            }}
+                        />
+
+                    </Box>
+
+
+                    {/* =================================
+                        DETAILS
+                    ================================= */}
+
+                    <Box>
+
+                        {/* PRODUCT NAME */}
+
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                fontSize: {
+                                    xs: 32,
+                                    md: 48,
+                                },
+
+                                fontWeight: 500,
+                            }}
+                        >
+                            {
+                                selectedProduct
+                                    .productName
+                            }
+                        </Typography>
+
+
+                        {/* DESCRIPTION */}
+
+                        {
+                            selectedProduct.description && (
+
+                                <Typography
+                                    mt={2}
+                                    color="text.secondary"
+                                    sx={{
+                                        lineHeight: 1.8,
+                                    }}
+                                >
+                                    {
+                                        selectedProduct
+                                            .description
+                                    }
+                                </Typography>
+
+                            )
+                        }
+
+
+                        {/* PRICE */}
+
+                        <Typography
+                            sx={{
+                                mt: 3,
+
+                                fontSize: 30,
+
+                                fontWeight: 700,
+
+                                color: "#C9A227",
+                            }}
+                        >
+                            ₹{" "}
+
+                            {
+                                selectedVariant
+                                    ?.sellingPrice ??
+                                selectedProduct
+                                    .sellingPrice
+                            }
+
+                        </Typography>
+
+
+                        {/* =================================
+                            VARIANTS
+                        ================================= */}
+
+                        {
+                            variants.length > 0 && (
+
+                                <>
+
+                                    <Typography
+                                        sx={{
+                                            mt: 5,
+                                            mb: 2,
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        Select Size
+                                    </Typography>
+
+
+                                    <ToggleButtonGroup
+                                        exclusive
+
+                                        value={
+                                            selectedVariant
+                                                ?._id || ""
+                                        }
+
+                                        onChange={
+                                            handleVariantChange
+                                        }
+
+                                        sx={{
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            gap: 1,
+                                        }}
+                                    >
+
+                                        {
+                                            variants.map(
+                                                (variant) => (
+
+                                                    <ToggleButton
+                                                        key={
+                                                            variant._id
+                                                        }
+
+                                                        value={
+                                                            variant._id
+                                                        }
+
+                                                        sx={{
+                                                            minWidth: 60,
+
+                                                            border:
+                                                                "1px solid #ddd",
+
+                                                            "&.Mui-selected":
+                                                                {
+                                                                    backgroundColor:
+                                                                        "#C9A227",
+
+                                                                    color:
+                                                                        "#fff",
+
+                                                                    "&:hover":
+                                                                        {
+                                                                            backgroundColor:
+                                                                                "#B08D57",
+                                                                        },
+                                                                },
+                                                        }}
+                                                    >
+
+                                                        {
+                                                            variant
+                                                                .attributes
+                                                                ?.map(
+                                                                    (
+                                                                        attr
+                                                                    ) =>
+                                                                        attr.value
+                                                                )
+                                                                .filter(
+                                                                    Boolean
+                                                                )
+                                                                .join(
+                                                                    " / "
+                                                                )
+                                                        }
+
+                                                    </ToggleButton>
+
+                                                )
+                                            )
+                                        }
+
+                                    </ToggleButtonGroup>
+
+                                </>
+
+                            )
+                        }
+
+
+                        {/* =================================
+                            SELECTED VARIANT
+                        ================================= */}
+
+                        {
+                            selectedVariant && (
+
+                                <Box
+                                    mt={3}
+                                >
+
+                                    <Typography>
+                                        <b>Color:</b>{" "}
+
+                                        {
+                                            selectedVariant
+                                                .color ||
+                                            selectedVariant
+                                                .attributes
+                                                ?.find(
+                                                    (
+                                                        attr
+                                                    ) =>
+                                                        attr.colorCode
+                                                )
+                                                ?.colorCode ||
+                                            "-"
+                                        }
+
+                                    </Typography>
+
+
+                                    <Typography
+                                        mt={1}
+                                    >
+                                        <b>Stock:</b>{" "}
+
+                                        {
+                                            selectedVariant
+                                                .stock
+                                        }
+
+                                    </Typography>
+
+
+                                    <Typography
+                                        mt={1}
+                                    >
+                                        <b>SKU:</b>{" "}
+
+                                        {
+                                            selectedVariant
+                                                .sku ||
+                                            "-"
+                                        }
+
+                                    </Typography>
+
+
+                                    <Typography
+                                        mt={1}
+                                    >
+                                        <b>Barcode:</b>{" "}
+
+                                        {
+                                            selectedVariant
+                                                .barcode ||
+                                            "-"
+                                        }
+
+                                    </Typography>
+
+                                </Box>
+
+                            )
+                        }
+
+
+                        {/* =================================
+                            QUANTITY
+                        ================================= */}
+
+                        <Typography
+                            sx={{
+                                mt: 5,
+                                mb: 2,
+                                fontWeight: 600,
+                            }}
+                        >
+                            Quantity
+                        </Typography>
+
+
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            gap={2}
+                        >
+
+                            <IconButton
+                                onClick={
+                                    decreaseQuantity
+                                }
+
+                                disabled={
+                                    quantity <= 1
+                                }
+                            >
+                                <RemoveIcon />
+                            </IconButton>
+
+
+                            <Typography
+                                sx={{
+                                    fontSize: 20,
+                                    minWidth: 30,
+                                    textAlign: "center",
+                                }}
+                            >
+                                {quantity}
+                            </Typography>
+
+
+                            <IconButton
+                                onClick={
+                                    increaseQuantity
+                                }
+
+                                disabled={
+                                    !selectedVariant ||
+                                    quantity >=
+                                        currentStock
+                                }
+                            >
+                                <AddIcon />
+                            </IconButton>
+
+                        </Box>
+
+
+                        {/* =================================
+                            ADD TO CART
+                        ================================= */}
+
+                        <Button
+                            variant="contained"
+
+                            disabled={
+                                cartLoading ||
+                                !selectedVariant ||
+                                currentStock <= 0
+                            }
+
+                            onClick={
+                                handleAddToCart
+                            }
+
+                            sx={{
+                                mt: 5,
+
+                                backgroundColor:
+                                    "#C9A227",
+
+                                color: "#fff",
+
+                                px: 5,
+
+                                py: 1.5,
+
+                                fontSize: 16,
+
+                                "&:hover": {
+                                    backgroundColor:
+                                        "#B08D57",
+                                },
+
+                                "&.Mui-disabled": {
+                                    backgroundColor:
+                                        "#ddd",
+
+                                    color:
+                                        "#777",
+                                },
+                            }}
+                        >
+
+                            {
+                                cartLoading
+                                    ? "ADDING..."
+                                    : currentStock <= 0 &&
+                                      selectedVariant
+                                    ? "OUT OF STOCK"
+                                    : "ADD TO CART"
+                            }
+
+                        </Button>
+
+                    </Box>
+
+                </Box>
+
+            </Box>
+
+
+            {/* =====================================
+                CART DRAWER
+            ===================================== */}
+
+            <CartDrawer
+                open={cartOpen}
+                onClose={() =>
+                    setCartOpen(false)
+                }
+            />
+
+        </>
+
+    );
+
 };
 
 export default ProductDetails;

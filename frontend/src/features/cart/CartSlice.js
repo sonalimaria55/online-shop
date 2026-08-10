@@ -38,78 +38,78 @@ const cartSlice = createSlice({
 
     builder
 
-    // GET CART
-    .addCase(getCart.pending, (state) => {
-      state.loading = true;
-    })
+      // GET CART
+      .addCase(getCart.pending, (state) => {
+        state.loading = true;
+      })
 
-    .addCase(getCart.fulfilled, (state, action) => {
-      state.loading = false;
+      .addCase(getCart.fulfilled, (state, action) => {
+        state.loading = false;
 
-      state.cart = action.payload;
+        state.cart = action.payload;
 
-      state.items = action.payload?.items || [];
-    })
+        state.items = action.payload?.items || [];
+      })
 
-    .addCase(getCart.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-
-
-
-    // ADD TO CART
-    .addCase(addToCart.pending, (state) => {
-      state.loading = true;
-    })
-
-    .addCase(addToCart.fulfilled, (state, action) => {
-      state.loading = false;
-
-      state.cart = action.payload;
-
-      state.items = action.payload?.items || [];
-
-      state.success = true;
-    })
-
-    .addCase(addToCart.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
+      .addCase(getCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
 
 
-    // UPDATE QUANTITY
-    .addCase(updateCart.fulfilled, (state, action) => {
+      // ADD TO CART
+      .addCase(addToCart.pending, (state) => {
+        state.loading = true;
+      })
 
-      state.cart = action.payload;
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.loading = false;
 
-      state.items = action.payload?.items || [];
+        state.cart = action.payload;
 
-    })
+        state.items = action.payload?.items || [];
 
+        state.success = true;
+      })
 
-
-    // REMOVE ITEM
-    .addCase(removeCartItem.fulfilled, (state, action) => {
-
-      state.cart = action.payload;
-
-      state.items = action.payload?.items || [];
-
-    })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
 
 
-    // CLEAR CART
-    .addCase(clearCart.fulfilled, (state) => {
+      // UPDATE QUANTITY
+      .addCase(updateCart.fulfilled, (state, action) => {
 
-      state.cart = null;
+        state.cart = action.payload;
 
-      state.items = [];
+        state.items = action.payload?.items || [];
 
-    });
+      })
+
+
+
+      // REMOVE ITEM
+      .addCase(removeCartItem.fulfilled, (state, action) => {
+
+        state.cart = action.payload;
+
+        state.items = action.payload?.items || [];
+
+      })
+
+
+
+      // CLEAR CART
+      .addCase(clearCart.fulfilled, (state) => {
+
+        state.cart = null;
+
+        state.items = [];
+
+      });
 
   }
 
