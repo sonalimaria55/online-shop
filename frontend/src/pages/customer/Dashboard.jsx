@@ -104,7 +104,8 @@ const Dashboard = () => {
 
                                 onClick={() =>
                                     navigate(
-                                        `/boutique/product/${product._id}`
+                                    
+                                           `/product/${product._id}`
                                     )
                                 }
 

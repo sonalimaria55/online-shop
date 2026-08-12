@@ -1961,6 +1961,9 @@
 
 const Cart = require("../models/Cart");
 
+// POPULATE CART
+
+
 // ======================================================
 // POPULATE CART
 // ======================================================
@@ -1970,10 +1973,40 @@ const populateCart = async (cart) => {
         return null;
     }
 
-    await cart.populate(
-        "items.product",
-        "productName sellingPrice images sku"
-    );
+    // -----------------------------------------------
+    // Populate product
+    // -----------------------------------------------
+
+    await cart.populate({
+        path: "items.product",
+        select:
+            "productName sellingPrice images sku productVariants",
+    });
+
+    // -----------------------------------------------
+    // Attach selected variant details
+    // -----------------------------------------------
+
+    cart.items.forEach((item) => {
+
+        if (!item.product || !item.variant) {
+            item.selectedVariant = null;
+            return;
+        }
+
+        const productVariants =
+            item.product.productVariants || [];
+
+        const selectedVariant =
+            productVariants.find(
+                (variant) =>
+                    variant._id.toString() ===
+                    item.variant.toString()
+            );
+
+        item.selectedVariant =
+            selectedVariant || null;
+    });
 
     return cart;
 };
@@ -2250,9 +2283,73 @@ const getCart = async (owner) => {
 // UPDATE QUANTITY
 // ======================================================
 
+// const updateCartQuantity = async (
+//     owner,
+//     productId,
+//     quantity
+// ) => {
+
+//     const cart = await findCart(owner);
+
+//     if (!cart) {
+//         throw new Error("Cart not found");
+//     }
+
+//     if (!productId) {
+//         throw new Error("Product ID is required");
+//     }
+
+//     const incomingProductId =
+//         productId.toString();
+
+//     const item = cart.items.find((item) => {
+
+//         if (!item.product) {
+//             return false;
+//         }
+
+//         const existingProductId =
+//             item.product._id
+//                 ? item.product._id.toString()
+//                 : item.product.toString();
+
+//         return (
+//             existingProductId ===
+//             incomingProductId
+//         );
+//     });
+
+//     if (!item) {
+//         throw new Error(
+//             "Product not in cart"
+//         );
+//     }
+
+//     const newQuantity =
+//         Number(quantity);
+
+//     if (
+//         !Number.isInteger(newQuantity) ||
+//         newQuantity < 1
+//     ) {
+//         throw new Error(
+//             "Quantity must be at least 1"
+//         );
+//     }
+
+//     item.quantity = newQuantity;
+
+//     await cart.save();
+
+//     await populateCart(cart);
+
+//     return cart;
+// };
+
+
 const updateCartQuantity = async (
     owner,
-    productId,
+    itemId,
     quantity
 ) => {
 
@@ -2262,38 +2359,17 @@ const updateCartQuantity = async (
         throw new Error("Cart not found");
     }
 
-    if (!productId) {
-        throw new Error("Product ID is required");
+    if (!itemId) {
+        throw new Error("Cart item ID is required");
     }
 
-    const incomingProductId =
-        productId.toString();
-
-    const item = cart.items.find((item) => {
-
-        if (!item.product) {
-            return false;
-        }
-
-        const existingProductId =
-            item.product._id
-                ? item.product._id.toString()
-                : item.product.toString();
-
-        return (
-            existingProductId ===
-            incomingProductId
-        );
-    });
+    const item = cart.items.id(itemId);
 
     if (!item) {
-        throw new Error(
-            "Product not in cart"
-        );
+        throw new Error("Cart item not found");
     }
 
-    const newQuantity =
-        Number(quantity);
+    const newQuantity = Number(quantity);
 
     if (
         !Number.isInteger(newQuantity) ||
@@ -2312,52 +2388,82 @@ const updateCartQuantity = async (
 
     return cart;
 };
-
 // ======================================================
 // REMOVE ITEM
 // ======================================================
 
+// const removeFromCart = async (
+//     owner,
+//     productId
+// ) => {
+
+//     const cart = await findCart(owner);
+
+//     if (!cart) {
+//         throw new Error(
+//             "Cart not found"
+//         );
+//     }
+
+//     if (!productId) {
+//         throw new Error(
+//             "Product ID is required"
+//         );
+//     }
+
+//     const incomingProductId =
+//         productId.toString();
+
+//     cart.items = cart.items.filter(
+//         (item) => {
+
+//             // Remove corrupted item
+//             if (!item.product) {
+//                 return false;
+//             }
+
+//             const existingProductId =
+//                 item.product._id
+//                     ? item.product._id.toString()
+//                     : item.product.toString();
+
+//             return (
+//                 existingProductId !==
+//                 incomingProductId
+//             );
+//         }
+//     );
+
+//     await cart.save();
+
+//     await populateCart(cart);
+
+//     return cart;
+// };
+
+
 const removeFromCart = async (
     owner,
-    productId
+    itemId
 ) => {
 
     const cart = await findCart(owner);
 
     if (!cart) {
-        throw new Error(
-            "Cart not found"
-        );
+        throw new Error("Cart not found");
     }
 
-    if (!productId) {
-        throw new Error(
-            "Product ID is required"
-        );
+    if (!itemId) {
+        throw new Error("Cart item ID is required");
     }
 
-    const incomingProductId =
-        productId.toString();
+    const item = cart.items.id(itemId);
 
-    cart.items = cart.items.filter(
-        (item) => {
+    if (!item) {
+        throw new Error("Cart item not found");
+    }
 
-            // Remove corrupted item
-            if (!item.product) {
-                return false;
-            }
-
-            const existingProductId =
-                item.product._id
-                    ? item.product._id.toString()
-                    : item.product.toString();
-
-            return (
-                existingProductId !==
-                incomingProductId
-            );
-        }
-    );
+    item.deleteOne();
 
     await cart.save();
 
@@ -2365,7 +2471,6 @@ const removeFromCart = async (
 
     return cart;
 };
-
 // ======================================================
 // CLEAR CART
 // ======================================================

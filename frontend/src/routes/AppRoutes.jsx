@@ -1318,9 +1318,10 @@
 //-----------------------------------
 
 import NotFound from "../pages/NotFound";
+
 import {
     Routes,
-    Route
+    Route,
 } from "react-router-dom";
 
 // ============================================
@@ -1370,6 +1371,9 @@ import BannerManagement from "../pages/banners/BannerManagement";
 import CategoryManagement from "../pages/categories/CategoryManagement";
 import VariantManagement from "../pages/management/VarientManagement";
 
+// ============================================
+// APP ROUTES
+// ============================================
 
 const AppRoutes = () => {
 
@@ -1383,69 +1387,42 @@ const AppRoutes = () => {
 
             <Route
                 path="/"
-                element={
-                    <Landing />
-                }
+                element={<Landing />}
             />
 
             <Route
                 path="/about"
-                element={
-                    <About />
-                }
+                element={<About />}
             />
 
             <Route
                 path="/collections"
-                element={
-                    <Collections />
-                }
+                element={<Collections />}
             />
 
             <Route
                 path="/login"
-                element={
-                    <Login />
-                }
+                element={<Login />}
             />
 
             <Route
                 path="/register"
-                element={
-                    <Register />
-                }
+                element={<Register />}
             />
 
             <Route
                 path="/verify-otp"
-                element={
-                    <VerifyOTP />
-                }
+                element={<VerifyOTP />}
             />
-
 
             {/* ======================================== */}
             {/* PUBLIC PRODUCT DETAILS */}
             {/* ======================================== */}
-            {/*
-                IMPORTANT:
-
-                Product details MUST be public.
-
-                Do NOT put this route inside
-                ProtectedRoute.
-
-                Visitors must be able to view
-                products without logging in.
-            */}
 
             <Route
                 path="/product/:id"
-                element={
-                    <ProductDetails />
-                }
+                element={<ProductDetails />}
             />
-
 
             {/* ======================================== */}
             {/* CUSTOMER */}
@@ -1464,55 +1441,27 @@ const AppRoutes = () => {
                 }
             >
 
-                {/* ================================== */}
-                {/* CUSTOMER HOME */}
-                {/* ================================== */}
-
                 <Route
                     index
-                    element={
-                        <CustomerDashboard />
-                    }
+                    element={<CustomerDashboard />}
                 />
-
-
-                {/* ================================== */}
-                {/* CART */}
-                {/* ================================== */}
 
                 <Route
                     path="cart"
-                    element={
-                        <Cart />
-                    }
+                    element={<Cart />}
                 />
-
-
-                {/* ================================== */}
-                {/* CHECKOUT */}
-                {/* ================================== */}
 
                 <Route
                     path="checkout"
-                    element={
-                        <Checkout />
-                    }
+                    element={<Checkout />}
                 />
-
-
-                {/* ================================== */}
-                {/* ORDERS */}
-                {/* ================================== */}
 
                 <Route
                     path="orders"
-                    element={
-                        <Orders />
-                    }
+                    element={<Orders />}
                 />
 
             </Route>
-
 
             {/* ======================================== */}
             {/* SUPER ADMIN */}
@@ -1533,41 +1482,30 @@ const AppRoutes = () => {
 
                 <Route
                     index
-                    element={
-                        <SuperAdminDashboard />
-                    }
+                    element={<SuperAdminDashboard />}
                 />
 
                 <Route
                     path="products"
-                    element={
-                        <ProductManagement />
-                    }
+                    element={<ProductManagement />}
                 />
 
                 <Route
                     path="categories"
-                    element={
-                        <CategoryManagement />
-                    }
+                    element={<CategoryManagement />}
                 />
 
                 <Route
                     path="variants"
-                    element={
-                        <VariantManagement />
-                    }
+                    element={<VariantManagement />}
                 />
 
                 <Route
                     path="banners"
-                    element={
-                        <BannerManagement />
-                    }
+                    element={<BannerManagement />}
                 />
 
             </Route>
-
 
             {/* ======================================== */}
             {/* MANAGEMENT */}
@@ -1588,65 +1526,48 @@ const AppRoutes = () => {
 
                 <Route
                     index
-                    element={
-                        <ManagementDashboard />
-                    }
+                    element={<ManagementDashboard />}
                 />
 
                 <Route
                     path="products"
-                    element={
-                        <ProductManagement />
-                    }
+                    element={<ProductManagement />}
                 />
 
                 <Route
                     path="categories"
-                    element={
-                        <CategoryManagement />
-                    }
+                    element={<CategoryManagement />}
                 />
 
                 <Route
                     path="variants"
-                    element={
-                        <VariantManagement />
-                    }
+                    element={<VariantManagement />}
                 />
 
                 <Route
                     path="banners"
-                    element={
-                        <BannerManagement />
-                    }
+                    element={<BannerManagement />}
                 />
 
             </Route>
 
-
             {/* ======================================== */}
             {/* CATCH ALL */}
             {/* ======================================== */}
-            {/* 
+
             <Route
                 path="*"
-                element={
-                    <Navigate
-                        to="/"
-                        replace
-                    />
-                }
-            /> */}
-            <Route
-                path="*"
-                element={
-                    <NotFound />
-                }
+                element={<NotFound />}
             />
+
         </Routes>
 
     );
 
 };
+
+// ============================================
+// DEFAULT EXPORT
+// ============================================
 
 export default AppRoutes;

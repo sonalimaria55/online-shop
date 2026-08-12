@@ -1074,6 +1074,8 @@
 
 // };
 //---------------------
+
+
 const cartService = require("../services/cartService");
 
 // ======================================================
@@ -1168,12 +1170,42 @@ const getCart = async (req, res) => {
 // UPDATE QUANTITY
 // ======================================================
 
+// const updateCartQuantity = async (req, res) => {
+//     try {
+//         const cart =
+//             await cartService.updateCartQuantity(
+//                 getOwner(req),
+//                 // req.params.productId,
+//                 req.params.itemId,
+//                 req.body.quantity
+//             );
+
+//         return res.status(200).json({
+//             success: true,
+//             cart,
+//         });
+//     } catch (error) {
+//         console.log(
+//             "========== UPDATE CART ERROR =========="
+//         );
+
+//         console.log(error);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// };
+
 const updateCartQuantity = async (req, res) => {
+
     try {
+
         const cart =
             await cartService.updateCartQuantity(
                 getOwner(req),
-                req.params.productId,
+                req.params.itemId,
                 req.body.quantity
             );
 
@@ -1181,7 +1213,9 @@ const updateCartQuantity = async (req, res) => {
             success: true,
             cart,
         });
+
     } catch (error) {
+
         console.log(
             "========== UPDATE CART ERROR =========="
         );
@@ -1199,31 +1233,33 @@ const updateCartQuantity = async (req, res) => {
 // REMOVE ITEM
 // ======================================================
 
-const removeFromCart = async (req, res) => {
-    try {
-        const cart =
-            await cartService.removeFromCart(
-                getOwner(req),
-                req.params.productId
-            );
+// const removeFromCart = async (req, res) => {
+//     try {
+//         const cart =
+//             await cartService.removeFromCart(
+//                 getOwner(req),
+//                 req.params.productId
+//             );
 
-        return res.status(200).json({
-            success: true,
-            cart,
-        });
-    } catch (error) {
-        console.log(
-            "========== REMOVE CART ERROR =========="
-        );
+//         return res.status(200).json({
+//             success: true,
+//             cart,
+//         });
+//     } catch (error) {
+//         console.log(
+//             "========== REMOVE CART ERROR =========="
+//         );
 
-        console.log(error);
+//         console.log(error);
 
-        return res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-    }
-};
+//         return res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// };
+
+
 
 // ======================================================
 // CLEAR CART
@@ -1306,7 +1342,64 @@ const mergeGuestCart = async (req, res) => {
         });
     }
 };
+// ======================================================
+// REMOVE ITEM
+// ======================================================
 
+// const removeFromCart = async (req, res) => {
+//     try {
+
+//         const cart = await cartService.removeFromCart(
+//             getOwner(req),
+//             req.params.itemId
+//         );
+
+//         return res.status(200).json({
+//             success: true,
+//             cart,
+//         });
+
+//     } catch (error) {
+
+//         console.log(
+//             "========== REMOVE CART ERROR =========="
+//         );
+
+//         console.log(error);
+//         console.log(error.stack);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// };
+const removeFromCart = async (req, res) => {
+    try {
+        const cart = await cartService.removeFromCart(
+            getOwner(req),
+            req.params.itemId
+        );
+
+        return res.status(200).json({
+            success: true,
+            cart,
+        });
+
+    } catch (error) {
+        console.log(
+            "========== REMOVE CART ERROR =========="
+        );
+
+        console.log(error);
+        console.log(error.stack);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
 module.exports = {
     addToCart,
     getCart,

@@ -782,6 +782,375 @@
 
 // export default Collections;
 //---------------------------------------------
+
+
+// import VisitorNavbar from "../components/navbar/VisitorNavbar";
+// import Footer from "../components/Footer";
+// import CollectionsSection from "../components/Collections";
+
+// const Collections = () => {
+//     return (
+//         <>
+//             <VisitorNavbar />
+
+//             <CollectionsSection />
+
+//             <Footer />
+//         </>
+//     );
+// };
+
+// export default Collections;
+//-------------------------------------------------------
+
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// import {
+//     Box,
+//     Typography,
+//     Container,
+//     Card,
+//     CardMedia,
+// } from "@mui/material";
+
+// import { getCategories } from "../features/categories/CategoriesThunk";
+
+
+// // =====================================================
+// // GET CATEGORY IMAGE URL
+// // =====================================================
+
+// const getCategoryImageUrl = (image) => {
+
+//     // No image
+//     if (!image) {
+//         return "/no-image.png";
+//     }
+
+//     // Image is string
+//     if (typeof image === "string") {
+
+//         if (
+//             image.startsWith("http://") ||
+//             image.startsWith("https://")
+//         ) {
+//             return image;
+//         }
+
+//         return `http://localhost:3000${image}`;
+//     }
+
+//     // Image is object
+//     if (
+//         typeof image === "object" &&
+//         image.url
+//     ) {
+
+//         if (
+//             image.url.startsWith("http://") ||
+//             image.url.startsWith("https://")
+//         ) {
+//             return image.url;
+//         }
+
+//         return `http://localhost:3000${image.url}`;
+//     }
+
+//     return "/no-image.png";
+// };
+
+
+// // =====================================================
+// // COLLECTIONS PAGE
+// // =====================================================
+
+// const Collections = () => {
+
+//     const dispatch = useDispatch();
+
+
+//     // =================================================
+//     // REDUX
+//     // =================================================
+
+//     const {
+//         categories = [],
+//     } = useSelector(
+//         (state) => state.categories
+//     );
+
+
+//     // =================================================
+//     // LOAD CATEGORIES
+//     // =================================================
+
+//     useEffect(() => {
+
+//         dispatch(
+//             getCategories()
+//         );
+
+//     }, [dispatch]);
+
+
+//     // =================================================
+//     // UI
+//     // =================================================
+
+//     return (
+
+//         <Box
+//             sx={{
+//                 py: {
+//                     xs: 6,
+//                     md: 10,
+//                 },
+
+//                 background: "#faf8f3",
+
+//                 minHeight: "100vh",
+//             }}
+//         >
+
+//             <Container
+//                 maxWidth="lg"
+//             >
+
+//                 {/* =====================================
+//                     TITLE
+//                 ===================================== */}
+
+//                 <Typography
+//                     textAlign="center"
+
+//                     sx={{
+//                         fontSize: {
+//                             xs: "32px",
+//                             md: "45px",
+//                         },
+
+//                         letterSpacing: 5,
+
+//                         fontWeight: 500,
+
+//                         mb: {
+//                             xs: 4,
+//                             md: 6,
+//                         },
+//                     }}
+//                 >
+//                     OUR COLLECTIONS
+//                 </Typography>
+
+
+//                 {/* =====================================
+//                     COLLECTION GRID
+//                 ===================================== */}
+
+//                 <Box
+//                     sx={{
+//                         display: "grid",
+
+//                         gridTemplateColumns: {
+//                             xs: "1fr",
+//                             sm: "repeat(2, 1fr)",
+//                             md: "repeat(3, 1fr)",
+//                         },
+
+//                         gap: {
+//                             xs: 2,
+//                             md: 3,
+//                         },
+//                     }}
+//                 >
+
+//                     {
+//                         categories.map(
+//                             (item) => {
+
+//                                 // IMPORTANT:
+//                                 // Get image URL for THIS category
+//                                 const imageUrl =
+//                                     getCategoryImageUrl(
+//                                         item.image
+//                                     );
+
+
+//                                 return (
+
+//                                     <Card
+//                                         key={
+//                                             item._id
+//                                         }
+
+//                                         sx={{
+//                                             borderRadius: 0,
+
+//                                             boxShadow:
+//                                                 "none",
+
+//                                             overflow:
+//                                                 "hidden",
+
+//                                             cursor:
+//                                                 "pointer",
+
+//                                             background:
+//                                                 "#fff",
+
+//                                             "&:hover img": {
+//                                                 transform:
+//                                                     "scale(1.03)",
+//                                             },
+//                                         }}
+//                                     >
+
+//                                         {/* =================================
+//                                             IMAGE
+//                                         ================================= */}
+
+//                                         <Box
+//                                             sx={{
+//                                                 width: "100%",
+
+//                                                 height: {
+//                                                     xs: 350,
+//                                                     sm: 400,
+//                                                     md: 450,
+//                                                 },
+
+//                                                 display: "flex",
+
+//                                                 alignItems:
+//                                                     "center",
+
+//                                                 justifyContent:
+//                                                     "center",
+
+//                                                 backgroundColor:
+//                                                     "#f5f5f5",
+
+//                                                 overflow:
+//                                                     "hidden",
+//                                             }}
+//                                         >
+
+//                                             <CardMedia
+//                                                 component="img"
+
+//                                                 src={
+//                                                     imageUrl
+//                                                 }
+
+//                                                 alt={
+//                                                     item.categoryName ||
+//                                                     "Collection"
+//                                                 }
+
+//                                                 onError={(
+//                                                     event
+//                                                 ) => {
+
+//                                                     console.error(
+//                                                         "CATEGORY IMAGE FAILED:",
+//                                                         imageUrl
+//                                                     );
+
+//                                                     event.currentTarget.onerror =
+//                                                         null;
+
+//                                                     event.currentTarget.src =
+//                                                         "/no-image.png";
+//                                                 }}
+
+//                                                 sx={{
+//                                                     width:
+//                                                         "100%",
+
+//                                                     height:
+//                                                         "100%",
+
+//                                                     display:
+//                                                         "block",
+
+//                                                     /*
+//                                                      * IMPORTANT
+//                                                      *
+//                                                      * contain = FULL IMAGE
+//                                                      * visible.
+//                                                      *
+//                                                      * It will NOT cut the
+//                                                      * top/bottom/sides.
+//                                                      */
+//                                                     objectFit:
+//                                                         "contain",
+
+//                                                     transition:
+//                                                         "transform 0.5s",
+//                                                 }}
+//                                             />
+
+//                                         </Box>
+
+
+//                                         {/* =================================
+//                                             CATEGORY NAME
+//                                         ================================= */}
+
+//                                         <Box
+//                                             sx={{
+//                                                 background:
+//                                                     "#fff",
+
+//                                                 px: 2,
+
+//                                                 py: 2,
+//                                             }}
+//                                         >
+
+//                                             <Typography
+//                                                 textAlign="center"
+
+//                                                 sx={{
+//                                                     fontSize: {
+//                                                         xs: 18,
+//                                                         md: 20,
+//                                                     },
+
+//                                                     letterSpacing:
+//                                                         2,
+
+//                                                     fontWeight:
+//                                                         400,
+//                                                 }}
+//                                             >
+//                                                 {
+//                                                     item.categoryName
+//                                                 }
+//                                             </Typography>
+
+//                                         </Box>
+
+//                                     </Card>
+
+//                                 );
+
+//                             }
+//                         )
+//                     }
+
+//                 </Box>
+
+//             </Container>
+
+//         </Box>
+
+//     );
+// };
+
+// export default Collections;
+//--------------------------------------------
 import VisitorNavbar from "../components/navbar/VisitorNavbar";
 import Footer from "../components/Footer";
 import CollectionsSection from "../components/Collections";

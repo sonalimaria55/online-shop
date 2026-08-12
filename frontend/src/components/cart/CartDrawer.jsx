@@ -427,6 +427,7 @@
 // };
 
 // export default CartDrawer;
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -478,18 +479,31 @@ const CartDrawer = ({
             open={open}
             onClose={onClose}
 
-            PaperProps={{
-                sx: {
-                    width: {
-                        xs: "100%",
-                        sm: 420,
+            // PaperProps={{
+            //     sx: {
+            //         width: {
+            //             xs: "100%",
+            //             sm: 420,
+            //         },
+
+            //         bgcolor: "#FAF8F3",
+
+            //         display: "flex",
+
+            //         flexDirection: "column",
+            //     },
+            // }}
+            slotProps={{
+                paper: {
+                    sx: {
+                        width: {
+                            xs: "100%",
+                            sm: 420,
+                        },
+                        bgcolor: "#FAF8F3",
+                        display: "flex",
+                        flexDirection: "column",
                     },
-
-                    bgcolor: "#FAF8F3",
-
-                    display: "flex",
-
-                    flexDirection: "column",
                 },
             }}
         >
@@ -565,8 +579,13 @@ const CartDrawer = ({
                         }
 
                         return (
+                            // <CartItem
+                            //     key={`${item.product._id}-${index}`}
+                            //     item={item}
+                            // />
+
                             <CartItem
-                                key={`${item.product._id}-${index}`}
+                                key={item._id}
                                 item={item}
                             />
                         );

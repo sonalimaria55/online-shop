@@ -2976,969 +2976,971 @@
 
 
 // export default ProductDetails;
-import {
-    useEffect,
-    useState,
-} from "react";
+//------------------------------------------------
 
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
+// import {
+//     useEffect,
+//     useState,
+// } from "react";
 
-import {
-    Box,
-    Typography,
-    CircularProgress,
-    Button,
-    ToggleButton,
-    ToggleButtonGroup,
-    IconButton,
-} from "@mui/material";
+// import RemoveIcon from "@mui/icons-material/Remove";
+// import AddIcon from "@mui/icons-material/Add";
 
-import {
-    useDispatch,
-    useSelector,
-} from "react-redux";
+// import {
+//     Box,
+//     Typography,
+//     CircularProgress,
+//     Button,
+//     ToggleButton,
+//     ToggleButtonGroup,
+//     IconButton,
+// } from "@mui/material";
 
-import {
-    useParams,
-} from "react-router-dom";
+// import {
+//     useDispatch,
+//     useSelector,
+// } from "react-redux";
 
-import {
-    getProductById,
-} from "../../features/products/ProductsThunk";
+// import {
+//     useParams,
+// } from "react-router-dom";
 
-import {
-    addToCart,
-    getCart,
-} from "../../features/cart/CartThunk";
+// import {
+//     getProductById,
+// } from "../../features/products/ProductsThunk";
 
-import VisitorNavbar from "../../components/navbar/VisitorNavbar";
+// import {
+//     addToCart,
+//     getCart,
+// } from "../../features/cart/CartThunk";
 
-import CartDrawer from "../../components/cart/CartDrawer";
+// import VisitorNavbar from "../../components/navbar/VisitorNavbar";
 
+// import CartDrawer from "../../components/cart/CartDrawer";
 
-const ProductDetails = () => {
 
-    const { id } = useParams();
+// const ProductDetails = () => {
 
-    const dispatch = useDispatch();
+//     const { id } = useParams();
 
+//     const dispatch = useDispatch();
 
-    // ============================================
-    // PRODUCT STATE
-    // ============================================
 
-    const {
-        selectedProduct,
-        loading,
-        error,
-    } = useSelector(
-        (state) => state.products
-    );
+//     // ============================================
+//     // PRODUCT STATE
+//     // ============================================
 
+//     const {
+//         selectedProduct,
+//         loading,
+//         error,
+//     } = useSelector(
+//         (state) => state.products
+//     );
 
-    // ============================================
-    // CART STATE
-    // ============================================
 
-    const {
-        loading: cartLoading,
-    } = useSelector(
-        (state) => state.cart
-    );
+//     // ============================================
+//     // CART STATE
+//     // ============================================
 
+//     const {
+//         loading: cartLoading,
+//     } = useSelector(
+//         (state) => state.cart
+//     );
 
-    // ============================================
-    // LOCAL STATE
-    // ============================================
 
-    const [
-        selectedVariant,
-        setSelectedVariant,
-    ] = useState(null);
+//     // ============================================
+//     // LOCAL STATE
+//     // ============================================
 
+//     const [
+//         selectedVariant,
+//         setSelectedVariant,
+//     ] = useState(null);
 
-    const [
-        quantity,
-        setQuantity,
-    ] = useState(1);
 
+//     const [
+//         quantity,
+//         setQuantity,
+//     ] = useState(1);
 
-    const [
-        cartOpen,
-        setCartOpen,
-    ] = useState(false);
 
+//     const [
+//         cartOpen,
+//         setCartOpen,
+//     ] = useState(false);
 
-    // ============================================
-    // GET PRODUCT
-    // ============================================
 
-    useEffect(() => {
+//     // ============================================
+//     // GET PRODUCT
+//     // ============================================
 
-        if (!id) {
-            return;
-        }
+//     useEffect(() => {
 
-        // Clear previous product visually
-        setSelectedVariant(null);
-        setQuantity(1);
+//         if (!id) {
+//             return;
+//         }
 
-        dispatch(
-            getProductById(id)
-        );
+//         // Clear previous product visually
+//         setSelectedVariant(null);
+//         setQuantity(1);
 
-    }, [
-        dispatch,
-        id,
-    ]);
+//         dispatch(
+//             getProductById(id)
+//         );
 
+//     }, [
+//         dispatch,
+//         id,
+//     ]);
 
-    // ============================================
-    // LOADING
-    // ============================================
 
-    if (loading) {
+//     // ============================================
+//     // LOADING
+//     // ============================================
 
-        return (
+//     if (loading) {
 
-            <>
-                <VisitorNavbar
-                    onCartClick={() =>
-                        setCartOpen(true)
-                    }
-                />
+//         return (
 
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    minHeight="70vh"
-                >
+//             <>
+//                 <VisitorNavbar
+//                     onCartClick={() =>
+//                         setCartOpen(true)
+//                     }
+//                 />
 
-                    <CircularProgress />
+//                 <Box
+//                     display="flex"
+//                     justifyContent="center"
+//                     alignItems="center"
+//                     minHeight="70vh"
+//                 >
 
-                </Box>
+//                     <CircularProgress />
 
-                <CartDrawer
-                    open={cartOpen}
-                    onClose={() =>
-                        setCartOpen(false)
-                    }
-                />
+//                 </Box>
 
-            </>
+//                 <CartDrawer
+//                     open={cartOpen}
+//                     onClose={() =>
+//                         setCartOpen(false)
+//                     }
+//                 />
 
-        );
+//             </>
 
-    }
+//         );
 
+//     }
 
-    // ============================================
-    // ERROR
-    // ============================================
 
-    if (error) {
+//     // ============================================
+//     // ERROR
+//     // ============================================
 
-        return (
+//     if (error) {
 
-            <>
-                <VisitorNavbar
-                    onCartClick={() =>
-                        setCartOpen(true)
-                    }
-                />
+//         return (
 
-                <Box
-                    sx={{
-                        py: 15,
-                        textAlign: "center",
-                    }}
-                >
+//             <>
+//                 <VisitorNavbar
+//                     onCartClick={() =>
+//                         setCartOpen(true)
+//                     }
+//                 />
 
-                    <Typography
-                        color="error"
-                    >
-                        {error}
-                    </Typography>
+//                 <Box
+//                     sx={{
+//                         py: 15,
+//                         textAlign: "center",
+//                     }}
+//                 >
 
-                </Box>
+//                     <Typography
+//                         color="error"
+//                     >
+//                         {error}
+//                     </Typography>
 
-                <CartDrawer
-                    open={cartOpen}
-                    onClose={() =>
-                        setCartOpen(false)
-                    }
-                />
+//                 </Box>
 
-            </>
+//                 <CartDrawer
+//                     open={cartOpen}
+//                     onClose={() =>
+//                         setCartOpen(false)
+//                     }
+//                 />
 
-        );
+//             </>
 
-    }
+//         );
 
+//     }
 
-    // ============================================
-    // PRODUCT NOT FOUND
-    // ============================================
 
-    if (!selectedProduct) {
+//     // ============================================
+//     // PRODUCT NOT FOUND
+//     // ============================================
 
-        return (
+//     if (!selectedProduct) {
 
-            <>
-                <VisitorNavbar
-                    onCartClick={() =>
-                        setCartOpen(true)
-                    }
-                />
+//         return (
 
-                <Box
-                    sx={{
-                        py: 15,
-                        textAlign: "center",
-                    }}
-                >
+//             <>
+//                 <VisitorNavbar
+//                     onCartClick={() =>
+//                         setCartOpen(true)
+//                     }
+//                 />
 
-                    <Typography
-                        variant="h6"
-                    >
-                        Product not found
-                    </Typography>
+//                 <Box
+//                     sx={{
+//                         py: 15,
+//                         textAlign: "center",
+//                     }}
+//                 >
 
-                </Box>
+//                     <Typography
+//                         variant="h6"
+//                     >
+//                         Product not found
+//                     </Typography>
 
-                <CartDrawer
-                    open={cartOpen}
-                    onClose={() =>
-                        setCartOpen(false)
-                    }
-                />
+//                 </Box>
 
-            </>
+//                 <CartDrawer
+//                     open={cartOpen}
+//                     onClose={() =>
+//                         setCartOpen(false)
+//                     }
+//                 />
 
-        );
+//             </>
 
-    }
+//         );
 
+//     }
 
-    // ============================================
-    // VARIANTS
-    // ============================================
 
-    const variants =
-        selectedProduct.productVariants || [];
+//     // ============================================
+//     // VARIANTS
+//     // ============================================
 
+//     const variants =
+//         selectedProduct.productVariants || [];
 
-    // ============================================
-    // SELECT VARIANT
-    // ============================================
 
-    const handleVariantChange = (
-        event,
-        value
-    ) => {
+//     // ============================================
+//     // SELECT VARIANT
+//     // ============================================
 
-        if (!value) {
-            return;
-        }
+//     const handleVariantChange = (
+//         event,
+//         value
+//     ) => {
 
-        const variant =
-            variants.find(
-                (item) =>
-                    item._id === value
-            );
+//         if (!value) {
+//             return;
+//         }
 
-        setSelectedVariant(
-            variant
-        );
+//         const variant =
+//             variants.find(
+//                 (item) =>
+//                     item._id === value
+//             );
 
-        setQuantity(1);
+//         setSelectedVariant(
+//             variant
+//         );
 
-    };
+//         setQuantity(1);
 
+//     };
 
-    // ============================================
-    // DECREASE
-    // ============================================
 
-    const decreaseQuantity = () => {
+//     // ============================================
+//     // DECREASE
+//     // ============================================
 
-        setQuantity(
-            (previous) =>
-                Math.max(
-                    1,
-                    previous - 1
-                )
-        );
+//     const decreaseQuantity = () => {
 
-    };
+//         setQuantity(
+//             (previous) =>
+//                 Math.max(
+//                     1,
+//                     previous - 1
+//                 )
+//         );
 
+//     };
 
-    // ============================================
-    // INCREASE
-    // ============================================
 
-    const increaseQuantity = () => {
+//     // ============================================
+//     // INCREASE
+//     // ============================================
 
-        const stock =
-            Number(
-                selectedVariant?.stock || 0
-            );
+//     const increaseQuantity = () => {
 
-        setQuantity(
-            (previous) =>
-                Math.min(
-                    stock,
-                    previous + 1
-                )
-        );
+//         const stock =
+//             Number(
+//                 selectedVariant?.stock || 0
+//             );
 
-    };
+//         setQuantity(
+//             (previous) =>
+//                 Math.min(
+//                     stock,
+//                     previous + 1
+//                 )
+//         );
 
+//     };
 
-    // ============================================
-    // ADD TO CART
-    // ============================================
 
-    const handleAddToCart = async () => {
+//     // ============================================
+//     // ADD TO CART
+//     // ============================================
 
-        // ----------------------------------------
-        // REQUIRE VARIANT
-        // ----------------------------------------
+//     const handleAddToCart = async () => {
 
-        if (!selectedVariant) {
+//         // ----------------------------------------
+//         // REQUIRE VARIANT
+//         // ----------------------------------------
 
-            alert(
-                "Please select a size"
-            );
+//         if (!selectedVariant) {
 
-            return;
+//             alert(
+//                 "Please select a size"
+//             );
 
-        }
+//             return;
 
+//         }
 
-        // ----------------------------------------
-        // STOCK
-        // ----------------------------------------
 
-        const stock =
-            Number(
-                selectedVariant.stock || 0
-            );
+//         // ----------------------------------------
+//         // STOCK
+//         // ----------------------------------------
 
+//         const stock =
+//             Number(
+//                 selectedVariant.stock || 0
+//             );
 
-        if (stock <= 0) {
 
-            alert(
-                "This variant is out of stock"
-            );
+//         if (stock <= 0) {
 
-            return;
+//             alert(
+//                 "This variant is out of stock"
+//             );
 
-        }
+//             return;
 
+//         }
 
-        // ----------------------------------------
-        // QUANTITY
-        // ----------------------------------------
 
-        if (
-            quantity < 1 ||
-            quantity > stock
-        ) {
+//         // ----------------------------------------
+//         // QUANTITY
+//         // ----------------------------------------
 
-            alert(
-                "Invalid quantity"
-            );
+//         if (
+//             quantity < 1 ||
+//             quantity > stock
+//         ) {
 
-            return;
+//             alert(
+//                 "Invalid quantity"
+//             );
 
-        }
+//             return;
 
+//         }
 
-        // ----------------------------------------
-        // CART DATA
-        // ----------------------------------------
 
-        const cartItem = {
+//         // ----------------------------------------
+//         // CART DATA
+//         // ----------------------------------------
 
-            product:
-                selectedProduct._id,
+//         const cartItem = {
 
-            variant:
-                selectedVariant._id,
+//             product:
+//                 selectedProduct._id,
 
-            quantity:
-                Number(quantity),
+//             variant:
+//                 selectedVariant._id,
 
-        };
+//             quantity:
+//                 Number(quantity),
 
+//         };
 
-        console.log(
-            "PRODUCT DETAILS: ADD TO CART",
-            cartItem
-        );
 
+//         console.log(
+//             "PRODUCT DETAILS: ADD TO CART",
+//             cartItem
+//         );
 
-        try {
 
-            // ====================================
-            // ADD
-            // ====================================
+//         try {
 
-            await dispatch(
-                addToCart(cartItem)
-            ).unwrap();
+//             // ====================================
+//             // ADD
+//             // ====================================
 
+//             await dispatch(
+//                 addToCart(cartItem)
+//             ).unwrap();
 
-            // ====================================
-            // REFRESH CART
-            // ====================================
 
-            await dispatch(
-                getCart()
-            ).unwrap();
+//             // ====================================
+//             // REFRESH CART
+//             // ====================================
 
+//             await dispatch(
+//                 getCart()
+//             ).unwrap();
 
-            // ====================================
-            // OPEN CART
-            // ====================================
 
-            setCartOpen(true);
+//             // ====================================
+//             // OPEN CART
+//             // ====================================
 
+//             setCartOpen(true);
 
-        } catch (err) {
 
-            console.error(
-                "ADD TO CART FAILED:",
-                err
-            );
+//         } catch (err) {
 
-            alert(
-                typeof err === "string"
-                    ? err
-                    : "Unable to add product to cart"
-            );
+//             console.error(
+//                 "ADD TO CART FAILED:",
+//                 err
+//             );
 
-        }
+//             alert(
+//                 typeof err === "string"
+//                     ? err
+//                     : "Unable to add product to cart"
+//             );
 
-    };
+//         }
 
+//     };
 
-    // ============================================
-    // CURRENT STOCK
-    // ============================================
 
-    const currentStock =
-        Number(
-            selectedVariant?.stock || 0
-        );
+//     // ============================================
+//     // CURRENT STOCK
+//     // ============================================
 
+//     const currentStock =
+//         Number(
+//             selectedVariant?.stock || 0
+//         );
 
-    // ============================================
-    // RENDER
-    // ============================================
 
-    return (
+//     // ============================================
+//     // RENDER
+//     // ============================================
 
-        <>
+//     return (
 
-            {/* =====================================
-                VISITOR NAVBAR
-            ===================================== */}
+//         <>
 
-            <VisitorNavbar
-                onCartClick={() =>
-                    setCartOpen(true)
-                }
-            />
+//             {/* =====================================
+//                 VISITOR NAVBAR
+//             ===================================== */}
 
+//             <VisitorNavbar
+//                 onCartClick={() =>
+//                     setCartOpen(true)
+//                 }
+//             />
 
-            {/* =====================================
-                PRODUCT
-            ===================================== */}
 
-            <Box
-                sx={{
-                    pt: 14,
-                    pb: 8,
-                    px: {
-                        xs: 2,
-                        md: 6,
-                    },
-                }}
-            >
+//             {/* =====================================
+//                 PRODUCT
+//             ===================================== */}
 
-                <Box
-                    sx={{
-                        display: "grid",
+//             <Box
+//                 sx={{
+//                     pt: 14,
+//                     pb: 8,
+//                     px: {
+//                         xs: 2,
+//                         md: 6,
+//                     },
+//                 }}
+//             >
 
-                        gridTemplateColumns: {
-                            xs: "1fr",
-                            md: "1fr 1fr",
-                        },
+//                 <Box
+//                     sx={{
+//                         display: "grid",
 
-                        gap: 5,
+//                         gridTemplateColumns: {
+//                             xs: "1fr",
+//                             md: "1fr 1fr",
+//                         },
 
-                        maxWidth: 1400,
+//                         gap: 5,
 
-                        mx: "auto",
-                    }}
-                >
+//                         maxWidth: 1400,
 
-                    {/* =================================
-                        IMAGE
-                    ================================= */}
+//                         mx: "auto",
+//                     }}
+//                 >
 
-                    <Box>
+//                     {/* =================================
+//                         IMAGE
+//                     ================================= */}
 
-                        <Box
-                            component="img"
+//                     <Box>
 
-                            src={
-                                selectedProduct
-                                    .images
-                                    ?. [0]
-                                    ?.url ||
-                                "/no-image.png"
-                            }
+//                         <Box
+//                             component="img"
 
-                            alt={
-                                selectedProduct
-                                    .productName ||
-                                "Product"
-                            }
+//                             src={
+//                                 selectedProduct
+//                                     .images
+//                                     ?. [0]
+//                                     ?.url ||
+//                                 "/no-image.png"
+//                             }
 
-                            onError={(event) => {
+//                             alt={
+//                                 selectedProduct
+//                                     .productName ||
+//                                 "Product"
+//                             }
 
-                                event.currentTarget.src =
-                                    "/no-image.png";
+//                             onError={(event) => {
 
-                            }}
+//                                 event.currentTarget.src =
+//                                     "/no-image.png";
 
-                            sx={{
-                                width: "100%",
+//                             }}
 
-                                maxWidth: 600,
+//                             sx={{
+//                                 width: "100%",
 
-                                height: {
-                                    xs: 450,
-                                    md: 650,
-                                },
+//                                 maxWidth: 600,
 
-                                objectFit: "cover",
+//                                 height: {
+//                                     xs: 450,
+//                                     md: 650,
+//                                 },
 
-                                borderRadius: 2,
+//                                 objectFit: "cover",
 
-                                display: "block",
+//                                 borderRadius: 2,
 
-                                backgroundColor:
-                                    "#f5f5f5",
-                            }}
-                        />
+//                                 display: "block",
 
-                    </Box>
+//                                 backgroundColor:
+//                                     "#f5f5f5",
+//                             }}
+//                         />
 
+//                     </Box>
 
-                    {/* =================================
-                        DETAILS
-                    ================================= */}
 
-                    <Box>
+//                     {/* =================================
+//                         DETAILS
+//                     ================================= */}
 
-                        {/* PRODUCT NAME */}
+//                     <Box>
 
-                        <Typography
-                            variant="h3"
-                            sx={{
-                                fontSize: {
-                                    xs: 32,
-                                    md: 48,
-                                },
+//                         {/* PRODUCT NAME */}
 
-                                fontWeight: 500,
-                            }}
-                        >
-                            {
-                                selectedProduct
-                                    .productName
-                            }
-                        </Typography>
+//                         <Typography
+//                             variant="h3"
+//                             sx={{
+//                                 fontSize: {
+//                                     xs: 32,
+//                                     md: 48,
+//                                 },
 
+//                                 fontWeight: 500,
+//                             }}
+//                         >
+//                             {
+//                                 selectedProduct
+//                                     .productName
+//                             }
+//                         </Typography>
 
-                        {/* DESCRIPTION */}
 
-                        {
-                            selectedProduct.description && (
+//                         {/* DESCRIPTION */}
 
-                                <Typography
-                                    mt={2}
-                                    color="text.secondary"
-                                    sx={{
-                                        lineHeight: 1.8,
-                                    }}
-                                >
-                                    {
-                                        selectedProduct
-                                            .description
-                                    }
-                                </Typography>
+//                         {
+//                             selectedProduct.description && (
 
-                            )
-                        }
+//                                 <Typography
+//                                     mt={2}
+//                                     color="text.secondary"
+//                                     sx={{
+//                                         lineHeight: 1.8,
+//                                     }}
+//                                 >
+//                                     {
+//                                         selectedProduct
+//                                             .description
+//                                     }
+//                                 </Typography>
 
+//                             )
+//                         }
 
-                        {/* PRICE */}
 
-                        <Typography
-                            sx={{
-                                mt: 3,
+//                         {/* PRICE */}
 
-                                fontSize: 30,
+//                         <Typography
+//                             sx={{
+//                                 mt: 3,
 
-                                fontWeight: 700,
+//                                 fontSize: 30,
 
-                                color: "#C9A227",
-                            }}
-                        >
-                            ₹{" "}
+//                                 fontWeight: 700,
 
-                            {
-                                selectedVariant
-                                    ?.sellingPrice ??
-                                selectedProduct
-                                    .sellingPrice
-                            }
+//                                 color: "#C9A227",
+//                             }}
+//                         >
+//                             ₹{" "}
 
-                        </Typography>
+//                             {
+//                                 selectedVariant
+//                                     ?.sellingPrice ??
+//                                 selectedProduct
+//                                     .sellingPrice
+//                             }
 
+//                         </Typography>
 
-                        {/* =================================
-                            VARIANTS
-                        ================================= */}
 
-                        {
-                            variants.length > 0 && (
+//                         {/* =================================
+//                             VARIANTS
+//                         ================================= */}
 
-                                <>
+//                         {
+//                             variants.length > 0 && (
 
-                                    <Typography
-                                        sx={{
-                                            mt: 5,
-                                            mb: 2,
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        Select Size
-                                    </Typography>
+//                                 <>
 
+//                                     <Typography
+//                                         sx={{
+//                                             mt: 5,
+//                                             mb: 2,
+//                                             fontWeight: 600,
+//                                         }}
+//                                     >
+//                                         Select Size
+//                                     </Typography>
 
-                                    <ToggleButtonGroup
-                                        exclusive
 
-                                        value={
-                                            selectedVariant
-                                                ?._id || ""
-                                        }
+//                                     <ToggleButtonGroup
+//                                         exclusive
 
-                                        onChange={
-                                            handleVariantChange
-                                        }
+//                                         value={
+//                                             selectedVariant
+//                                                 ?._id || ""
+//                                         }
 
-                                        sx={{
-                                            display: "flex",
-                                            flexWrap: "wrap",
-                                            gap: 1,
-                                        }}
-                                    >
+//                                         onChange={
+//                                             handleVariantChange
+//                                         }
 
-                                        {
-                                            variants.map(
-                                                (variant) => (
+//                                         sx={{
+//                                             display: "flex",
+//                                             flexWrap: "wrap",
+//                                             gap: 1,
+//                                         }}
+//                                     >
 
-                                                    <ToggleButton
-                                                        key={
-                                                            variant._id
-                                                        }
+//                                         {
+//                                             variants.map(
+//                                                 (variant) => (
 
-                                                        value={
-                                                            variant._id
-                                                        }
+//                                                     <ToggleButton
+//                                                         key={
+//                                                             variant._id
+//                                                         }
 
-                                                        sx={{
-                                                            minWidth: 60,
+//                                                         value={
+//                                                             variant._id
+//                                                         }
 
-                                                            border:
-                                                                "1px solid #ddd",
+//                                                         sx={{
+//                                                             minWidth: 60,
 
-                                                            "&.Mui-selected":
-                                                                {
-                                                                    backgroundColor:
-                                                                        "#C9A227",
+//                                                             border:
+//                                                                 "1px solid #ddd",
 
-                                                                    color:
-                                                                        "#fff",
+//                                                             "&.Mui-selected":
+//                                                                 {
+//                                                                     backgroundColor:
+//                                                                         "#C9A227",
 
-                                                                    "&:hover":
-                                                                        {
-                                                                            backgroundColor:
-                                                                                "#B08D57",
-                                                                        },
-                                                                },
-                                                        }}
-                                                    >
+//                                                                     color:
+//                                                                         "#fff",
 
-                                                        {
-                                                            variant
-                                                                .attributes
-                                                                ?.map(
-                                                                    (
-                                                                        attr
-                                                                    ) =>
-                                                                        attr.value
-                                                                )
-                                                                .filter(
-                                                                    Boolean
-                                                                )
-                                                                .join(
-                                                                    " / "
-                                                                )
-                                                        }
+//                                                                     "&:hover":
+//                                                                         {
+//                                                                             backgroundColor:
+//                                                                                 "#B08D57",
+//                                                                         },
+//                                                                 },
+//                                                         }}
+//                                                     >
 
-                                                    </ToggleButton>
+//                                                         {
+//                                                             variant
+//                                                                 .attributes
+//                                                                 ?.map(
+//                                                                     (
+//                                                                         attr
+//                                                                     ) =>
+//                                                                         attr.value
+//                                                                 )
+//                                                                 .filter(
+//                                                                     Boolean
+//                                                                 )
+//                                                                 .join(
+//                                                                     " / "
+//                                                                 )
+//                                                         }
 
-                                                )
-                                            )
-                                        }
+//                                                     </ToggleButton>
 
-                                    </ToggleButtonGroup>
+//                                                 )
+//                                             )
+//                                         }
 
-                                </>
+//                                     </ToggleButtonGroup>
 
-                            )
-                        }
+//                                 </>
 
+//                             )
+//                         }
 
-                        {/* =================================
-                            SELECTED VARIANT
-                        ================================= */}
 
-                        {
-                            selectedVariant && (
+//                         {/* =================================
+//                             SELECTED VARIANT
+//                         ================================= */}
 
-                                <Box
-                                    mt={3}
-                                >
+//                         {
+//                             selectedVariant && (
 
-                                    <Typography>
-                                        <b>Color:</b>{" "}
+//                                 <Box
+//                                     mt={3}
+//                                 >
 
-                                        {
-                                            selectedVariant
-                                                .color ||
-                                            selectedVariant
-                                                .attributes
-                                                ?.find(
-                                                    (
-                                                        attr
-                                                    ) =>
-                                                        attr.colorCode
-                                                )
-                                                ?.colorCode ||
-                                            "-"
-                                        }
+//                                     <Typography>
+//                                         <b>Color:</b>{" "}
 
-                                    </Typography>
+//                                         {
+//                                             selectedVariant
+//                                                 .color ||
+//                                             selectedVariant
+//                                                 .attributes
+//                                                 ?.find(
+//                                                     (
+//                                                         attr
+//                                                     ) =>
+//                                                         attr.colorCode
+//                                                 )
+//                                                 ?.colorCode ||
+//                                             "-"
+//                                         }
 
+//                                     </Typography>
 
-                                    <Typography
-                                        mt={1}
-                                    >
-                                        <b>Stock:</b>{" "}
 
-                                        {
-                                            selectedVariant
-                                                .stock
-                                        }
+//                                     <Typography
+//                                         mt={1}
+//                                     >
+//                                         <b>Stock:</b>{" "}
 
-                                    </Typography>
+//                                         {
+//                                             selectedVariant
+//                                                 .stock
+//                                         }
 
+//                                     </Typography>
 
-                                    <Typography
-                                        mt={1}
-                                    >
-                                        <b>SKU:</b>{" "}
 
-                                        {
-                                            selectedVariant
-                                                .sku ||
-                                            "-"
-                                        }
+//                                     <Typography
+//                                         mt={1}
+//                                     >
+//                                         <b>SKU:</b>{" "}
 
-                                    </Typography>
+//                                         {
+//                                             selectedVariant
+//                                                 .sku ||
+//                                             "-"
+//                                         }
 
+//                                     </Typography>
 
-                                    <Typography
-                                        mt={1}
-                                    >
-                                        <b>Barcode:</b>{" "}
 
-                                        {
-                                            selectedVariant
-                                                .barcode ||
-                                            "-"
-                                        }
+//                                     <Typography
+//                                         mt={1}
+//                                     >
+//                                         <b>Barcode:</b>{" "}
 
-                                    </Typography>
+//                                         {
+//                                             selectedVariant
+//                                                 .barcode ||
+//                                             "-"
+//                                         }
 
-                                </Box>
+//                                     </Typography>
 
-                            )
-                        }
+//                                 </Box>
 
+//                             )
+//                         }
 
-                        {/* =================================
-                            QUANTITY
-                        ================================= */}
 
-                        <Typography
-                            sx={{
-                                mt: 5,
-                                mb: 2,
-                                fontWeight: 600,
-                            }}
-                        >
-                            Quantity
-                        </Typography>
+//                         {/* =================================
+//                             QUANTITY
+//                         ================================= */}
 
+//                         <Typography
+//                             sx={{
+//                                 mt: 5,
+//                                 mb: 2,
+//                                 fontWeight: 600,
+//                             }}
+//                         >
+//                             Quantity
+//                         </Typography>
 
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            gap={2}
-                        >
 
-                            <IconButton
-                                onClick={
-                                    decreaseQuantity
-                                }
+//                         <Box
+//                             display="flex"
+//                             alignItems="center"
+//                             gap={2}
+//                         >
 
-                                disabled={
-                                    quantity <= 1
-                                }
-                            >
-                                <RemoveIcon />
-                            </IconButton>
+//                             <IconButton
+//                                 onClick={
+//                                     decreaseQuantity
+//                                 }
 
+//                                 disabled={
+//                                     quantity <= 1
+//                                 }
+//                             >
+//                                 <RemoveIcon />
+//                             </IconButton>
 
-                            <Typography
-                                sx={{
-                                    fontSize: 20,
-                                    minWidth: 30,
-                                    textAlign: "center",
-                                }}
-                            >
-                                {quantity}
-                            </Typography>
 
+//                             <Typography
+//                                 sx={{
+//                                     fontSize: 20,
+//                                     minWidth: 30,
+//                                     textAlign: "center",
+//                                 }}
+//                             >
+//                                 {quantity}
+//                             </Typography>
 
-                            <IconButton
-                                onClick={
-                                    increaseQuantity
-                                }
 
-                                disabled={
-                                    !selectedVariant ||
-                                    quantity >=
-                                        currentStock
-                                }
-                            >
-                                <AddIcon />
-                            </IconButton>
+//                             <IconButton
+//                                 onClick={
+//                                     increaseQuantity
+//                                 }
 
-                        </Box>
+//                                 disabled={
+//                                     !selectedVariant ||
+//                                     quantity >=
+//                                         currentStock
+//                                 }
+//                             >
+//                                 <AddIcon />
+//                             </IconButton>
 
+//                         </Box>
 
-                        {/* =================================
-                            ADD TO CART
-                        ================================= */}
 
-                        <Button
-                            variant="contained"
+//                         {/* =================================
+//                             ADD TO CART
+//                         ================================= */}
 
-                            disabled={
-                                cartLoading ||
-                                !selectedVariant ||
-                                currentStock <= 0
-                            }
+//                         <Button
+//                             variant="contained"
 
-                            onClick={
-                                handleAddToCart
-                            }
+//                             disabled={
+//                                 cartLoading ||
+//                                 !selectedVariant ||
+//                                 currentStock <= 0
+//                             }
 
-                            sx={{
-                                mt: 5,
+//                             onClick={
+//                                 handleAddToCart
+//                             }
 
-                                backgroundColor:
-                                    "#C9A227",
+//                             sx={{
+//                                 mt: 5,
 
-                                color: "#fff",
+//                                 backgroundColor:
+//                                     "#C9A227",
 
-                                px: 5,
+//                                 color: "#fff",
 
-                                py: 1.5,
+//                                 px: 5,
 
-                                fontSize: 16,
+//                                 py: 1.5,
 
-                                "&:hover": {
-                                    backgroundColor:
-                                        "#B08D57",
-                                },
+//                                 fontSize: 16,
 
-                                "&.Mui-disabled": {
-                                    backgroundColor:
-                                        "#ddd",
+//                                 "&:hover": {
+//                                     backgroundColor:
+//                                         "#B08D57",
+//                                 },
 
-                                    color:
-                                        "#777",
-                                },
-                            }}
-                        >
+//                                 "&.Mui-disabled": {
+//                                     backgroundColor:
+//                                         "#ddd",
 
-                            {
-                                cartLoading
-                                    ? "ADDING..."
-                                    : currentStock <= 0 &&
-                                      selectedVariant
-                                    ? "OUT OF STOCK"
-                                    : "ADD TO CART"
-                            }
+//                                     color:
+//                                         "#777",
+//                                 },
+//                             }}
+//                         >
 
-                        </Button>
+//                             {
+//                                 cartLoading
+//                                     ? "ADDING..."
+//                                     : currentStock <= 0 &&
+//                                       selectedVariant
+//                                     ? "OUT OF STOCK"
+//                                     : "ADD TO CART"
+//                             }
 
-                    </Box>
+//                         </Button>
 
-                </Box>
+//                     </Box>
 
-            </Box>
+//                 </Box>
 
+//             </Box>
 
-            {/* =====================================
-                CART DRAWER
-            ===================================== */}
 
-            <CartDrawer
-                open={cartOpen}
-                onClose={() =>
-                    setCartOpen(false)
-                }
-            />
+//             {/* =====================================
+//                 CART DRAWER
+//             ===================================== */}
 
-        </>
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={() =>
+//                     setCartOpen(false)
+//                 }
+//             />
 
-    );
+//         </>
 
-};
+//     );
 
-export default ProductDetails;
+// };
+
+// export default ProductDetails;
