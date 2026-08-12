@@ -5,6 +5,7 @@ import bannerReducer from "../features/banners/BannerSlice";
 import cartReducer from "../features/cart/CartSlice";
 
 
+import orderReducer from "../features/orders/OrderSlice";
 import variantReducer from "../features/variants/VariantSlice";
 const store = configureStore({
   reducer: {
@@ -14,7 +15,7 @@ const store = configureStore({
 
     variants: variantReducer,
     cart: cartReducer,   
-    
+    orders: orderReducer,
 
   },
 });
