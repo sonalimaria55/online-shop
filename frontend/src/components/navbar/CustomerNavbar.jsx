@@ -1280,6 +1280,558 @@
 // export default CustomerNavbar;
 //----------------------------------------------------------------
 
+// import {
+//     AppBar,
+//     Toolbar,
+//     Typography,
+//     Button,
+//     Box,
+//     Container,
+//     IconButton,
+//     Badge,
+// } from "@mui/material";
+
+// import {
+//     Link,
+//     useNavigate,
+// } from "react-router-dom";
+
+// import {
+//     useSelector,
+// } from "react-redux";
+
+// import ShoppingCartOutlinedIcon
+//     from "@mui/icons-material/ShoppingCartOutlined";
+
+// import logout from "../../utils/logout";
+
+
+// const CustomerNavbar = ({
+//     onCartClick,
+// }) => {
+
+//     const navigate = useNavigate();
+
+
+//     // ============================================
+//     // CART STATE
+//     // ============================================
+
+//     const {
+//         items = [],
+//     } = useSelector(
+//         (state) => state.cart
+//     );
+
+
+//     // ============================================
+//     // TOTAL CART ITEMS
+//     // ============================================
+
+//     const totalItems = items.reduce(
+//         (total, item) => {
+
+//             return total + (
+//                 Number(item.quantity) || 0
+//             );
+
+//         },
+//         0
+//     );
+
+
+//     // ============================================
+//     // CART CLICK
+//     // ============================================
+
+//     const handleCartClick = () => {
+
+//         console.log(
+//             "CUSTOMER NAVBAR: CART CLICKED"
+//         );
+
+//         if (onCartClick) {
+
+//             onCartClick();
+
+//         }
+
+//     };
+
+
+//     // ============================================
+//     // LOGOUT
+//     // ============================================
+
+//     const handleLogout = () => {
+
+//         console.log(
+//             "CUSTOMER NAVBAR: LOGOUT"
+//         );
+
+//         logout(navigate);
+
+//     };
+
+
+//     return (
+
+//         <AppBar
+//             position="fixed"
+//             elevation={0}
+//             sx={{
+//                 background:
+//                     "rgba(250,248,243,0.95)",
+
+//                 backdropFilter:
+//                     "blur(12px)",
+
+//                 color: "#222",
+
+//                 borderBottom:
+//                     "1px solid #eee",
+
+//                 zIndex: 1200,
+//             }}
+//         >
+
+//             <Container maxWidth="lg">
+
+//                 <Toolbar
+//                     disableGutters
+//                     sx={{
+//                         display: "grid",
+
+//                         gridTemplateColumns:
+//                             "1fr auto 1fr",
+
+//                         py: 1.5,
+//                     }}
+//                 >
+
+//                     {/* ================================= */}
+//                     {/* LOGO */}
+//                     {/* ================================= */}
+
+//                     <Typography
+//                         component={Link}
+//                         to="/boutique"
+//                         sx={{
+//                             textDecoration: "none",
+//                             color: "#222",
+//                             fontSize: "28px",
+//                             letterSpacing: 7,
+//                             fontWeight: 600,
+//                         }}
+//                     >
+//                         SERINA
+//                     </Typography>
+
+
+//                     {/* ================================= */}
+//                     {/* CENTER MENU */}
+//                     {/* ================================= */}
+
+//                     <Box
+//                         sx={{
+//                             display: "flex",
+//                             gap: 4,
+//                             alignItems: "center",
+//                         }}
+//                     >
+
+//                         <Button
+//                             component={Link}
+//                             to="/boutique"
+//                             sx={{
+//                                 color: "#222",
+//                                 textTransform: "uppercase",
+//                             }}
+//                         >
+//                             Home
+//                         </Button>
+
+
+//                         <Button
+//                             component={Link}
+//                             to="/collections"
+//                             sx={{
+//                                 color: "#222",
+//                                 textTransform: "uppercase",
+//                             }}
+//                         >
+//                             Collections
+//                         </Button>
+
+
+//                         <Button
+//                             component={Link}
+//                             to="/boutique/orders"
+//                             sx={{
+//                                 color: "#222",
+//                                 textTransform: "uppercase",
+//                             }}
+//                         >
+//                             Orders
+//                         </Button>
+
+//                     </Box>
+
+
+//                     {/* ================================= */}
+//                     {/* RIGHT SIDE */}
+//                     {/* ================================= */}
+
+//                     <Box
+//                         sx={{
+//                             display: "flex",
+//                             justifyContent: "flex-end",
+//                             alignItems: "center",
+//                             gap: 2,
+//                         }}
+//                     >
+
+//                         {/* CART */}
+
+//                         <IconButton
+//                             onClick={handleCartClick}
+//                             sx={{
+//                                 color: "#B08D57",
+//                             }}
+//                         >
+
+//                             <Badge
+//                                 badgeContent={totalItems}
+//                                 color="error"
+//                             >
+
+//                                 <ShoppingCartOutlinedIcon />
+
+//                             </Badge>
+
+//                         </IconButton>
+
+
+//                         {/* PROFILE */}
+
+//                         <Button
+//                             component={Link}
+//                             to="/profile"
+//                             sx={{
+//                                 color: "#B08D57",
+//                                 textTransform: "none",
+//                             }}
+//                         >
+//                             Profile
+//                         </Button>
+
+
+//                         {/* LOGOUT */}
+
+//                         <Button
+//                             onClick={handleLogout}
+//                             sx={{
+//                                 color: "#B08D57",
+//                                 textTransform: "none",
+//                             }}
+//                         >
+//                             Logout
+//                         </Button>
+
+//                     </Box>
+
+//                 </Toolbar>
+
+//             </Container>
+
+//         </AppBar>
+
+//     );
+
+// };
+
+
+// export default CustomerNavbar;
+//----------------------------------------------------------
+// import {
+//     AppBar,
+//     Toolbar,
+//     Typography,
+//     Button,
+//     Box,
+//     Container,
+//     IconButton,
+//     Badge,
+// } from "@mui/material";
+
+// import {
+//     Link,
+//     useNavigate,
+// } from "react-router-dom";
+
+// import {
+//     useSelector,
+// } from "react-redux";
+
+// import ShoppingCartOutlinedIcon
+//     from "@mui/icons-material/ShoppingCartOutlined";
+
+// import logout from "../../utils/logout";
+
+
+// const CustomerNavbar = ({
+//     onCartClick,
+// }) => {
+
+//     const navigate = useNavigate();
+
+
+//     // ============================================
+//     // CART STATE
+//     // ============================================
+
+//     const {
+//         items = [],
+//     } = useSelector(
+//         (state) => state.cart
+//     );
+
+
+//     // ============================================
+//     // TOTAL CART ITEMS
+//     // ============================================
+
+//     const totalItems = items.reduce(
+//         (total, item) => {
+
+//             return total + (
+//                 Number(item.quantity) || 0
+//             );
+
+//         },
+//         0
+//     );
+
+
+//     // ============================================
+//     // CART CLICK
+//     // ============================================
+
+//     const handleCartClick = () => {
+
+//         console.log(
+//             "CUSTOMER NAVBAR: CART CLICKED"
+//         );
+
+//         if (onCartClick) {
+
+//             onCartClick();
+
+//         }
+
+//     };
+
+
+//     // ============================================
+//     // LOGOUT
+//     // ============================================
+
+//     const handleLogout = () => {
+
+//         console.log(
+//             "CUSTOMER NAVBAR: LOGOUT"
+//         );
+
+//         logout(navigate);
+
+//     };
+
+
+//     return (
+
+//         <AppBar
+//             position="fixed"
+//             elevation={0}
+//             sx={{
+//                 background:
+//                     "rgba(250,248,243,0.95)",
+
+//                 backdropFilter:
+//                     "blur(12px)",
+
+//                 color: "#222",
+
+//                 borderBottom:
+//                     "1px solid #eee",
+
+//                 zIndex: 1200,
+//             }}
+//         >
+
+//             <Container maxWidth="lg">
+
+//                 <Toolbar
+//                     disableGutters
+//                     sx={{
+//                         display: "grid",
+
+//                         gridTemplateColumns:
+//                             "1fr auto 1fr",
+
+//                         py: 1.5,
+//                     }}
+//                 >
+
+//                     {/* ================================= */}
+//                     {/* LOGO */}
+//                     {/* ================================= */}
+
+//                     <Typography
+//                         component={Link}
+//                         to="/boutique"
+//                         sx={{
+//                             textDecoration: "none",
+//                             color: "#222",
+//                             fontSize: "28px",
+//                             letterSpacing: 7,
+//                             fontWeight: 600,
+//                         }}
+//                     >
+//                         SERINA
+//                     </Typography>
+
+
+//                     {/* ================================= */}
+//                     {/* CUSTOMER MENU */}
+//                     {/* ================================= */}
+
+//                     <Box
+//                         sx={{
+//                             display: "flex",
+//                             gap: 4,
+//                             alignItems: "center",
+//                         }}
+//                     >
+
+//                         {/* HOME */}
+
+//                         <Button
+//                             component={Link}
+//                             to="/boutique"
+//                             sx={{
+//                                 color: "#222",
+//                                 textTransform: "uppercase",
+//                             }}
+//                         >
+//                             Home
+//                         </Button>
+
+
+//                         {/* COLLECTIONS */}
+
+//                         <Button
+//                             component={Link}
+//                             to="/boutique/collections"
+//                             sx={{
+//                                 color: "#222",
+//                                 textTransform: "uppercase",
+//                             }}
+//                         >
+//                             Collections
+//                         </Button>
+
+
+//                         {/* ORDERS */}
+
+//                         <Button
+//                             component={Link}
+//                             to="/boutique/orders"
+//                             sx={{
+//                                 color: "#222",
+//                                 textTransform: "uppercase",
+//                             }}
+//                         >
+//                             Orders
+//                         </Button>
+
+//                     </Box>
+
+
+//                     {/* ================================= */}
+//                     {/* RIGHT SIDE */}
+//                     {/* ================================= */}
+
+//                     <Box
+//                         sx={{
+//                             display: "flex",
+//                             justifyContent: "flex-end",
+//                             alignItems: "center",
+//                             gap: 2,
+//                         }}
+//                     >
+
+//                         {/* CART */}
+
+//                         <IconButton
+//                             onClick={handleCartClick}
+//                             sx={{
+//                                 color: "#B08D57",
+//                             }}
+//                         >
+
+//                             <Badge
+//                                 badgeContent={totalItems}
+//                                 color="error"
+//                             >
+
+//                                 <ShoppingCartOutlinedIcon />
+
+//                             </Badge>
+
+//                         </IconButton>
+
+
+//                         {/* PROFILE */}
+
+//                         <Button
+//                             component={Link}
+//                             to="/boutique/profile"
+//                             sx={{
+//                                 color: "#B08D57",
+//                                 textTransform: "none",
+//                             }}
+//                         >
+//                             Profile
+//                         </Button>
+
+
+//                         {/* LOGOUT */}
+
+//                         <Button
+//                             onClick={handleLogout}
+//                             sx={{
+//                                 color: "#B08D57",
+//                                 textTransform: "none",
+//                             }}
+//                         >
+//                             Logout
+//                         </Button>
+
+//                     </Box>
+
+//                 </Toolbar>
+
+//             </Container>
+
+//         </AppBar>
+
+//     );
+
+// };
+
+
+// export default CustomerNavbar;
+//----------------------------------------------------------------
 import {
     AppBar,
     Toolbar,
@@ -1305,13 +1857,11 @@ import ShoppingCartOutlinedIcon
 
 import logout from "../../utils/logout";
 
-
 const CustomerNavbar = ({
     onCartClick,
 }) => {
 
     const navigate = useNavigate();
-
 
     // ============================================
     // CART STATE
@@ -1322,7 +1872,6 @@ const CustomerNavbar = ({
     } = useSelector(
         (state) => state.cart
     );
-
 
     // ============================================
     // TOTAL CART ITEMS
@@ -1339,7 +1888,6 @@ const CustomerNavbar = ({
         0
     );
 
-
     // ============================================
     // CART CLICK
     // ============================================
@@ -1351,13 +1899,9 @@ const CustomerNavbar = ({
         );
 
         if (onCartClick) {
-
             onCartClick();
-
         }
-
     };
-
 
     // ============================================
     // LOGOUT
@@ -1370,9 +1914,7 @@ const CustomerNavbar = ({
         );
 
         logout(navigate);
-
     };
-
 
     return (
 
@@ -1440,6 +1982,8 @@ const CustomerNavbar = ({
                         }}
                     >
 
+                        {/* HOME */}
+
                         <Button
                             component={Link}
                             to="/boutique"
@@ -1452,9 +1996,11 @@ const CustomerNavbar = ({
                         </Button>
 
 
+                        {/* COLLECTIONS */}
+
                         <Button
                             component={Link}
-                            to="/collections"
+                            to="/boutique/collections"
                             sx={{
                                 color: "#222",
                                 textTransform: "uppercase",
@@ -1463,6 +2009,8 @@ const CustomerNavbar = ({
                             Collections
                         </Button>
 
+
+                        {/* ORDERS */}
 
                         <Button
                             component={Link}
@@ -1516,7 +2064,7 @@ const CustomerNavbar = ({
 
                         <Button
                             component={Link}
-                            to="/profile"
+                            to="/boutique/profile"
                             sx={{
                                 color: "#B08D57",
                                 textTransform: "none",
@@ -1545,10 +2093,7 @@ const CustomerNavbar = ({
             </Container>
 
         </AppBar>
-
     );
-
 };
-
 
 export default CustomerNavbar;

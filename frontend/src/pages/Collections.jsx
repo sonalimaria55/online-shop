@@ -1151,19 +1151,76 @@
 
 // export default Collections;
 //--------------------------------------------
-import VisitorNavbar from "../components/navbar/VisitorNavbar";
-import Footer from "../components/Footer";
+
+// import VisitorNavbar from "../components/navbar/VisitorNavbar";
+// import Footer from "../components/Footer";
+// import CollectionsSection from "../components/Collections";
+
+// const Collections = () => {
+//     return (
+//         <>
+//             <VisitorNavbar />
+
+//             <CollectionsSection />
+
+//             <Footer />
+//         </>
+//     );
+// };
+
+// export default Collections;
+// //---------------------------
+// import { useSelector } from "react-redux";
+
+// import VisitorNavbar from "../components/navbar/VisitorNavbar";
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+// import Footer from "../components/Footer";
+// import CollectionsSection from "../components/Collections";
+
+// const Collections = () => {
+
+//     // ============================================
+//     // AUTH STATE
+//     // ============================================
+
+//     const auth = useSelector(
+//         (state) => state.auth
+//     );
+
+//     const user = auth?.user;
+
+//     const isLoggedIn =
+//         !!user &&
+//         user?.role === "customer";
+
+
+//     // ============================================
+//     // RENDER
+//     // ============================================
+
+//     return (
+//         <>
+//             {isLoggedIn ? (
+//                 <CustomerNavbar />
+//             ) : (
+//                 <VisitorNavbar />
+//             )}
+
+//             <CollectionsSection />
+
+//             <Footer />
+//         </>
+//     );
+// };
+
+// export default Collections;
+
+///////////////------------
 import CollectionsSection from "../components/Collections";
 
 const Collections = () => {
     return (
-        <>
-            <VisitorNavbar />
-
-            <CollectionsSection />
-
-            <Footer />
-        </>
+        <CollectionsSection />
     );
 };
 

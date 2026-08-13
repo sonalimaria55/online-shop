@@ -587,6 +587,56 @@
 
 // export default CustomerLayout;
 //---------------------------------------------------
+// import { useState } from "react";
+// import { Outlet } from "react-router-dom";
+
+// import CustomerNavbar from "../components/navbar/CustomerNavbar";
+// import CartDrawer from "../components/cart/CartDrawer";
+
+// const CustomerLayout = () => {
+
+//     const [cartOpen, setCartOpen] = useState(false);
+
+
+//     const openCart = () => {
+//         setCartOpen(true);
+//     };
+
+
+//     const closeCart = () => {
+//         setCartOpen(false);
+//     };
+
+
+//     return (
+
+//         <>
+//             <CustomerNavbar
+//                 onCartClick={openCart}
+//             />
+
+
+//             <Outlet
+//                 context={{
+//                     openCart,
+//                     closeCart,
+//                 }}
+//             />
+
+
+//             <CartDrawer
+//                 open={cartOpen}
+//                 onClose={closeCart}
+//             />
+
+//         </>
+
+//     );
+// };
+
+// export default CustomerLayout;
+//-----------------------------------------------
+
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
@@ -597,40 +647,27 @@ const CustomerLayout = () => {
 
     const [cartOpen, setCartOpen] = useState(false);
 
-
     const openCart = () => {
         setCartOpen(true);
     };
-
 
     const closeCart = () => {
         setCartOpen(false);
     };
 
-
     return (
-
         <>
             <CustomerNavbar
                 onCartClick={openCart}
             />
 
-
-            <Outlet
-                context={{
-                    openCart,
-                    closeCart,
-                }}
-            />
-
+            <Outlet />
 
             <CartDrawer
                 open={cartOpen}
                 onClose={closeCart}
             />
-
         </>
-
     );
 };
 

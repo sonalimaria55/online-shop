@@ -7,8 +7,11 @@ import cartReducer from "../features/cart/CartSlice";
 
 import orderReducer from "../features/orders/OrderSlice";
 import variantReducer from "../features/variants/VariantSlice";
+import authReducer from "../auth/authSlice"
+
 const store = configureStore({
   reducer: {
+    auth: authReducer,
     products: productsReducer,
     categories: categoriesReducer,
     banner: bannerReducer,
