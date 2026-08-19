@@ -1578,7 +1578,7 @@ import { createOrder } from "../../features/orders/OrderThunk";
 import {
     createPaymentOrder,
     verifyPayment,
-} from "../../features/payment/PaymentThunk";
+} from "../../features/Payment/PaymentThunk";
 
 
 const Checkout = () => {
