@@ -1538,3 +1538,44 @@ exports.getProductsByCategory = async (req, res) => {
 
     }
 };
+
+// ==========================================
+// GET PRODUCTS BY CATEGORY
+// ==========================================
+
+const getProductsByCategory = async (req, res) => {
+    try {
+
+        const { categoryId } = req.params;
+
+        console.log(
+            "GET PRODUCTS BY CATEGORY:",
+            categoryId
+        );
+
+        const products = await Product.find({
+            category: categoryId,
+            isActive: true,
+        })
+        .populate("category")
+        .sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            products,
+        });
+
+    } catch (error) {
+
+        console.error(
+            "GET PRODUCTS BY CATEGORY ERROR:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+
+    }
+};

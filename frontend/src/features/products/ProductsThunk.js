@@ -297,15 +297,47 @@ export const getProductById = createAsyncThunk(
 // GET PRODUCTS BY CATEGORY
 // ==========================================
 
+// export const getProductsByCategory = createAsyncThunk(
+//     "products/getProductsByCategory",
+
+//     async (categoryId, { rejectWithValue }) => {
+
+//         try {
+
+//             const response =
+//                 await getProductsByCategoryApi(categoryId);
+
+//             console.log(
+//                 "PRODUCTS BY CATEGORY RESPONSE:",
+//                 response.data
+//             );
+
+//             return response.data;
+
+//         } catch (error) {
+
+//             console.error(
+//                 "GET PRODUCTS BY CATEGORY ERROR:",
+//                 error
+//             );
+
+//             return rejectWithValue(
+//                 error.response?.data ||
+//                 error.message
+//             );
+
+//         }
+
+//     }
+// );
+
+// GET PRODUCTS BY CATEGORY
 export const getProductsByCategory = createAsyncThunk(
     "products/getProductsByCategory",
 
     async (categoryId, { rejectWithValue }) => {
-
         try {
-
-            const response =
-                await getProductsByCategoryApi(categoryId);
+            const response = await getProductsByCategoryApi(categoryId);
 
             console.log(
                 "PRODUCTS BY CATEGORY RESPONSE:",
@@ -315,18 +347,9 @@ export const getProductsByCategory = createAsyncThunk(
             return response.data;
 
         } catch (error) {
-
-            console.error(
-                "GET PRODUCTS BY CATEGORY ERROR:",
-                error
-            );
-
             return rejectWithValue(
-                error.response?.data ||
-                error.message
+                error.response?.data || error.message
             );
-
         }
-
     }
 );

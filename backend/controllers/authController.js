@@ -166,7 +166,7 @@ const login = async (req, res) => {
     const token = generateToken(user._id);
 
 
-  //  console.log("Generated Token:", token);
+
 
 
     res.status(200).json({
