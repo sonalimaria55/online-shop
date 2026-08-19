@@ -997,7 +997,7 @@ import VariantManagement from "../pages/management/VarientManagement";
 // ============================================
 // COMPONENT
 // ============================================
-
+import CollectionProducts from "../pages/products/CollectionProducts";
 const AppRoutes = () => {
 
     return (
@@ -1034,6 +1034,14 @@ const AppRoutes = () => {
                     path="/collections"
                     element={<Collections />}
                 />
+
+<Route
+    path="/collections/:categoryId"
+    element={<CollectionProducts />}
+/>
+
+
+
 
 
                 {/* PRODUCT DETAILS */}

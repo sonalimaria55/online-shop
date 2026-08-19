@@ -41,9 +41,9 @@
 // router.delete("/:id", deleteProduct);
 
 // module.exports = router;
+//---------------------------------------------------------------------------------------------
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 import {
     getProductsApi,
     getFeaturedProductsApi,
@@ -51,7 +51,8 @@ import {
     createProductApi,
     updateProductApi,
     deleteProductApi,
-    getProductByIdApi
+    getProductByIdApi,
+    getProductsByCategoryApi
 } from "./ProductsApi";
 
 
@@ -292,4 +293,40 @@ export const getProductById = createAsyncThunk(
 
     }
 );
+// ==========================================
+// GET PRODUCTS BY CATEGORY
+// ==========================================
 
+export const getProductsByCategory = createAsyncThunk(
+    "products/getProductsByCategory",
+
+    async (categoryId, { rejectWithValue }) => {
+
+        try {
+
+            const response =
+                await getProductsByCategoryApi(categoryId);
+
+            console.log(
+                "PRODUCTS BY CATEGORY RESPONSE:",
+                response.data
+            );
+
+            return response.data;
+
+        } catch (error) {
+
+            console.error(
+                "GET PRODUCTS BY CATEGORY ERROR:",
+                error
+            );
+
+            return rejectWithValue(
+                error.response?.data ||
+                error.message
+            );
+
+        }
+
+    }
+);

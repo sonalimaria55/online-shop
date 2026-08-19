@@ -188,4 +188,13 @@ export const updateProductApi = (id, data) => {
 // DELETE PRODUCT
 export const deleteProductApi = (id) => {
     return axiosInstance.delete(`/products/${id}`);
+
+};
+
+export const getProductsByCategoryApi = (categoryId) => {
+
+    return axiosInstance.get(
+        `/products/category/${categoryId}`
+    );
+
 };

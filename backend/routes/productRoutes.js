@@ -203,9 +203,84 @@
 // router.delete("/:id", deleteProduct);
 
 // module.exports = router;
+//-----------------------------------------------------------------
+
+
+// const express = require("express");
+// const router = express.Router();
+
+// // const {
+// //     createProduct,
+// //     getProducts,
+// //     getProductById,
+// //     updateProduct,
+// //     deleteProduct,
+// //     getHomeCollections,
+// //     getFeaturedProducts
+// // } = require("../controllers/productController");
+// const {
+//     createProduct,
+//     getProducts,
+//     getProductById,
+//     updateProduct,
+//     deleteProduct,
+//     getHomeCollections,
+//     getFeaturedProducts,
+//     getProductsByCategory
+// } = require("../controllers/productController");
+
+
+// const upload = require("../middleware/upload");
+
+// const protect = require("../middleware/authMiddleware");
+// const authorize = require("../middleware/authorize");
+
+
+// // CUSTOMER
+// router.get("/home-collections", getHomeCollections);
+
+// router.get("/featured", getFeaturedProducts);
+
+// router.get("/category/:categoryId", getProductsByCategory);
+
+// router.get("/", getProducts);
+
+// router.get("/:id", getProductById);
+
+
+// // ADMIN
+
+// router.post(
+//     "/",
+//     protect,
+//     authorize("super_admin","management_support"),
+//     upload("serina/products").array("images",5),
+//     createProduct
+// );
+
+
+// router.put(
+//     "/:id",
+//     protect,
+//     authorize("super_admin","management_support"),
+//     upload("serina/products").array("images",5),
+//     updateProduct
+// );
+
+
+// router.delete(
+//     "/:id",
+//     protect,
+//     authorize("super_admin"),
+//     deleteProduct
+// );
+
+
+// module.exports = router;
 
 
 const express = require("express");
+
 const router = express.Router();
 
 const {
@@ -215,47 +290,70 @@ const {
     updateProduct,
     deleteProduct,
     getHomeCollections,
-    getFeaturedProducts
+    getFeaturedProducts,
+    getProductsByCategory
 } = require("../controllers/productController");
 
-
 const upload = require("../middleware/upload");
-
 const protect = require("../middleware/authMiddleware");
 const authorize = require("../middleware/authorize");
 
 
-// CUSTOMER
+// ==========================================
+// CUSTOMER / PUBLIC
+// ==========================================
 
-router.get("/home-collections", getHomeCollections);
+router.get(
+    "/home-collections",
+    getHomeCollections
+);
 
-router.get("/featured", getFeaturedProducts);
+router.get(
+    "/featured",
+    getFeaturedProducts
+);
 
-router.get("/", getProducts);
+router.get(
+    "/category/:categoryId",
+    getProductsByCategory
+);
 
-router.get("/:id", getProductById);
+router.get(
+    "/",
+    getProducts
+);
+
+router.get(
+    "/:id",
+    getProductById
+);
 
 
-
+// ==========================================
 // ADMIN
+// ==========================================
 
 router.post(
     "/",
     protect,
-    authorize("super_admin","management_support"),
-    upload("serina/products").array("images",5),
+    authorize(
+        "super_admin",
+        "management_support"
+    ),
+    upload("serina/products").array("images", 5),
     createProduct
 );
-
 
 router.put(
     "/:id",
     protect,
-    authorize("super_admin","management_support"),
-    upload("serina/products").array("images",5),
+    authorize(
+        "super_admin",
+        "management_support"
+    ),
+    upload("serina/products").array("images", 5),
     updateProduct
 );
-
 
 router.delete(
     "/:id",
@@ -263,6 +361,5 @@ router.delete(
     authorize("super_admin"),
     deleteProduct
 );
-
 
 module.exports = router;

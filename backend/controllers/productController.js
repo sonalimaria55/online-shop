@@ -1360,24 +1360,24 @@ exports.updateProduct = async (req, res) => {
 
         if (req.body.productVariants) {
 
-    updateData.productVariants =
-        typeof req.body.productVariants === "string"
-            ? JSON.parse(req.body.productVariants)
-            : req.body.productVariants;
+            updateData.productVariants =
+                typeof req.body.productVariants === "string"
+                    ? JSON.parse(req.body.productVariants)
+                    : req.body.productVariants;
 
-    console.log(
-        "PARSED VARIANTS:",
-        JSON.stringify(updateData.productVariants, null, 2)
-    );
+            console.log(
+                "PARSED VARIANTS:",
+                JSON.stringify(updateData.productVariants, null, 2)
+            );
 
-    updateData.productVariants =
-        updateData.productVariants.filter(
-            (variant) =>
-                variant.attributes &&
-                Array.isArray(variant.attributes) &&
-                variant.attributes.length > 0
-        );
-}
+            updateData.productVariants =
+                updateData.productVariants.filter(
+                    (variant) =>
+                        variant.attributes &&
+                        Array.isArray(variant.attributes) &&
+                        variant.attributes.length > 0
+                );
+        }
 
         // Images
         if (req.files && req.files.length > 0) {
@@ -1387,10 +1387,10 @@ exports.updateProduct = async (req, res) => {
                 publicId: file.filename,
             }));
         }
-console.log(
-    "UPDATE DATA:",
-    JSON.stringify(updateData, null, 2)
-);
+        console.log(
+            "UPDATE DATA:",
+            JSON.stringify(updateData, null, 2)
+        );
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
             updateData,
@@ -1489,5 +1489,52 @@ exports.getHomeCollections = async (req, res) => {
             success: false,
             message: error.message,
         });
+    }
+};
+// ======================================
+// GET PRODUCTS BY CATEGORY
+// ======================================
+
+exports.getProductsByCategory = async (req, res) => {
+    try {
+
+        const { categoryId } = req.params;
+
+        console.log(
+            "GET PRODUCTS BY CATEGORY:",
+            categoryId
+        );
+
+        const products = await Product.find({
+            category: categoryId,
+            isActive: true
+        })
+            .populate("category", "categoryName")
+            .populate(
+                "productVariants.attributes.variantType",
+                "displayName values"
+            )
+            .sort({
+                createdAt: -1
+            });
+
+        res.status(200).json({
+            success: true,
+            count: products.length,
+            products
+        });
+
+    } catch (error) {
+
+        console.error(
+            "GET PRODUCTS BY CATEGORY ERROR:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
     }
 };
