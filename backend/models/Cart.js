@@ -73,79 +73,156 @@
 // module.exports = mongoose.model("Cart", cartSchema);
 //--------------------------------------------------------------------------------------------
 
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
-const cartItemSchema = new mongoose.Schema(
-    {
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
-            required: true,
-        },
+// const cartItemSchema = new mongoose.Schema(
+//     {
+//         product: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: "Product",
+//             required: true,
+//         },
 
-        // Selected product variant
-        variant: {
-            type: mongoose.Schema.Types.ObjectId,
-            default: null,
-        },
+//         // Selected product variant
+//         variant: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             default: null,
+//         },
 
-        quantity: {
-            type: Number,
-            default: 1,
-            min: 1,
-        },
+//         quantity: {
+//             type: Number,
+//             default: 1,
+//             min: 1,
+//         },
+//     },
+//     {
+//          _id: true,
+//     }
+// );
+
+// const cartSchema = new mongoose.Schema(
+//     {
+//         // Logged-in customer
+//         customer: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: "User",
+//         },
+
+//         // Guest visitor
+//         guestId: {
+//             type: String,
+//         },
+
+//         items: [cartItemSchema],
+//     },
+//     {
+//         timestamps: true,
+//     }
+// );
+
+// // Cart must belong to either a customer OR a guest
+// cartSchema.pre("validate", function () {
+//     if (!this.customer && !this.guestId) {
+//         throw new Error(
+//             "Cart must belong to customer or guest"
+//         );
+//     }
+// });
+
+// // One cart per customer
+// cartSchema.index(
+//     { customer: 1 },
+//     {
+//         unique: true,
+//         sparse: true,
+//     }
+// );
+
+// // One cart per guest
+// cartSchema.index(
+//     { guestId: 1 },
+//     {
+//         unique: true,
+//         sparse: true,
+//     }
+// );
+
+// module.exports = mongoose.model(
+//     "Cart",
+//     cartSchema
+// );
+//----------------------------------------------------------------------
+const cartItemSchema = new mongoose.Schema({
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
     },
-    {
-         _id: true,
-    }
-);
+
+    variant: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+
+    quantity: {
+        type: Number,
+        default: 1,
+        min: 1,
+    },
+});
+
 
 const cartSchema = new mongoose.Schema(
     {
-        // Logged-in customer
         customer: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+            default: null,
         },
 
-        // Guest visitor
         guestId: {
             type: String,
+            default: null,
         },
 
         items: [cartItemSchema],
     },
+
     {
         timestamps: true,
     }
 );
 
-// Cart must belong to either a customer OR a guest
-cartSchema.pre("validate", function () {
-    if (!this.customer && !this.guestId) {
-        throw new Error(
-            "Cart must belong to customer or guest"
-        );
-    }
-});
 
-// One cart per customer
+// One cart per logged-in customer
 cartSchema.index(
     { customer: 1 },
     {
         unique: true,
-        sparse: true,
+        partialFilterExpression: {
+            customer: {
+                $exists: true,
+                $ne: null,
+            },
+        },
     }
 );
 
-// One cart per guest
+
+// One cart per guest browser
 cartSchema.index(
     { guestId: 1 },
     {
         unique: true,
-        sparse: true,
+        partialFilterExpression: {
+            guestId: {
+                $exists: true,
+                $ne: null,
+            },
+        },
     }
 );
+
 
 module.exports = mongoose.model(
     "Cart",
