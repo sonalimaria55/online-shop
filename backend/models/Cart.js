@@ -152,26 +152,31 @@
 //     cartSchema
 // );
 //----------------------------------------------------------------------
- const mongoose = require("mongoose");
-const cartItemSchema = new mongoose.Schema({
-    product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
-    },
+const mongoose = require("mongoose");
 
-    variant: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-    },
+const cartItemSchema = new mongoose.Schema(
+    {
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product",
+            required: true,
+        },
 
-    quantity: {
-        type: Number,
-        default: 1,
-        min: 1,
-    },
-});
+        variant: {
+            type: mongoose.Schema.Types.ObjectId,
+            default: null,
+        },
 
+        quantity: {
+            type: Number,
+            default: 1,
+            min: 1,
+        },
+    },
+    {
+        _id: true,
+    }
+);
 
 const cartSchema = new mongoose.Schema(
     {
@@ -188,12 +193,10 @@ const cartSchema = new mongoose.Schema(
 
         items: [cartItemSchema],
     },
-
     {
         timestamps: true,
     }
 );
-
 
 // One cart per logged-in customer
 cartSchema.index(
@@ -209,7 +212,6 @@ cartSchema.index(
     }
 );
 
-
 // One cart per guest browser
 cartSchema.index(
     { guestId: 1 },
@@ -224,8 +226,4 @@ cartSchema.index(
     }
 );
 
-
-module.exports = mongoose.model(
-    "Cart",
-    cartSchema
-);
+module.exports = mongoose.model("Cart", cartSchema);
