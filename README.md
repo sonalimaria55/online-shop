@@ -1,3 +1,6 @@
+[link](https://online-shop-gold-eight.vercel.app/).
+
+
 ## ⚙️ Environment Configuration
 # Backend
 Create a `.env` file in the root of your server directory and set the following key-value pairs.
@@ -24,7 +27,7 @@ Create a `.env` file in the root of your server directory and set the following 
 | `GOOGLE_PLACE_ID` | 🔮 *Future* | `ChIJ...` | Google Business Place ID to fetch store location and reviews |
 | `GOOGLE_MAPS_API_KEY` | 🔮 *Future* | `AIzaSy...` | Google Places/Maps API key for Google Business integration |
 
-# --------------------------------------------------------
+
 ##### PORT=
 #####  MONGO_URI=
 #####  JWT_SECRET=
@@ -52,4 +55,9 @@ optional
 (future integration)
 GOOGLE_PLACE_ID;
 GOOGLE_MAPS_API_KEY;
+# Frontend
+ ##### VITE_API_URL =
+
+
+
 
