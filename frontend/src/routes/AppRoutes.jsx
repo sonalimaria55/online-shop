@@ -994,6 +994,10 @@ import BannerManagement from "../pages/banners/BannerManagement";
 import CategoryManagement from "../pages/categories/CategoryManagement";
 import VariantManagement from "../pages/management/VarientManagement";
 
+//------
+import Profile from "../pages/customer/Profile";
+
+
 // ============================================
 // COMPONENT
 // ============================================
@@ -1131,6 +1135,7 @@ const AppRoutes = () => {
                     path="orders"
                     element={<Orders />}
                 />
+                <Route path="profile" element={<Profile />} />
 
             </Route>
 

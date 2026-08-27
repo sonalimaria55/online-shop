@@ -7,7 +7,6 @@
 // const generateOTP = () => {
 //     return "352555";
 // };
-
 // module.exports = generateOTP;
 //---------------------------------------
 const generateOTP = () => {
