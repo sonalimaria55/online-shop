@@ -25,28 +25,28 @@ Create a `.env` file in the root of your server directory and set the following 
 | `GOOGLE_MAPS_API_KEY` | 🔮 *Future* | `AIzaSy...` | Google Places/Maps API key for Google Business integration |
 
 # --------------------------------------------------------
-# PORT=
-# MONGO_URI=
-# JWT_SECRET=
-# EMAIL_USER=
-# EMAIL_PASS=""
-# NODE_ENV=development
+##### PORT=
+#####  MONGO_URI=
+#####  JWT_SECRET=
+#####  EMAIL_USER=
+#####  EMAIL_PASS=""
+#####  NODE_ENV=development
 
-# CLOUDINARY_CLOUD_NAME=
-# CLOUDINARY_API_KEY=
-# CLOUDINARY_API_SECRET=
+#####  CLOUDINARY_CLOUD_NAME=
+#####  CLOUDINARY_API_KEY=
+#####  CLOUDINARY_API_SECRET=
 
-# RAZORPAY_KEY_ID=
-# RAZORPAY_SECRET=
-# OTP_MODE=test
-# FIXED_OTP=(any 6 digit number)
+#####  RAZORPAY_KEY_ID=
+#####  RAZORPAY_SECRET=
+#####  OTP_MODE=test
+#####  FIXED_OTP=(any 6 digit number)
 
 
 optional
-# #stripe integration
-# STRIPEID=""
-# #secret key
-# CLIENT_URL="http://localhost:5173"
+#####  #stripe integration
+#####  STRIPEID=""
+#####  #secret key
+#####  CLIENT_URL="http://localhost:5173"
 
 
 (future integration)
