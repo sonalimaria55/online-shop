@@ -108,6 +108,76 @@
 
 // module.exports = router;
 //-----------------------------------------------------------------------------------------
+// const express = require("express");
+
+// const router = express.Router();
+
+// const guestMiddleware = require("../middleware/guestMiddleware");
+// const optionalProtect = require("../middleware/optionalProtect");
+
+// const {
+//     addToCart,
+//     getCart,
+//     updateCartQuantity,
+//     removeFromCart,
+//     clearCart,
+//     mergeGuestCart,
+// } = require("../controllers/cartController");
+
+// // ======================================================
+// // CART IDENTITY
+// // ======================================================
+
+// router.use(optionalProtect);
+// router.use(guestMiddleware);
+
+// // ======================================================
+// // ADD TO CART
+// // ======================================================
+
+// router.post("/add", addToCart);
+
+// // ======================================================
+// // GET CART
+// // ======================================================
+
+// router.get("/", getCart);
+
+// // ======================================================
+// // CLEAR CART
+// // ======================================================
+
+// router.delete("/clear", clearCart);
+
+// // ======================================================
+// // UPDATE CART ITEM
+// // ======================================================
+
+// router.put(
+//     "/item/:itemId",
+//     updateCartQuantity
+// );
+
+// // ======================================================
+// // REMOVE CART ITEM
+// // ======================================================
+
+// router.delete(
+//     "/item/:itemId",
+//     removeFromCart
+// );
+
+// // ======================================================
+// // MERGE GUEST CART
+// // ======================================================
+
+// router.post(
+//     "/merge",
+//     mergeGuestCart
+// );
+
+// module.exports = router;
+
 const express = require("express");
 
 const router = express.Router();
@@ -124,33 +194,47 @@ const {
     mergeGuestCart,
 } = require("../controllers/cartController");
 
+
 // ======================================================
-// CART IDENTITY
+// NORMAL CART REQUESTS
 // ======================================================
 
 router.use(optionalProtect);
 router.use(guestMiddleware);
 
-// ======================================================
-// ADD TO CART
-// ======================================================
-
-router.post("/add", addToCart);
 
 // ======================================================
-// GET CART
+// ADD
 // ======================================================
 
-router.get("/", getCart);
+router.post(
+    "/add",
+    addToCart
+);
+
 
 // ======================================================
-// CLEAR CART
+// GET
 // ======================================================
 
-router.delete("/clear", clearCart);
+router.get(
+    "/",
+    getCart
+);
+
 
 // ======================================================
-// UPDATE CART ITEM
+// CLEAR
+// ======================================================
+
+router.delete(
+    "/clear",
+    clearCart
+);
+
+
+// ======================================================
+// UPDATE
 // ======================================================
 
 router.put(
@@ -158,8 +242,9 @@ router.put(
     updateCartQuantity
 );
 
+
 // ======================================================
-// REMOVE CART ITEM
+// REMOVE
 // ======================================================
 
 router.delete(
@@ -167,13 +252,22 @@ router.delete(
     removeFromCart
 );
 
+
 // ======================================================
-// MERGE GUEST CART
+// MERGE
 // ======================================================
+
+// IMPORTANT:
+// This route is already behind optionalProtect + guestMiddleware.
+// Therefore req.guestId becomes null after login.
+//
+// We will fix this by reading the cookie directly
+// inside the merge controller.
 
 router.post(
     "/merge",
     mergeGuestCart
 );
+
 
 module.exports = router;

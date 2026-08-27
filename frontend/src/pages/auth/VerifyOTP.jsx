@@ -290,20 +290,51 @@ const VerifyOTP = () => {
 
   // Resend OTP
 
+  // const handleResend = async () => {
+  //   try {
+  //     await resendOTP({
+  //       email,
+  //     });
+
+  //     alert("A new OTP has been sent to your email.");
+
+  //     setSeconds(300);
+  //     setOtp("");
+  //   } catch (error) {
+  //     alert(error.response?.data?.message || "Unable to resend OTP");
+  //   }
+  // };
   const handleResend = async () => {
     try {
-      await resendOTP({
-        email,
-      });
 
-      alert("A new OTP has been sent to your email.");
+        const response = await resendOTP({
+            email,
+        });
 
-      setSeconds(300);
-      setOtp("");
+        if (response.data?.testOtp) {
+
+            alert(
+                `Your OTP is: ${response.data.otp}`
+            );
+
+        } else {
+
+            alert(
+                "A new OTP has been sent to your email."
+            );
+        }
+
+        setSeconds(300);
+        setOtp("");
+
     } catch (error) {
-      alert(error.response?.data?.message || "Unable to resend OTP");
+
+        alert(
+            error.response?.data?.message ||
+            "Unable to resend OTP"
+        );
     }
-  };
+};
 
   return (
     <Box
