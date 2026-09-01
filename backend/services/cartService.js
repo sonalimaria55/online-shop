@@ -2015,28 +2015,103 @@ const populateCart = async (cart) => {
 // FIND CART
 // ======================================================
 
+// const findCart = async (owner) => {
+//     let cart = null;
+
+//     if (owner.customer) {
+//         cart = await Cart.findOne({
+//             customer: owner.customer,
+//         });
+//     } else if (owner.guestId) {
+//         cart = await Cart.findOne({
+//             guestId: owner.guestId,
+//         });
+//     }
+
+//     if (!cart) {
+//         return null;
+//     }
+
+//     await populateCart(cart);
+
+//     return cart;
+// };
 const findCart = async (owner) => {
+
+    console.log("========== FIND CART ==========");
+
+    console.log(
+        "CUSTOMER:",
+        owner.customer || null
+    );
+
+    console.log(
+        "GUEST ID:",
+        owner.guestId || null
+    );
+
     let cart = null;
 
+    // ==================================================
+    // CUSTOMER CART
+    // ==================================================
+
     if (owner.customer) {
+
+        console.log(
+            "SEARCHING CUSTOMER CART:",
+            owner.customer.toString()
+        );
+
         cart = await Cart.findOne({
             customer: owner.customer,
         });
-    } else if (owner.guestId) {
+
+    }
+
+    // ==================================================
+    // GUEST CART
+    // ==================================================
+
+    else if (owner.guestId) {
+
+        console.log(
+            "SEARCHING GUEST CART:",
+            owner.guestId
+        );
+
         cart = await Cart.findOne({
             guestId: owner.guestId,
         });
+
     }
 
+    console.log(
+        "FOUND CART:",
+        cart
+            ? {
+                id: cart._id,
+                customer: cart.customer,
+                guestId: cart.guestId,
+                itemCount: cart.items.length,
+            }
+            : null
+    );
+
     if (!cart) {
+        console.log("NO CART FOUND");
         return null;
     }
 
     await populateCart(cart);
 
+    console.log(
+        "POPULATED CART ITEMS:",
+        cart.items.length
+    );
+
     return cart;
 };
-
 // ======================================================
 // ADD TO CART
 // ======================================================

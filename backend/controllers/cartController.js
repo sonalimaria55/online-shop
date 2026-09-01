@@ -1091,12 +1091,71 @@ const getOwner = (req) => ({
 // ADD TO CART
 // ======================================================
 
+// const addToCart = async (req, res) => {
+//     try {
+//         console.log("========== ADD TO CART ==========");
+//         console.log("BODY:", req.body);
+//         console.log("USER:", req.user);
+//         console.log("GUEST ID:", req.guestId);
+
+//         const {
+//             product,
+//             variant,
+//             quantity,
+//         } = req.body;
+
+//         if (!product) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "Product is required",
+//             });
+//         }
+
+//         const cart = await cartService.addToCart(
+//             getOwner(req),
+//             product,
+//             variant,
+//             quantity
+//         );
+
+//         return res.status(200).json({
+//             success: true,
+//             cart,
+//         });
+//     } catch (error) {
+//         console.log(
+//             "========== ADD TO CART ERROR =========="
+//         );
+
+//         console.log(error);
+//         console.log(error.stack);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// };
 const addToCart = async (req, res) => {
     try {
-        console.log("========== ADD TO CART ==========");
-        console.log("BODY:", req.body);
-        console.log("USER:", req.user);
-        console.log("GUEST ID:", req.guestId);
+        console.log(
+            "========== ADD TO CART =========="
+        );
+
+        console.log(
+            "BODY:",
+            req.body
+        );
+
+        console.log(
+            "USER:",
+            req.user?._id || null
+        );
+
+        console.log(
+            "GUEST ID:",
+            req.guestId || null
+        );
 
         const {
             product,
@@ -1111,18 +1170,40 @@ const addToCart = async (req, res) => {
             });
         }
 
-        const cart = await cartService.addToCart(
-            getOwner(req),
-            product,
-            variant,
-            quantity
+        const owner = getOwner(req);
+
+        console.log(
+            "CART OWNER:",
+            owner
+        );
+
+        const cart =
+            await cartService.addToCart(
+                owner,
+                product,
+                variant,
+                quantity
+            );
+
+        console.log(
+            "CART AFTER ADD:",
+            cart
         );
 
         return res.status(200).json({
             success: true,
+
             cart,
+
+            // IMPORTANT
+            guestId:
+                req.user
+                    ? null
+                    : req.guestId || null,
         });
+
     } catch (error) {
+
         console.log(
             "========== ADD TO CART ERROR =========="
         );
@@ -1141,17 +1222,68 @@ const addToCart = async (req, res) => {
 // GET CART
 // ======================================================
 
+// const getCart = async (req, res) => {
+//     try {
+//         const cart = await cartService.getCart(
+//             getOwner(req)
+//         );
+
+//         return res.status(200).json({
+//             success: true,
+//             cart,
+//         });
+//     } catch (error) {
+//         console.log(
+//             "========== GET CART ERROR =========="
+//         );
+
+//         console.log(error);
+//         console.log(error.stack);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// };
+
 const getCart = async (req, res) => {
     try {
-        const cart = await cartService.getCart(
-            getOwner(req)
+
+        const owner = getOwner(req);
+
+        console.log(
+            "========== GET CART =========="
+        );
+
+        console.log(
+            "OWNER:",
+            owner
+        );
+
+        const cart =
+            await cartService.getCart(
+                owner
+            );
+
+        console.log(
+            "GET CART RESULT:",
+            cart
         );
 
         return res.status(200).json({
             success: true,
+
             cart,
+
+            guestId:
+                req.user
+                    ? null
+                    : req.guestId || null,
         });
+
     } catch (error) {
+
         console.log(
             "========== GET CART ERROR =========="
         );
@@ -1165,7 +1297,6 @@ const getCart = async (req, res) => {
         });
     }
 };
-
 // ======================================================
 // UPDATE QUANTITY
 // ======================================================
